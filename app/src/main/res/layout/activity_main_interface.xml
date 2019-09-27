@@ -6,4 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainInterface">
 
+    <FrameLayout
+        android:id="@+id/topBar"
+        android:layout_width="1280dp"
+        android:layout_height="61dp"
+        android:background="@color/color1"
+        app:layout_constraintBottom_toTopOf="@+id/sideList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/sideList"
+        android:layout_width="414dp"
+        android:layout_height="739dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/tableView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tableView"
+        android:layout_width="866dp"
+        android:layout_height="739dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sideList"
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
