@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SimpleRes</string>
+    <string name="enter_passcode">Enter Passcode</string>
+    <string name="button_send">Send</string>
+</resources>
