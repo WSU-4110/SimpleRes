@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="color1">#FFFFFF</color>
+    <color name="button_pressed">#9035c4</color>
+    <color name="orange">#ff8c3b</color>
+    <color name="blue">#00e1ff</color>
+    <color name="red">#eb2828</color>
+    <color name="green">#29d958</color>
 </resources>
