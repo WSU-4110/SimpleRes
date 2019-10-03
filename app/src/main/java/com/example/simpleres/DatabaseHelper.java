@@ -58,12 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_WAITLIST_ENTRY,null,values);
         db.close();
     }
-    //retrieves waitlist entry from database
+    //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
     WaitlistEntry getWaitlistEntry(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_WAITLIST_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)},null,null,null,null);
+                new String[]{String.valueOf(id)},null,null,KEY_TIME +" ASC",null);
 
         if (cursor!=null)
             cursor.moveToFirst();
