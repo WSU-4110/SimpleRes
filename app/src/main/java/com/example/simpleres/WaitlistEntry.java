@@ -11,7 +11,7 @@ public class WaitlistEntry extends MainActivity {
     private LocalDateTime reservationTime;
     private String formattedDateTime;
 
-    WaitlistEntry(int NumberOfPeople, String Name, String Telephone,LocalDateTime ReservationTime) {
+    WaitlistEntry(int NumberOfPeople, String Name, String Telephone, LocalDateTime ReservationTime) {
         int numberOfPeople = NumberOfPeople;
         String name = Name;
         String telephone = Telephone;
