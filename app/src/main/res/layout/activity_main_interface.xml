@@ -10,14 +10,12 @@
         android:id="@+id/topBar"
         android:layout_width="1280dp"
         android:layout_height="61dp"
-
+        android:background="@color/color1"
         app:layout_constraintBottom_toTopOf="@+id/sideList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
         android:id="@+id/sideList"
