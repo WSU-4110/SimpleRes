@@ -56,17 +56,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -87,17 +90,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -118,17 +124,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -149,17 +158,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -180,17 +192,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -211,17 +226,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -242,17 +260,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -273,17 +294,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -304,17 +328,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -335,17 +362,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 
@@ -366,17 +396,20 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
-                                    case "Empty":
-                                        button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                                        break;
                                     case "Entree":
                                         button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
                                     case "Dessert":
                                         button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
                                         break;
+                                    case "Paid":
+                                        button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        break;
                                     case "Dirty":
                                         button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        break;
+                                    case "Empty":
+                                        button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
                                         break;
                                 }
 

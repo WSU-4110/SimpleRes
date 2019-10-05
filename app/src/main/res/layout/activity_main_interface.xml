@@ -11,21 +11,76 @@
         android:layout_width="1280dp"
         android:layout_height="61dp"
 
+        android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/sideList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/SimpleRes_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-light"
+            android:text="SimpleRes"
+            android:textColor="@android:color/white"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="1165dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginRight="0dp"
+            android:src="@android:drawable/ic_menu_add" />
+
+        <TextView
+            android:id="@+id/add_party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1060dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Add Party"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/access_calendar"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="752dp"
+            android:layout_marginTop="15dp"
+            android:src="@android:drawable/ic_input_get" />
+
+        <TextView
+            android:id="@+id/placeholder_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="550dp"
+            android:layout_marginTop="15dp"
+            android:background="#46405F"
+            android:text=" Month, Day, Year "
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+    </FrameLayout>
 
 
     <FrameLayout
         android:id="@+id/sideList"
         android:layout_width="414dp"
         android:layout_height="739dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toStartOf="@+id/tableView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"/>
+        app:layout_constraintTop_toBottomOf="@+id/topBar" />
 
     <FrameLayout
         android:id="@+id/tableView"
@@ -38,7 +93,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
 
             <Button
                 android:id="@+id/button6"
@@ -50,9 +106,8 @@
                 android:layout_marginStart="559dp"
                 android:layout_marginLeft="559dp"
                 android:layout_marginTop="407dp"
-                android:text="106"
                 android:background="@drawable/button_effect"
-                />
+                android:text="106" />
 
             <Button
                 android:id="@+id/button4"
@@ -64,9 +119,8 @@
                 android:layout_marginStart="559dp"
                 android:layout_marginLeft="559dp"
                 android:layout_marginTop="231dp"
-                android:text="104"
                 android:background="@drawable/button_effect"
-                />
+                android:text="104" />
 
             <Button
                 android:id="@+id/button11"
@@ -78,9 +132,8 @@
                 android:layout_marginStart="392dp"
                 android:layout_marginLeft="392dp"
                 android:layout_marginTop="305dp"
-                android:text="202"
                 android:background="@drawable/button_effect"
-                />
+                android:text="202" />
 
             <Button
                 android:id="@+id/button2"
@@ -92,9 +145,8 @@
                 android:layout_marginStart="348dp"
                 android:layout_marginLeft="348dp"
                 android:layout_marginTop="231dp"
-                android:text="102"
                 android:background="@drawable/button_effect"
-                />
+                android:text="102" />
 
             <Button
                 android:id="@+id/button7"
@@ -106,9 +158,8 @@
                 android:layout_marginStart="450dp"
                 android:layout_marginLeft="450dp"
                 android:layout_marginTop="407dp"
-                android:text="107"
                 android:background="@drawable/button_effect"
-                />
+                android:text="107" />
 
             <Button
                 android:id="@+id/button10"
@@ -120,9 +171,8 @@
                 android:layout_marginStart="241dp"
                 android:layout_marginLeft="241dp"
                 android:layout_marginTop="305dp"
-                android:text="201"
                 android:background="@drawable/button_effect"
-                />
+                android:text="201" />
 
             <Button
                 android:id="@+id/button3"
@@ -134,9 +184,8 @@
                 android:layout_marginStart="450dp"
                 android:layout_marginLeft="450dp"
                 android:layout_marginTop="231dp"
-                android:text="103"
                 android:background="@drawable/button_effect"
-                />
+                android:text="103" />
 
             <Button
                 android:id="@+id/button5"
@@ -148,9 +197,8 @@
                 android:layout_marginStart="559dp"
                 android:layout_marginLeft="559dp"
                 android:layout_marginTop="317dp"
-                android:text="105"
                 android:background="@drawable/button_effect"
-                />
+                android:text="105" />
 
             <Button
                 android:id="@+id/button1"
@@ -162,9 +210,8 @@
                 android:layout_marginStart="242dp"
                 android:layout_marginLeft="242dp"
                 android:layout_marginTop="231dp"
-                android:text="101"
                 android:background="@drawable/button_effect"
-                />
+                android:text="101" />
 
             <Button
                 android:id="@+id/button9"
@@ -176,9 +223,8 @@
                 android:layout_marginStart="242dp"
                 android:layout_marginLeft="242dp"
                 android:layout_marginTop="407dp"
-                android:text="109"
                 android:background="@drawable/button_effect"
-                />
+                android:text="109" />
 
             <Button
                 android:id="@+id/button8"
@@ -190,9 +236,19 @@
                 android:layout_marginStart="348dp"
                 android:layout_marginLeft="348dp"
                 android:layout_marginTop="407dp"
-                android:text="108"
                 android:background="@drawable/button_effect"
-                />
+                android:text="108" />
+
+            <TextView
+                android:id="@+id/cover_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="600dp"
+                android:layout_marginTop="600dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Completed Covers:"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
 
         </RelativeLayout>
     </FrameLayout>

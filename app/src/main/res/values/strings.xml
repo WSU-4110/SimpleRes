@@ -2,4 +2,11 @@
     <string name="app_name">SimpleRes</string>
     <string name="enter_passcode">Enter Passcode</string>
     <string name="button_send">Send</string>
+    <string name="status_seated">Seated</string>
+    <string name="status_entree">Entree</string>
+    <string name="status_dessert">Dessert</string>
+    <string name="status_paid">Paid</string>
+    <string name="status_dirty">Dirty</string>
+    <string name="status_empty">Empty</string>
+
 </resources>
