@@ -8,5 +8,6 @@
     <string name="status_paid">Paid</string>
     <string name="status_dirty">Dirty</string>
     <string name="status_empty">Empty</string>
+    <string name="welcome_to">Welcome to...</string>
 
 </resources>
