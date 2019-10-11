@@ -38,6 +38,7 @@
             android:layout_marginLeft="1165dp"
             android:layout_marginTop="17dp"
             android:layout_marginRight="0dp"
+            android:backgroundTint="#000000"
             android:src="@android:drawable/ic_menu_add" />
 
         <TextView
