@@ -26,12 +26,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-light"
-            android:text="SimpleRes"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/addPartyButton"
             style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -39,6 +39,7 @@
             android:layout_marginTop="17dp"
             android:layout_marginRight="0dp"
             android:backgroundTint="#000000"
+            android:contentDescription="plus_button"
             android:src="@android:drawable/ic_menu_add" />
 
         <TextView
@@ -48,7 +49,7 @@
             android:layout_marginLeft="1060dp"
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-light"
-            android:text="Add Party"
+            android:text="@string/add_party"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 
@@ -59,6 +60,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="752dp"
             android:layout_marginTop="15dp"
+            android:contentDescription="access_calendar"
             android:src="@android:drawable/ic_input_get" />
 
         <TextView

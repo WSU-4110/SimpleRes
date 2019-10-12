@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 public class MainInterface extends AppCompatActivity {
 
+    //creating new table objects
     TableClass Table101 = new TableClass(101, "Empty", "None" );
     TableClass Table102 = new TableClass(102, "Empty", "None" );
     TableClass Table103 = new TableClass(103, "Empty", "None" );
@@ -27,24 +29,31 @@ public class MainInterface extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
 
+        //table buttons on main interface layout
         final Button button1 = findViewById(R.id.button1);
-        final  Button button2 = findViewById(R.id.button2);
-        final  Button button3 = findViewById(R.id.button3);
-        final  Button button4 = findViewById(R.id.button4);
-        final  Button button5 = findViewById(R.id.button5);
-        final  Button button6 = findViewById(R.id.button6);
-        final  Button button7 = findViewById(R.id.button7);
-        final  Button button8 = findViewById(R.id.button8);
-        final  Button button9 = findViewById(R.id.button9);
-        final  Button button10 = findViewById(R.id.button10);
-        final  Button button11 = findViewById(R.id.button11);
+        final Button button2 = findViewById(R.id.button2);
+        final Button button3 = findViewById(R.id.button3);
+        final Button button4 = findViewById(R.id.button4);
+        final Button button5 = findViewById(R.id.button5);
+        final Button button6 = findViewById(R.id.button6);
+        final Button button7 = findViewById(R.id.button7);
+        final Button button8 = findViewById(R.id.button8);
+        final Button button9 = findViewById(R.id.button9);
+        final Button button10 = findViewById(R.id.button10);
+        final Button button11 = findViewById(R.id.button11);
+
+        //top bar 'Add party (+)' button
+        final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
         View.OnClickListener listener = new View.OnClickListener() {
 
+            //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
 
                 switch (view.getId()) {
+                    //table buttons in main interface -> table view
+
                     case R.id.button1:
                         PopupMenu dropdownMenu = new PopupMenu(MainInterface.this, button1);
                         dropdownMenu.getMenuInflater().inflate(R.menu.dropdown_menu, dropdownMenu.getMenu());
@@ -419,10 +428,43 @@ public class MainInterface extends AppCompatActivity {
 
                         dropdownMenu11.show();
                         break;
+
+                    //Add party (+) button in main interface -> top bar
+                    case R.id.addPartyButton:
+                        PopupMenu selectPartyTypeMenu = new PopupMenu(MainInterface.this, addPartyButton);
+                        selectPartyTypeMenu.getMenuInflater().inflate(R.menu.party_type_menu, selectPartyTypeMenu.getMenu());
+
+                        selectPartyTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                                switch(item.toString()){
+                                    case "Reservation":
+
+                                        //open and begin create reservation pop-up activity
+
+                                        break;
+                                    case "Waitlist":
+
+                                        //open and begin create waitlist party pop-up activity
+
+                                        break;
+                                }
+
+                                return true;
+                            }
+                        });
+
+                        selectPartyTypeMenu.show();
+                        break;
+
+
                 }
 
             }
         };
+
+        //tables layout
         button1.setOnClickListener(listener);
         button2.setOnClickListener(listener);
         button3.setOnClickListener(listener);
@@ -434,6 +476,9 @@ public class MainInterface extends AppCompatActivity {
         button9.setOnClickListener(listener);
         button10.setOnClickListener(listener);
         button11.setOnClickListener(listener);
+
+        //top bar layout
+        addPartyButton.setOnClickListener(listener);
 
     }
 }
