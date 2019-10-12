@@ -13,5 +13,6 @@
     <string name="party_waitlist">Waitlist</string>
     <string name="add_party">Add Party</string>
     <string name="create_reservation">Create Reservation</string>
+    <string name="add_to_waitlist">Add to Waitlist</string>
 
 </resources>

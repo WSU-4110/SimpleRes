@@ -443,13 +443,15 @@ public class MainInterface extends AppCompatActivity {
                                     case "Reservation":
 
                                         //open and begin create reservation pop-up activity
-                                        Intent p = new Intent(getApplicationContext(), PopupCreateReservation.class);
-                                        startActivity(p);
+                                        Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
+                                        startActivity(pop1);
 
                                         break;
                                     case "Waitlist":
 
                                         //open and begin create waitlist party pop-up activity
+                                        Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
+                                        startActivity(pop2);
 
                                         break;
                                 }
