@@ -8,9 +8,10 @@
     <string name="status_paid">Paid</string>
     <string name="status_dirty">Dirty</string>
     <string name="status_empty">Empty</string>
-    <string name="welcome_to">Welcome to...</string>
+    <string name="welcome_to">Welcome to&#8230;</string>
     <string name="party_reservation">Reservation</string>
     <string name="party_waitlist">Waitlist</string>
     <string name="add_party">Add Party</string>
+    <string name="create_reservation">Create Reservation</string>
 
 </resources>

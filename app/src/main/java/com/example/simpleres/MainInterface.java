@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -442,6 +443,8 @@ public class MainInterface extends AppCompatActivity {
                                     case "Reservation":
 
                                         //open and begin create reservation pop-up activity
+                                        Intent p = new Intent(getApplicationContext(), PopupCreateReservation.class);
+                                        startActivity(p);
 
                                         break;
                                     case "Waitlist":
@@ -457,8 +460,6 @@ public class MainInterface extends AppCompatActivity {
 
                         selectPartyTypeMenu.show();
                         break;
-
-
                 }
 
             }
