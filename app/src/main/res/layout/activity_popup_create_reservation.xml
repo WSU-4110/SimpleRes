@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-light"
         android:text="@string/create_reservation"
         android:textColor="@android:color/background_light"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,4 +31,95 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <TextView
+        android:id="@+id/guest_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/guest_name"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createReservationText" />
+
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_name"
+        android:inputType="textPersonName"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guest_name" />
+
+    <TextView
+        android:id="@+id/guest_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/guest_phone_number"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+
+    <EditText
+        android:id="@+id/enter_number"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_number"
+        android:inputType="phone"
+        android:digits="0123456789"
+        android:maxLength="10"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number" />
+
+    <TextView
+        android:id="@+id/reservation_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/reservation_notes"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_number" />
+
+    <EditText
+        android:id="@+id/enter_res_notes"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:gravity="start|top"
+        android:hint="@string/enter_res_notes"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:textAlignment="textStart"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_notes" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
