@@ -37,7 +37,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
         android:text="@string/guest_name"
         android:textColor="@android:color/background_light"
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/enter_number" />
 
     <EditText
-        android:id="@+id/enter_res_notes"
+        android:id="@+id/enter_wait_notes"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
@@ -127,7 +127,7 @@
         android:layout_width="235dp"
         android:layout_height="35dp"
         android:layout_marginStart="275dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="@string/reservation_date"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -139,7 +139,7 @@
         android:layout_width="133dp"
         android:layout_height="44dp"
         android:layout_marginStart="125dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/empty_date"
         android:textColor="@color/color1"
@@ -160,7 +160,7 @@
         app:layout_constraintTop_toBottomOf="@+id/reservation_date" />
 
     <TextView
-        android:id="@+id/quoted_wait_time"
+        android:id="@+id/wait_times"
         android:layout_width="235dp"
         android:layout_height="35dp"
         android:layout_marginStart="265dp"
@@ -172,34 +172,34 @@
         app:layout_constraintTop_toBottomOf="@+id/display_date" />
 
     <Spinner
-        android:id="@+id/wait_times"
+        android:id="@+id/reservation_times"
         android:layout_width="130dp"
         android:layout_height="22dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="12dp"
         android:spinnerMode="dropdown"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/enter_number"
-        app:layout_constraintTop_toBottomOf="@+id/quoted_wait_time" />
+        app:layout_constraintTop_toBottomOf="@+id/wait_times" />
 
     <TextView
         android:id="@+id/party_size"
         android:layout_width="235dp"
         android:layout_height="35dp"
-        android:layout_marginStart="225dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginTop="32dp"
         android:text="@string/size_of_party"
         android:textColor="@color/color1"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/reservation_notes"
-        app:layout_constraintTop_toBottomOf="@+id/wait_times" />
+        app:layout_constraintTop_toBottomOf="@+id/reservation_times" />
 
     <EditText
         android:id="@+id/enter_party_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@color/color1"
         android:ems="10"
         android:fontFamily="sans-serif-light"
@@ -207,7 +207,7 @@
         android:inputType="number"
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
-        app:layout_constraintStart_toEndOf="@+id/enter_res_notes"
+        app:layout_constraintStart_toEndOf="@+id/enter_wait_notes"
         app:layout_constraintTop_toBottomOf="@+id/party_size" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
