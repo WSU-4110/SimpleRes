@@ -22,7 +22,6 @@ public class WaitlistEntry extends MainActivity {
 
         String formattedDateTime = FormatDate(reservationTime);
     }
-
     public WaitlistEntry() {
 
     }
@@ -52,7 +51,7 @@ public class WaitlistEntry extends MainActivity {
 
 
 //date format for easy sorting year-month-day hours:minutes:seconds
-    public String FormatDate(LocalDateTime myDateTimeObj) {
+    public static String FormatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String FormattedDate = myDateTimeObj.format(myFormatObj);

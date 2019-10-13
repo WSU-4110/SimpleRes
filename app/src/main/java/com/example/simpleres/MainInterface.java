@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
+import java.time.LocalDateTime;
+
 public class MainInterface extends AppCompatActivity {
 
     TableClass Table101 = new TableClass(101, "Empty", "None" );
@@ -21,11 +23,19 @@ public class MainInterface extends AppCompatActivity {
     TableClass Table109 = new TableClass(109, "Empty", "None" );
     TableClass Table201 = new TableClass(201, "Empty", "None" );
     TableClass Table202 = new TableClass(202, "Empty", "None" );
-
+    WaitlistEntry testEntry = new WaitlistEntry(0,"None","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
+
+        //instantiating database/database tables
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+
+        //adding rows to both tables
+        tdb.addTableClass(new TableClass(0, "Empty", "None" ));
+        wdb.addWaitlistEntry(new WaitlistEntry(0,"None","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now()));
 
         final Button button1 = findViewById(R.id.button1);
         final  Button button2 = findViewById(R.id.button2);

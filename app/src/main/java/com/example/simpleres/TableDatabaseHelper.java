@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 public class TableDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "SimpleRes.db";
+    private static final String DATABASE_NAME = "Table.db";
     private static final String TABLE_TABLE_INFO = "tableClass";
     private static final String KEY_ID = "id"; //AKA TABLE NUMBER
     private static final String KEY_STATUS = "status";
@@ -29,7 +29,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_TABLE_TABLE = "CREATE TABLE " + TABLE_TABLE_INFO + "("
+        String CREATE_TABLE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_TABLE_INFO + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_STATUS + " TEXT,"
                 + KEY_NAME + " TEXT"

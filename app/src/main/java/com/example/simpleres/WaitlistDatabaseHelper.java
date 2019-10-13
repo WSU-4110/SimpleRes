@@ -15,13 +15,13 @@ import static java.lang.Integer.parseInt;
 public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "SimpleRes.db";
-    private static final String TABLE_WAITLIST_ENTRY = "waitlistEntry";
+    private static final String DATABASE_NAME = "Waitlist.db";
+    private static final String TABLE_WAITLIST_ENTRY = "waitlist";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE = "phone";
     private static final String KEY_PEOPLE = "people";
-    private static final String KEY_TIME = "time";
+    private static final String KEY_TIME = "'"+"time"+"'";
 
 
 
@@ -32,11 +32,13 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_WAITLIST_TABLE = "CREATE TABLE " + TABLE_WAITLIST_ENTRY + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+        String CREATE_WAITLIST_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_WAITLIST_ENTRY + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NAME + " TEXT,"
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
-                + KEY_TIME + " TEXT" + ")";
+                + KEY_TIME + " TEXT"
+                + ")";
         db.execSQL(CREATE_WAITLIST_TABLE);
 
 
@@ -58,7 +60,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put("KEY_PHONE", waitlistEntry.getTelephone());
         values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
         values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
-        db.insert(TABLE_WAITLIST_ENTRY,null,values);
+        db.insert(TABLE_WAITLIST_ENTRY,null, values);
         db.close();
     }
     //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
