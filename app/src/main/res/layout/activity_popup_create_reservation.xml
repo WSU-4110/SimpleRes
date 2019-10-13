@@ -36,7 +36,7 @@
         android:id="@+id/guest_name"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif"
         android:text="@string/guest_name"
@@ -49,7 +49,7 @@
         android:id="@+id/enter_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/color1"
         android:ems="10"
@@ -65,7 +65,7 @@
         android:id="@+id/guest_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="32dp"
         android:text="@string/guest_phone_number"
         android:textColor="@color/color1"
@@ -77,14 +77,14 @@
         android:id="@+id/enter_number"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/color1"
+        android:digits="0123456789"
         android:ems="10"
         android:fontFamily="sans-serif-light"
         android:hint="@string/enter_number"
         android:inputType="phone"
-        android:digits="0123456789"
         android:maxLength="10"
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
@@ -95,7 +95,7 @@
         android:id="@+id/reservation_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="32dp"
         android:text="@string/reservation_notes"
         android:textColor="@color/color1"
@@ -107,7 +107,7 @@
         android:id="@+id/enter_res_notes"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="175dp"
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/color1"
         android:ems="10"
@@ -121,5 +121,93 @@
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reservation_notes" />
+
+    <TextView
+        android:id="@+id/reservation_date"
+        android:layout_width="235dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/reservation_date"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/guest_name"
+        app:layout_constraintTop_toBottomOf="@+id/createReservationText" />
+
+    <TextView
+        android:id="@+id/display_date"
+        android:layout_width="133dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/empty_date"
+        android:textColor="@color/color1"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/enter_name"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_date" />
+
+    <Button
+        android:id="@+id/select_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/select_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/display_date"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_date" />
+
+    <TextView
+        android:id="@+id/reservation_time"
+        android:layout_width="235dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/reservation_time"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/guest_phone_number"
+        app:layout_constraintTop_toBottomOf="@+id/display_date" />
+
+    <Spinner
+        android:id="@+id/reservation_times"
+        android:layout_width="130dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dropdown"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/enter_number"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_time" />
+
+    <TextView
+        android:id="@+id/party_size"
+        android:layout_width="235dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="225dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/size_of_party"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/reservation_notes"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_times" />
+
+    <EditText
+        android:id="@+id/enter_party_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_party_size"
+        android:inputType="number"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toEndOf="@+id/enter_res_notes"
+        app:layout_constraintTop_toBottomOf="@+id/party_size" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
