@@ -37,7 +37,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="175dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif"
         android:text="@string/guest_name"
         android:textColor="@android:color/background_light"
@@ -139,7 +139,7 @@
         android:layout_width="235dp"
         android:layout_height="35dp"
         android:layout_marginStart="272dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/size_of_party"
         android:textColor="@color/color1"
         android:textSize="24sp"
@@ -166,11 +166,23 @@
 
     <Spinner
         android:id="@+id/wait_times"
-        android:layout_width="232dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="124dp"
+        android:layout_width="125dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="126dp"
         android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:spinnerMode="dialog"
         app:layout_constraintStart_toEndOf="@+id/enter_name"
         app:layout_constraintTop_toBottomOf="@+id/quote_time" />
+
+    <Button
+        android:id="@+id/add_to_waitlist_button"
+        android:layout_width="212dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="164dp"
+        android:text="@string/add_to_waitlist"
+        app:layout_constraintStart_toEndOf="@+id/enter_wait_notes"
+        app:layout_constraintTop_toBottomOf="@+id/wait_times" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
