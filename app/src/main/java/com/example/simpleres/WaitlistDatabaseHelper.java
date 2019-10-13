@@ -12,10 +12,10 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Waitlist";
+    private static final String DATABASE_NAME = "SimpleRes.db";
     private static final String TABLE_WAITLIST_ENTRY = "waitlistEntry";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public DatabaseHelper(Context context){
+    public WaitlistDatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
     }
 

@@ -30,5 +30,6 @@ public class TableClass extends MainActivity{
         this.tableName = newTableName;
     }
 
+    public String getTableName(){ return this.tableName;}
 }
 
