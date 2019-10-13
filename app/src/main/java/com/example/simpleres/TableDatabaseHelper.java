@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "SimpleRes.db";
-    private static final String TABLE_TABLE_ENTRY = "tableClass";
+    private static final String TABLE_TABLE_INFO = "tableClass";
     private static final String KEY_ID = "id"; //AKA TABLE NUMBER
     private static final String KEY_STATUS = "status";
     private static final String KEY_NAME = "name";
@@ -30,7 +29,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_TABLE_TABLE = "CREATE TABLE " + TABLE_TABLE_ENTRY + "("
+        String CREATE_TABLE_TABLE = "CREATE TABLE " + TABLE_TABLE_INFO + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_STATUS + " TEXT,"
                 + KEY_NAME + " TEXT"
@@ -42,7 +41,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TABLE_ENTRY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TABLE_INFO);
 
         onCreate(db);
     }
@@ -55,70 +54,64 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         values.put("KEY_STATUS", tableClass.getTableStatus());
         values.put("KEY_NAME", tableClass.getTableName());
 
-        db.insert(TABLE_TABLE_ENTRY,null,values);
+        db.insert(TABLE_TABLE_INFO,null,values);
         db.close();
     }
-    //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
-    WaitlistEntry getWaitlistEntry(int id){
+    //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
+    TableClass getTableClass(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_TABLE_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)},null,null,KEY_TIME +" ASC",null);
+        Cursor cursor = db.query(TABLE_TABLE_INFO, new String[]{KEY_ID, KEY_STATUS, KEY_NAME}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)},null,null,KEY_ID +" ASC",null);
 
         if (cursor!=null)
             cursor.moveToFirst();
 
-        WaitlistEntry waitlistEntry = new WaitlistEntry(parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4), LocalDateTime.parse(cursor.getString(5)));
+        TableClass tableClass = new TableClass(parseInt(cursor.getString(0)), cursor.getString(1),
+                cursor.getString(2));
 
-        return waitlistEntry;
+        return tableClass;
     }
     //returns list of all waitlist entries
-    public List<WaitlistEntry> getAllWaitlistEntries(){
-        List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+    public List<TableClass> getAllTablesList(){
+        List<TableClass> tableClassList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_TABLE_ENTRY;
+        String selectQuery = "SELECT  * FROM " + TABLE_TABLE_INFO;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
         if (cursor.moveToFirst()){
             do {
-                WaitlistEntry waitlistEntry = new WaitlistEntry();
+                TableClass tableClass = new TableClass();
 
-                waitlistEntry.setId(Integer.parseInt(cursor.getString(0)));
-                waitlistEntry.setName(cursor.getString(1));
-                waitlistEntry.setTelephone(cursor.getString(2));
-                waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
-                waitlistEntry.setFormattedDateTime(cursor.getString(4));
-                waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
-
-                waitlistEntryList.add(waitlistEntry);
+                tableClass.setTableNumber(Integer.parseInt(cursor.getString(0)));
+                tableClass.setTableStatus(cursor.getString(1));
+                tableClass.setTableName(cursor.getString(2));
+                tableClassList.add(tableClass);
             } while (cursor.moveToNext());
             }
-        return waitlistEntryList;
+        return tableClassList;
         }
     //used to change values of existing entries in the database
-    public int updateWaitlistEntry(WaitlistEntry waitlistEntry){
+    public int udateTableInfo(TableClass tableClass){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("KEY_NAME", waitlistEntry.getName());
-        values.put("KEY_PHONE", waitlistEntry.getTelephone());
-        values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
-        values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
-        return db.update(TABLE_TABLE_ENTRY, values, KEY_ID + "=?",
-                new String []{String.valueOf(waitlistEntry.getId())});
+        values.put("KEY_NAME", tableClass.getTableStatus());
+        values.put("KEY_PHONE", tableClass.getTableName());
+        return db.update(TABLE_TABLE_INFO, values, KEY_ID + "=?",
+                new String []{String.valueOf(tableClass.getTableNumber())});
     }
     //deletes an existing entry from the database
-    public void deleteWaitlistEntry(WaitlistEntry waitlistEntry) {
+    public void deleteTableInfo(TableClass tableClass) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TABLE_ENTRY, KEY_ID + "=?",
-                new String[]{String.valueOf(waitlistEntry.getId())});
+        db.delete(TABLE_TABLE_INFO, KEY_ID + "=?",
+                new String[]{String.valueOf(tableClass.getTableNumber())});
         db.close();
     }
     //returns integer value of the count of entries
-    public int getEntryCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_TABLE_ENTRY;
+    public int getTableCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_TABLE_INFO;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery,null);
         cursor.close();

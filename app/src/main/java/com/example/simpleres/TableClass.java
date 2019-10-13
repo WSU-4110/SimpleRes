@@ -13,7 +13,7 @@ public class TableClass extends MainActivity{
         String tableStatus = Status;
         String tableName = Name;
     }
-
+    //public TableClass(){}
     public String getTableStatus() {
         return this.tableStatus;
     }
@@ -21,6 +21,8 @@ public class TableClass extends MainActivity{
     public int getTableNumber() {
         return this.tableNumber;
     }
+
+    public void setTableNumber(int newTableNumber) { this.tableNumber = newTableNumber; }
 
     public void setTableStatus(String newTableStatus) {
         this.tableStatus = newTableStatus;
@@ -31,5 +33,8 @@ public class TableClass extends MainActivity{
     }
 
     public String getTableName(){ return this.tableName;}
+
+
+
 }
 
