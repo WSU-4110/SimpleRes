@@ -32,12 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_WAITLIST_ENTRY + "("
+        String CREATE_WAITLIST_TABLE = "CREATE TABLE " + TABLE_WAITLIST_ENTRY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
                 + KEY_TIME + " TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+        db.execSQL(CREATE_WAITLIST_TABLE);
+
+
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
