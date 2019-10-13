@@ -52,7 +52,21 @@
     <!-- waitlist specific -->
     <string name="add_to_waitlist">Add to Waitlist</string>
     <string name="quote_time">Quoted wait time: </string>
+    <string-array name="quote_times">
+        <item>5min</item>
+        <item>10min</item>
+        <item>15min</item>
+        <item>20min</item>
+        <item>25min</item>
+        <item>30min</item>
+        <item>40min</item>
+        <item>45min</item>
+        <item>50min</item>
+        <item>60min</item>
+        <item>90min</item>
+    </string-array>
     <string name="waitlist_notes">Waitlist notes: </string>
+    <string name="enter_wait_notes">Enter waitlist notes (optional)</string>
 
 
 </resources>

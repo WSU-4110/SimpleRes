@@ -160,7 +160,7 @@
         app:layout_constraintTop_toBottomOf="@+id/reservation_date" />
 
     <TextView
-        android:id="@+id/reservation_time"
+        android:id="@+id/quoted_wait_time"
         android:layout_width="235dp"
         android:layout_height="35dp"
         android:layout_marginStart="265dp"
@@ -172,7 +172,7 @@
         app:layout_constraintTop_toBottomOf="@+id/display_date" />
 
     <Spinner
-        android:id="@+id/reservation_times"
+        android:id="@+id/wait_times"
         android:layout_width="130dp"
         android:layout_height="22dp"
         android:layout_marginStart="125dp"
@@ -180,7 +180,7 @@
         android:spinnerMode="dropdown"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/enter_number"
-        app:layout_constraintTop_toBottomOf="@+id/reservation_time" />
+        app:layout_constraintTop_toBottomOf="@+id/quoted_wait_time" />
 
     <TextView
         android:id="@+id/party_size"
@@ -192,7 +192,7 @@
         android:textColor="@color/color1"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/reservation_notes"
-        app:layout_constraintTop_toBottomOf="@+id/reservation_times" />
+        app:layout_constraintTop_toBottomOf="@+id/wait_times" />
 
     <EditText
         android:id="@+id/enter_party_size"
