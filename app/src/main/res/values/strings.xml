@@ -1,13 +1,73 @@
 <resources>
+
+    <!-- splash and login -->
+    <string name="welcome_to">Welcome to&#8230;</string>
     <string name="app_name">SimpleRes</string>
     <string name="enter_passcode">Enter Passcode</string>
     <string name="button_send">Send</string>
+
+    <!-- table statuses -->
     <string name="status_seated">Seated</string>
     <string name="status_entree">Entree</string>
     <string name="status_dessert">Dessert</string>
     <string name="status_paid">Paid</string>
     <string name="status_dirty">Dirty</string>
     <string name="status_empty">Empty</string>
-    <string name="welcome_to">Welcome to...</string>
+
+    <!-- adding parties -->
+    <string name="add_party">Add Party</string>
+    <string name="party_reservation">Reservation</string>
+    <string name="party_waitlist">Waitlist</string>
+
+    <!-- common -->
+    <string name="guest_name">Guest name: </string>
+    <string name="enter_name">Enter name</string>
+    <string name="guest_phone_number">Phone number: </string>
+    <string name="enter_number">Enter number</string>
+    <string name="size_of_party">Party size: </string>
+    <string name="enter_party_size">Size</string>
+
+    <!-- reservation specific -->
+    <string name="create_reservation">Create Reservation</string>
+    <string name="reservation_date">Date of reservation: </string>
+    <string name="select_date">Select date</string>
+    <string name="empty_date">Month/Day/Year</string>
+    <string name="reservation_time">Time of reservation: </string>
+    <string-array name="reservation_times">
+        <item>4:00pm</item>
+        <item>4:30pm</item>
+        <item>5:00pm</item>
+        <item>5:30pm</item>
+        <item>6:00pm</item>
+        <item>6:30pm</item>
+        <item>7:00pm</item>
+        <item>7:30pm</item>
+        <item>8:00pm</item>
+        <item>8:30pm</item>
+        <item>9:00pm</item>
+    </string-array>
+    <string name="reservation_notes">Reservation notes: </string>
+    <string name="enter_res_notes">Enter reservation notes (optional)</string>
+
+
+    <!-- waitlist specific -->
+    <string name="add_to_waitlist">Add to Waitlist</string>
+    <string name="quote_time">Quoted wait time: </string>
+    <string-array name="quote_times">
+        <item>5min</item>
+        <item>10min</item>
+        <item>15min</item>
+        <item>20min</item>
+        <item>25min</item>
+        <item>30min</item>
+        <item>40min</item>
+        <item>45min</item>
+        <item>50min</item>
+        <item>60min</item>
+        <item>90min</item>
+    </string-array>
+    <string name="waitlist_notes">Waitlist notes: </string>
+    <string name="enter_wait_notes">Enter waitlist notes (optional)</string>
+
 
 </resources>
