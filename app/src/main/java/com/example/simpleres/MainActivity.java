@@ -19,11 +19,9 @@ public class MainActivity extends AppCompatActivity {
     public void sendPasscode(View view) {
         Intent intent = new Intent(this, MainInterface.class);
 
-
-
-
         //when start activity is called here, the main interface activity begins
         startActivity(intent);
 
     }
+
 }
