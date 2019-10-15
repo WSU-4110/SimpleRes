@@ -58,7 +58,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         time_spinner.setAdapter(adapter);
         time_spinner.setOnItemSelectedListener(this);
 
-
         View.OnClickListener listener = new View.OnClickListener() {
             //method for which actions are taken when a button is clicked
             @Override
