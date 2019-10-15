@@ -33,7 +33,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_WAITLIST_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_WAITLIST_ENTRY + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
@@ -54,13 +54,22 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     //add an entry to database
     void addWaitlistEntry (WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();
-
+/*
         ContentValues values = new ContentValues();
         values.put("KEY_NAME", waitlistEntry.getName());
         values.put("KEY_PHONE", waitlistEntry.getTelephone());
         values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
         values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
         db.insert(TABLE_WAITLIST_ENTRY,null, values);
+ */   //INSERT INTO "main"."waitlist"("id","name","phone","people","time") VALUES (NULL,NULL,NULL,NULL,NULL)
+      //INSERT INTO "main"."waitlist"("id","name","phone","people","time") VALUES (NULL,'Johnny','313-2515',2,'numbers');
+
+        String ADD_WAITLIST_SQL = "INSERT INTO "+TABLE_WAITLIST_ENTRY+"("+
+                KEY_NAME+","+KEY_PHONE+","+KEY_PEOPLE+","+"time"+")"+" VALUES ('"+
+                waitlistEntry.getName()+"'','"+waitlistEntry.getTelephone()+"',"+
+                waitlistEntry.getNumberOfPeople() +",'"+waitlistEntry.getFormattedDateTime()+"')";
+        //GET SYNTAX FOR INSERT STATEMENT
+        db.execSQL(ADD_WAITLIST_SQL);
         db.close();
     }
     //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order

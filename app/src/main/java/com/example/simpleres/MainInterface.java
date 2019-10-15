@@ -31,11 +31,11 @@ public class MainInterface extends AppCompatActivity {
 
         //instantiating database/database tables
         WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
-        TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+        //TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
         //adding rows to both tables
-        tdb.addTableClass(new TableClass(0, "Empty", "None" ));
-        wdb.addWaitlistEntry(new WaitlistEntry(0,"None","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now()));
+        //tdb.addTableClass(new TableClass(0, "Empty", "None" ));
+        wdb.addWaitlistEntry(new WaitlistEntry(500,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now()));
 
         final Button button1 = findViewById(R.id.button1);
         final  Button button2 = findViewById(R.id.button2);
