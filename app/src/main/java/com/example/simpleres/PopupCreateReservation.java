@@ -13,9 +13,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 
 public class PopupCreateReservation extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
@@ -66,10 +65,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
             public void onClick(View view) {
                 switch(view.getId()){
 
-                    case R.id.select_date:
-                        //save the date selected and show it in the popup
-
-                        break;
                     case R.id.exitCreateRes:
                         finish();
                         break;
@@ -98,19 +93,25 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
 
     }
 
+    private TextView mDisplayDate;
+   // private DatePickerDialog.OnDateSetListener dateSetListener;
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        month = month + 1;
+
+        mDisplayDate = findViewById(R.id.display_date);
+
+        String date = month + "/" + dayOfMonth + "/" + year;
+        mDisplayDate.setText(date);
 
         //not used but can show the full date
-        String selectedDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
-
-        //toast to show selected date
-        // TODO make the selected date show in the popup menu
-        Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
+        //String selectedDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+        //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
     }
 }
 
