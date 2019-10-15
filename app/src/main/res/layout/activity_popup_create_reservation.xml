@@ -209,6 +209,8 @@
         android:fontFamily="sans-serif-light"
         android:hint="@string/enter_party_size"
         android:inputType="number"
+        android:digits="123456789"
+        android:maxLength="1"
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toEndOf="@+id/enter_res_notes"
