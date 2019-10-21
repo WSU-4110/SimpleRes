@@ -38,7 +38,6 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_TABLE);
         System.out.println("Table "+TABLE_TABLE_INFO+" Created" );
 
-
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -56,7 +55,12 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_ID, tableClass.getTableNumber());
         values.put(KEY_STATUS, tableClass.getTableStatus());
         values.put(KEY_NAME, tableClass.getTableName());
-        db.insert(TABLE_TABLE_INFO,null,values);
+        try {
+            db.insert(TABLE_TABLE_INFO, null, values);
+        }
+        catch (Exception e){
+            System.out.println("Table Already Exists in Database");
+        }
         db.close();
         System.out.println(DATABASE_NAME+" connection closed");
 
@@ -64,7 +68,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
     //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
     TableClass getTableClass(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-
+        System.out.println("Retrieving tableClass from database");
         Cursor cursor = db.query(TABLE_TABLE_INFO, new String[]{KEY_ID, KEY_STATUS, KEY_NAME}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)},null,null,KEY_ID +" ASC",null);
 

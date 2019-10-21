@@ -11,6 +11,8 @@ import android.widget.PopupMenu;
 import java.time.LocalDateTime;
 
 public class MainInterface extends AppCompatActivity {
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
     TableClass Table101 = new TableClass(101, "Empty", "None" );
     TableClass Table102 = new TableClass(102, "Empty", "None" );
@@ -25,14 +27,29 @@ public class MainInterface extends AppCompatActivity {
     TableClass Table202 = new TableClass(202, "Empty", "None" );
     WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     //instantiating database/database tables
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
-    TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
-
-        //adding rows to both tables
+// get from database tables
+try {
+    Table101 = tdb.getTableClass(101);
+    Table102 = tdb.getTableClass(102);
+    Table103 = tdb.getTableClass(103);
+    Table104 = tdb.getTableClass(104);
+    Table105 = tdb.getTableClass(105);
+    Table106 = tdb.getTableClass(106);
+    Table107 = tdb.getTableClass(107);
+    Table108 = tdb.getTableClass(108);
+    Table109 = tdb.getTableClass(109);
+    Table201 = tdb.getTableClass(201);
+    Table202 = tdb.getTableClass(202);
+}
+catch (Exception e){
+    System.out.println("error getting table info from database");}
+//add tables
+    try {
         tdb.addTableClass(Table101);
         tdb.addTableClass(Table102);
         tdb.addTableClass(Table103);
@@ -44,7 +61,11 @@ public class MainInterface extends AppCompatActivity {
         tdb.addTableClass(Table109);
         tdb.addTableClass(Table201);
         tdb.addTableClass(Table202);
-
+    }
+    catch(Exception e) {
+        System.out.println("error adding tables to database");
+    }
+    //TODO: populate correct GUI colors from database table information
         wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         final Button button1 = findViewById(R.id.button1);
