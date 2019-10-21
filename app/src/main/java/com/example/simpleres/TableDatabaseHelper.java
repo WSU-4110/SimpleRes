@@ -97,9 +97,12 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         return tableClassList;
         }
     //used to change values of existing entries in the database
-    public int udateTableInfo(TableClass tableClass){
+    public int updateTableInfo(TableClass tableClass){
         SQLiteDatabase db = this.getWritableDatabase();
-
+        System.out.println("updating table" + tableClass.getTableNumber() + " with the following information:\n"+
+                "Status: "+tableClass.getTableStatus()+"\n"+
+                "TableName: "+tableClass.getTableName()
+                );
         ContentValues values = new ContentValues();
         values.put(KEY_STATUS, tableClass.getTableStatus());
         values.put(KEY_NAME, tableClass.getTableName());

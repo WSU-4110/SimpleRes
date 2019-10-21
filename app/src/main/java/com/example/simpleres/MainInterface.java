@@ -24,14 +24,13 @@ public class MainInterface extends AppCompatActivity {
     TableClass Table201 = new TableClass(201, "Empty", "None" );
     TableClass Table202 = new TableClass(202, "Empty", "None" );
     WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
+    //instantiating database/database tables
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    TableDatabaseHelper tdb = new TableDatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
-
-        //instantiating database/database tables
-        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
-        TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
         //adding rows to both tables
         tdb.addTableClass(Table101);
@@ -45,7 +44,6 @@ public class MainInterface extends AppCompatActivity {
         tdb.addTableClass(Table109);
         tdb.addTableClass(Table201);
         tdb.addTableClass(Table202);
-        //TODO: call tbd.updateTable(TableClass) whenever a table is updated for persistent table data
 
         wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
@@ -75,6 +73,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table101.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table101);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -109,6 +108,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table102.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table102);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -143,6 +143,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table103.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table103);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -177,6 +178,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table104.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table104);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -211,6 +213,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table105.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table105);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -245,6 +248,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table106.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table106);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -279,6 +283,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table107.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table107);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -313,6 +318,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table108.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table108);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -347,6 +353,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table109.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table109);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -381,6 +388,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table201.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table201);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
@@ -415,6 +423,7 @@ public class MainInterface extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 Table202.setTableStatus(menuItem.toString()); // set the value of tableStatus in TableClass to the selected name
+                                tdb.updateTableInfo(Table202);
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
