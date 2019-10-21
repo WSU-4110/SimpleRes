@@ -53,26 +53,14 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     //add an entry to database
     void addWaitlistEntry (WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();
-
+        System.out.println(DATABASE_NAME+"connection opened");
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, waitlistEntry.getName());
         values.put(KEY_PHONE, waitlistEntry.getTelephone());
         values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
         values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
         db.insert(TABLE_WAITLIST_ENTRY,null, values);
-
-      //INSERT INTO "main"."waitlist"("id","name","phone","people","time") VALUES (NULL,NULL,NULL,NULL,NULL)
-      //INSERT INTO "waitlist"(name,phone,people) VALUES ('Johnny','313-2515',2);
-
-/*        String ADD_WAITLIST_SQL = "INSERT INTO "+TABLE_WAITLIST_ENTRY+"("+
-                KEY_NAME+","+KEY_PHONE+","+KEY_PEOPLE+","+KEY_TIME+")"+" VALUES ('"+
-                waitlistEntry.getName()+"','"+waitlistEntry.getTelephone()+"',"+
-                waitlistEntry.getNumberOfPeople()+ ",'"+waitlistEntry.getFormattedDateTime()+"')";
-        //GET SYNTAX FOR INSERT STATEMENT
-        System.out.println("Executing SQLite: \n"+ADD_WAITLIST_SQL);
-        db.execSQL(ADD_WAITLIST_SQL);
-        db.close();*/
-        System.out.println("database connection closed");
+        System.out.println(DATABASE_NAME+"connection closed");
     }
     //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
     WaitlistEntry getWaitlistEntry(int id){

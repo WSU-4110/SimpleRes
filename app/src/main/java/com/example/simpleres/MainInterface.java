@@ -30,16 +30,24 @@ public class MainInterface extends AppCompatActivity {
         setContentView(R.layout.activity_main_interface);
 
         //instantiating database/database tables
-        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
-        //TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+        TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
         //adding rows to both tables
-        //tdb.addTableClass(new TableClass(0, "Empty", "None" ));
-        System.out.println("testing function calls for testEntry:");
-        System.out.println("Jimmy:"+testEntry.getName());
-        System.out.println("888-8888:"+testEntry.getTelephone());
-        System.out.println("1:"+testEntry.getNumberOfPeople());
-        wdb.addWaitlistEntry(testEntry);
+        tdb.addTableClass(Table101);
+        tdb.addTableClass(Table102);
+        tdb.addTableClass(Table103);
+        tdb.addTableClass(Table104)
+        tdb.addTableClass(Table105);
+        tdb.addTableClass(Table106);
+        tdb.addTableClass(Table107);
+        tdb.addTableClass(Table108);
+        tdb.addTableClass(Table109);
+        tdb.addTableClass(Table201);
+        tdb.addTableClass(Table202);
+        //TODO: call tbd.updateTable(TableClass) whenever a table is updated for persistent table data
+
+        wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         final Button button1 = findViewById(R.id.button1);
         final  Button button2 = findViewById(R.id.button2);

@@ -30,12 +30,13 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_TABLE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_TABLE_INFO + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " INTEGER PRIMARY KEY UNIQUE,"
                 + KEY_STATUS + " TEXT,"
                 + KEY_NAME + " TEXT"
                 + ")";
+        System.out.println("Executing SQLite: \n"+CREATE_TABLE_TABLE);
         db.execSQL(CREATE_TABLE_TABLE);
-
+        System.out.println("Table "+TABLE_TABLE_INFO+" Created" );
 
 
     }
@@ -48,14 +49,17 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
 
     //add an entry to database
     void addTableClass (TableClass tableClass){
-        SQLiteDatabase db = this.getWritableDatabase();
+        System.out.println(DATABASE_NAME+" connection opened");
 
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, tableClass.getTableNumber());
         values.put(KEY_STATUS, tableClass.getTableStatus());
         values.put(KEY_NAME, tableClass.getTableName());
-
         db.insert(TABLE_TABLE_INFO,null,values);
         db.close();
+        System.out.println(DATABASE_NAME+" connection closed");
+
     }
     //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
     TableClass getTableClass(int id){
