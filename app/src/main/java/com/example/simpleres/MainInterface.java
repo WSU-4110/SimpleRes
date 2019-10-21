@@ -37,7 +37,7 @@ public class MainInterface extends AppCompatActivity {
         tdb.addTableClass(Table101);
         tdb.addTableClass(Table102);
         tdb.addTableClass(Table103);
-        tdb.addTableClass(Table104)
+        tdb.addTableClass(Table104);
         tdb.addTableClass(Table105);
         tdb.addTableClass(Table106);
         tdb.addTableClass(Table107);
