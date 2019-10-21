@@ -9,11 +9,14 @@ public class TableClass extends MainActivity{
 
 
     TableClass(int Num, String Status, String Name) {
-        int tableNumber = Num;
-        String tableStatus = Status;
-        String tableName = Name;
-    }
+        this.tableNumber = Num;
+        this.tableStatus = Status;
+        this.tableName = Name;
 
+
+
+    }
+    public TableClass(){}
     public String getTableStatus() {
         return this.tableStatus;
     }
@@ -22,6 +25,8 @@ public class TableClass extends MainActivity{
         return this.tableNumber;
     }
 
+    public void setTableNumber(int newTableNumber) { this.tableNumber = newTableNumber; }
+
     public void setTableStatus(String newTableStatus) {
         this.tableStatus = newTableStatus;
     }
@@ -29,6 +34,10 @@ public class TableClass extends MainActivity{
     public void setTableName(String newTableName) {
         this.tableName = newTableName;
     }
+
+    public String getTableName(){ return this.tableName;}
+
+
 
 }
 

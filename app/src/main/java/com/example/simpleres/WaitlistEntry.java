@@ -13,16 +13,15 @@ public class WaitlistEntry extends MainActivity {
     private LocalDateTime reservationTime;
 
     WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime) {
-        int id = Id;
-        String name = Name;
-        String telephone = Telephone;
-        int numberOfPeople = NumberOfPeople;
+        this.id = Id;
+        this.name = Name;
+        this.telephone = Telephone;
+        this.numberOfPeople = NumberOfPeople;
 
-        LocalDateTime reservationTime = ReservationTime;
+        this.reservationTime = ReservationTime;
 
-        String formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = FormatDate(reservationTime);
     }
-
     public WaitlistEntry() {
 
     }
@@ -52,7 +51,7 @@ public class WaitlistEntry extends MainActivity {
 
 
 //date format for easy sorting year-month-day hours:minutes:seconds
-    public String FormatDate(LocalDateTime myDateTimeObj) {
+    public static String FormatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         String FormattedDate = myDateTimeObj.format(myFormatObj);
