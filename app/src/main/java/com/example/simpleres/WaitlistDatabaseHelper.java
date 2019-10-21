@@ -118,10 +118,10 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("KEY_NAME", waitlistEntry.getName());
-        values.put("KEY_PHONE", waitlistEntry.getTelephone());
-        values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
-        values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
+        values.put(KEY_NAME, waitlistEntry.getName());
+        values.put(KEY_PHONE, waitlistEntry.getTelephone());
+        values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
+        values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
         return db.update(TABLE_WAITLIST_ENTRY, values, KEY_ID + "=?",
                 new String []{String.valueOf(waitlistEntry.getId())});
     }

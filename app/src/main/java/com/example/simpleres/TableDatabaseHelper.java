@@ -51,8 +51,8 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("KEY_STATUS", tableClass.getTableStatus());
-        values.put("KEY_NAME", tableClass.getTableName());
+        values.put(KEY_STATUS, tableClass.getTableStatus());
+        values.put(KEY_NAME, tableClass.getTableName());
 
         db.insert(TABLE_TABLE_INFO,null,values);
         db.close();
@@ -97,8 +97,8 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("KEY_NAME", tableClass.getTableStatus());
-        values.put("KEY_PHONE", tableClass.getTableName());
+        values.put(KEY_STATUS, tableClass.getTableStatus());
+        values.put(KEY_NAME, tableClass.getTableName());
         return db.update(TABLE_TABLE_INFO, values, KEY_ID + "=?",
                 new String []{String.valueOf(tableClass.getTableNumber())});
     }
