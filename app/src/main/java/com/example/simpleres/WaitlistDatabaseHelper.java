@@ -21,7 +21,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE = "phone";
     private static final String KEY_PEOPLE = "people";
-    private static final String KEY_TIME = "'"+"time"+"'";
+    private static final String KEY_TIME = "expectedTime";
 
 
 
@@ -39,10 +39,9 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 + KEY_PEOPLE + " TEXT,"
                 + KEY_TIME + " TEXT"
                 + ")";
+        System.out.println("Executing SQLite: \n"+CREATE_WAITLIST_TABLE);
         db.execSQL(CREATE_WAITLIST_TABLE);
-
-
-
+        System.out.println("Table "+TABLE_WAITLIST_ENTRY+" Created" );
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -62,15 +61,17 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
         db.insert(TABLE_WAITLIST_ENTRY,null, values);
  */   //INSERT INTO "main"."waitlist"("id","name","phone","people","time") VALUES (NULL,NULL,NULL,NULL,NULL)
-      //INSERT INTO "main"."waitlist"("id","name","phone","people","time") VALUES (NULL,'Johnny','313-2515',2,'numbers');
+      //INSERT INTO "waitlist"(name,phone,people) VALUES ('Johnny','313-2515',2);
 
         String ADD_WAITLIST_SQL = "INSERT INTO "+TABLE_WAITLIST_ENTRY+"("+
-                KEY_NAME+","+KEY_PHONE+","+KEY_PEOPLE+","+"time"+")"+" VALUES ('"+
-                waitlistEntry.getName()+"'','"+waitlistEntry.getTelephone()+"',"+
-                waitlistEntry.getNumberOfPeople() +",'"+waitlistEntry.getFormattedDateTime()+"')";
+                KEY_NAME+","+KEY_PHONE+","+KEY_PEOPLE+","+KEY_TIME+")"+" VALUES ('"+
+                waitlistEntry.getName()+"','"+waitlistEntry.getTelephone()+"',"+
+                waitlistEntry.getNumberOfPeople()+ ",'"+waitlistEntry.getFormattedDateTime()+"')";
         //GET SYNTAX FOR INSERT STATEMENT
+        System.out.println("Executing SQLite: \n"+ADD_WAITLIST_SQL);
         db.execSQL(ADD_WAITLIST_SQL);
         db.close();
+        System.out.println("database connection closed");
     }
     //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
     WaitlistEntry getWaitlistEntry(int id){

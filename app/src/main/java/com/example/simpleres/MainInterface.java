@@ -23,7 +23,7 @@ public class MainInterface extends AppCompatActivity {
     TableClass Table109 = new TableClass(109, "Empty", "None" );
     TableClass Table201 = new TableClass(201, "Empty", "None" );
     TableClass Table202 = new TableClass(202, "Empty", "None" );
-    WaitlistEntry testEntry = new WaitlistEntry(0,"None","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
+    //WaitlistEntry testEntry = new WaitlistEntry(0,"None","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,7 @@ public class MainInterface extends AppCompatActivity {
 
         //adding rows to both tables
         //tdb.addTableClass(new TableClass(0, "Empty", "None" ));
-        wdb.addWaitlistEntry(new WaitlistEntry(500,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now()));
+        wdb.addWaitlistEntry(new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now()));
 
         final Button button1 = findViewById(R.id.button1);
         final  Button button2 = findViewById(R.id.button2);
