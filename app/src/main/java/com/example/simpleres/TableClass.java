@@ -9,9 +9,9 @@ public class TableClass extends MainActivity{
 
 
     TableClass(int Num, String Status, String Name) {
-        int tableNumber = Num;
-        String tableStatus = Status;
-        String tableName = Name;
+        this.tableNumber = Num;
+        this.tableStatus = Status;
+        this.tableName = Name;
     }
     public TableClass(){}
     public String getTableStatus() {

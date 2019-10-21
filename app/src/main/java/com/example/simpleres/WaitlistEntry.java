@@ -13,14 +13,14 @@ public class WaitlistEntry extends MainActivity {
     private LocalDateTime reservationTime;
 
     WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime) {
-        int id = Id;
-        String name = Name;
-        String telephone = Telephone;
-        int numberOfPeople = NumberOfPeople;
+        this.id = Id;
+        this.name = Name;
+        this.telephone = Telephone;
+        this.numberOfPeople = NumberOfPeople;
 
-        LocalDateTime reservationTime = ReservationTime;
+        this.reservationTime = ReservationTime;
 
-        String formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = FormatDate(reservationTime);
     }
     public WaitlistEntry() {
 
