@@ -15,7 +15,6 @@
         <activity android:name=".CreatePasswordActivity" />
         <activity android:name=".TableClass" />
         <activity android:name=".MainInterface" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

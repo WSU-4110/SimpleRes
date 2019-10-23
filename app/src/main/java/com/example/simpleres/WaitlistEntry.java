@@ -3,7 +3,7 @@ package com.example.simpleres;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class WaitlistEntry extends MainActivity {
+public class WaitlistEntry {
     private int id;
     private String name;
     private String telephone;

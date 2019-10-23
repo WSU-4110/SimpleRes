@@ -1,6 +1,6 @@
 package com.example.simpleres;
 
-public class TableClass extends MainActivity{
+public class TableClass {
 
     //variables
     private String tableStatus;     //current status of the table
