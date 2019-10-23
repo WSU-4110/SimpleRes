@@ -84,6 +84,204 @@ catch (Exception e){
         final Button button10 = findViewById(R.id.button10);
         final Button button11 = findViewById(R.id.button11);
 
+        switch (Table101.getTableStatus()) {
+            case "Entree":
+                button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button1.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table102.getTableStatus()) {
+            case "Entree":
+                button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button2.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table103.getTableStatus()) {
+            case "Entree":
+                button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button3.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table104.getTableStatus()) {
+            case "Entree":
+                button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button4.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table105.getTableStatus()) {
+            case "Entree":
+                button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button5.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table106.getTableStatus()) {
+            case "Entree":
+                button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button6.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table107.getTableStatus()) {
+            case "Entree":
+                button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button7.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table108.getTableStatus()) {
+            case "Entree":
+                button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button8.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table109.getTableStatus()) {
+            case "Entree":
+                button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button9.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table201.getTableStatus()) {
+            case "Entree":
+                button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button10.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
+        switch (Table202.getTableStatus()) {
+            case "Entree":
+                button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                break;
+            case "Dessert":
+                button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                break;
+            case "Paid":
+                button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                break;
+            case "Dirty":
+                button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                break;
+            case "Empty":
+                button11.setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                break;
+        }
+
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
