@@ -77,14 +77,71 @@
 
     </FrameLayout>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sideList"
         android:layout_width="414dp"
         android:layout_height="739dp"
         android:background="#161516"
         app:layout_constraintEnd_toStartOf="@+id/tableView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar" />
+        app:layout_constraintTop_toBottomOf="@+id/topBar">
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/waitlist_menu"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/waitlist_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="352dp"
+            android:background="#242030"
+            android:text="Waitlist"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reservation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#242030"
+            android:text="RESERVATION"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/reservation_menu"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ListView
+            android:layout_width="412dp"
+            android:layout_height="317dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="34dp" />
+
+        <ListView
+            android:layout_width="412dp"
+            android:layout_height="352dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="386dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/tableView"
