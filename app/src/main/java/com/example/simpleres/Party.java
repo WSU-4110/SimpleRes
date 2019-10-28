@@ -2,24 +2,24 @@ package com.example.simpleres;
 
 public class Party {
     // Store the time for reservation
-    private int time;
+    private String time;
     // Store the name of the Party
     private String Pname;
     // Store the size of the party
-    private int partySize;
+    private String partySize;
 
     // Constructor that is used to create an instance of the Party object
-    public Party(int time, String Pname, int partySize) {
+    public Party(String time, String Pname, String partySize) {
         this.time = time;
         this.Pname = Pname;
         this.partySize = partySize;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -31,11 +31,11 @@ public class Party {
         this.Pname = Pname;
     }
 
-    public int getPartySize() {
+    public String getPartySize() {
         return partySize;
     }
 
-    public void setPartySize(int partySize) {
+    public void setPartySize(String partySize) {
         this.partySize = partySize;
     }
 }
