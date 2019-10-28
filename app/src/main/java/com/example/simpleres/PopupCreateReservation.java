@@ -93,7 +93,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
     }
 
     private TextView mDisplayDate;
-   // private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

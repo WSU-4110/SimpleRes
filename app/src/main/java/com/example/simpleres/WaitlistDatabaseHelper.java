@@ -12,32 +12,36 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Waitlist";
-    private static final String TABLE_WAITLIST_ENTRY = "waitlistEntry";
+    private static final String DATABASE_NAME = "Waitlist.db";
+    private static final String TABLE_WAITLIST_ENTRY = "waitlist";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_PHONE = "phone";
     private static final String KEY_PEOPLE = "people";
-    private static final String KEY_TIME = "time";
+    private static final String KEY_TIME = "expectedTime";
 
 
 
 
-    public DatabaseHelper(Context context){
+    public WaitlistDatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_WAITLIST_ENTRY + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+        String CREATE_WAITLIST_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_WAITLIST_ENTRY + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_NAME + " TEXT,"
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
-                + KEY_TIME + " TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+                + KEY_TIME + " TEXT"
+                + ")";
+        System.out.println("Executing SQLite: \n"+CREATE_WAITLIST_TABLE);
+        db.execSQL(CREATE_WAITLIST_TABLE);
+        System.out.println("Table "+TABLE_WAITLIST_ENTRY+" Created" );
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -49,14 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //add an entry to database
     void addWaitlistEntry (WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();
-
+        System.out.println(DATABASE_NAME+"connection opened");
         ContentValues values = new ContentValues();
-        values.put("KEY_NAME", waitlistEntry.getName());
-        values.put("KEY_PHONE", waitlistEntry.getTelephone());
-        values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
-        values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
-        db.insert(TABLE_WAITLIST_ENTRY,null,values);
-        db.close();
+        values.put(KEY_NAME, waitlistEntry.getName());
+        values.put(KEY_PHONE, waitlistEntry.getTelephone());
+        values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
+        values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
+        db.insert(TABLE_WAITLIST_ENTRY,null, values);
+        System.out.println(DATABASE_NAME+"connection closed");
     }
     //retrieves waitlist entry from database/ sorts entries by date and time in list in ascending order
     WaitlistEntry getWaitlistEntry(int id){
@@ -102,10 +106,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("KEY_NAME", waitlistEntry.getName());
-        values.put("KEY_PHONE", waitlistEntry.getTelephone());
-        values.put("KEY_PEOPLE", waitlistEntry.getNumberOfPeople());
-        values.put("KEY_TIME", waitlistEntry.getFormattedDateTime());
+        values.put(KEY_NAME, waitlistEntry.getName());
+        values.put(KEY_PHONE, waitlistEntry.getTelephone());
+        values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
+        values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
         return db.update(TABLE_WAITLIST_ENTRY, values, KEY_ID + "=?",
                 new String []{String.valueOf(waitlistEntry.getId())});
     }
@@ -125,6 +129,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return cursor.getCount();
     }
+//countCover functions as delete while returning the count of affected rows
+    public int countCover(WaitlistEntry waitlistEntry){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int val = db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?",
+                new String[]{String.valueOf(waitlistEntry.getId())});
+        db.close();
+        return val;
+    }
+
 
 }
 
