@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+//It fits and connects the info of the customer to layout design of the row Item in the waitlist
 public class WaitPartyAdapter extends ArrayAdapter<Party> {
     private Context mContext;
     private List<Party> partyList = new ArrayList<>();
@@ -32,13 +33,15 @@ public class WaitPartyAdapter extends ArrayAdapter<Party> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.waitlist_list_item,parent,false);
 
         Party currentParty = partyList.get(position);
-
+        //display the time of reservation
         TextView time = (TextView) listItem.findViewById(R.id.timeofWaitlist);
         time.setText(currentParty.getTime());
 
+        //display the name of the customer
         TextView name = (TextView) listItem.findViewById(R.id.nameofWaitparty);
         name.setText(currentParty.getPname());
 
+        //display the size of the customers
         TextView size = (TextView) listItem.findViewById(R.id.sizeofWaitparty);
         size.setText(currentParty.getPartySize());
 
