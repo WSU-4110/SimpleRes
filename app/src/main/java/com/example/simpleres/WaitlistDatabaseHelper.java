@@ -80,6 +80,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         return waitlistEntry;
     }
     //returns list of all waitlist entries
+    //TODO: add method for populating reservationlist and waitlist separately
     public List<WaitlistEntry> getAllWaitlistEntries(){
         List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
@@ -104,6 +105,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             }
         return waitlistEntryList;
         }
+
     //used to change values of existing entries in the database
     public int updateWaitlistEntry(WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();
