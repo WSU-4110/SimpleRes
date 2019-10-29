@@ -22,7 +22,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PHONE = "phone";
     private static final String KEY_PEOPLE = "people";
     private static final String KEY_TIME = "expectedTime";
-
+    private static final String KEY_RESERVATION = "reservationFlag";
 
 
 
@@ -37,7 +37,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 + KEY_NAME + " TEXT,"
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
-                + KEY_TIME + " TEXT"
+                + KEY_TIME + " TEXT,"
+                + KEY_RESERVATION + " TEXT"
                 + ")";
         System.out.println("Executing SQLite: \n"+CREATE_WAITLIST_TABLE);
         db.execSQL(CREATE_WAITLIST_TABLE);
@@ -59,6 +60,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PHONE, waitlistEntry.getTelephone());
         values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
         values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
+        values.put(KEY_RESERVATION, waitlistEntry.getReservationFlag());
         db.insert(TABLE_WAITLIST_ENTRY,null, values);
         System.out.println(DATABASE_NAME+"connection closed");
     }
