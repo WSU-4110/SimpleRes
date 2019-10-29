@@ -68,7 +68,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     WaitlistEntry getWaitlistEntry(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_WAITLIST_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_WAITLIST_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME, KEY_RESERVATION}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)},null,null,KEY_TIME +" ASC",null);
 
         if (cursor!=null)
@@ -97,6 +97,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -112,6 +113,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PHONE, waitlistEntry.getTelephone());
         values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
         values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
+        values.put(KEY_RESERVATION, waitlistEntry.getReservationFlag());
         return db.update(TABLE_WAITLIST_ENTRY, values, KEY_ID + "=?",
                 new String []{String.valueOf(waitlistEntry.getId())});
     }
