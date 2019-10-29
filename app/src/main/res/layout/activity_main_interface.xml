@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#242030"
-            android:text="RESERVATION"
+            android:text="Reservations"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -160,17 +160,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
             app:layout_constraintVertical_bias="0.3" />
+
         <ListView
             android:id="@+id/waitlistListView"
             android:layout_width="416dp"
-            android:layout_height="324dp"
+            android:layout_height="294dp"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/waitlist_menu"
-            app:layout_constraintVertical_bias="0.904" >
+            app:layout_constraintVertical_bias="0.904">
 
         </ListView>
 
@@ -196,6 +198,7 @@
             android:id="@+id/resListTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="331dp"
             android:text="Time"
@@ -208,7 +211,7 @@
             android:id="@+id/resListName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="330dp"
             android:text="Party name"
@@ -221,7 +224,7 @@
             android:id="@+id/resListSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="1dp"
             android:text="Size"
             android:textColor="@android:color/white"
@@ -229,11 +232,12 @@
             app:layout_constraintStart_toEndOf="@+id/resListName"
             app:layout_constraintTop_toBottomOf="@+id/divider"
             app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/resListText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="1dp"
             android:text="Text"
             android:textColor="@android:color/white"
@@ -246,6 +250,7 @@
             android:id="@+id/waitlistTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
             android:text="Time"
             android:textColor="@android:color/white"
@@ -258,7 +263,7 @@
             android:id="@+id/waitlistName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="1dp"
             android:text="Party name"
             android:textColor="@android:color/white"
@@ -271,7 +276,7 @@
             android:id="@+id/waitlistSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
+            android:layout_marginStart="100dp"
             android:layout_marginTop="1dp"
             android:text="Size"
             android:textColor="@android:color/white"
@@ -284,7 +289,7 @@
             android:id="@+id/WaitListArrived"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="1dp"
             android:text="Arrived"
             android:textColor="@android:color/white"
