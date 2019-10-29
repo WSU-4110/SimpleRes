@@ -74,14 +74,11 @@ public class WaitlistEntry {
 
 //date format for easy sorting year-month-day hours:minutes:seconds
     public static String FormatDate(LocalDateTime myDateTimeObj) {
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//maybe add .ssss to end of pattern
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.ssss");//maybe add .ssss to end of pattern
 
         String FormattedDate = myDateTimeObj.format(myFormatObj);
         System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + FormattedDate);
         return FormattedDate;
     }
-// TODO: add contructors for reservation and for walk-in function calls.
-//  (WaitlistEntry(int Id, String Name,int NumberOfPeople, LocalDateTime ReservationTime = now())) --walk-in
-//  (WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, LocalDateTime ReservationTime))--reservation
 
 }
