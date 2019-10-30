@@ -18,7 +18,7 @@ public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
-    WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
+    //WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     //instantiating database/database tables
 
     //initializing the listview and adapter for the list items
@@ -77,7 +77,7 @@ catch (Exception e){
     catch(Exception e) {
         System.out.println("error adding tables to database");
     }
-        wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
+        //wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         //creating new table buttons
         final Button[] buttons = new Button[11];

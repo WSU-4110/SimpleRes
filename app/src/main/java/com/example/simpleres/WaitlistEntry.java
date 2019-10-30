@@ -23,15 +23,13 @@ public class WaitlistEntry {
         this.formattedDateTime = FormatDate(reservationTime);
     }
     // constructor for walk-in
-    WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
-        this.id = Id;
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
-
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
-
         this.formattedDateTime = FormatDate(reservationTime);
+
     }
     // constructor for reservation
     WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {

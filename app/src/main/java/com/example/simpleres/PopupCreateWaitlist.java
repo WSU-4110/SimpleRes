@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.time.LocalDateTime;
 
 public class PopupCreateWaitlist extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -52,6 +55,23 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                     case R.id.add_to_waitlist_button:
                         //add waitlist info to database IF:
                         //user has entered name, phone number, size, quote time
+                        TextView guest_name = (TextView) findViewById(R.id.guest_name);
+                        String name = guest_name.toString();
+                        TextView guest_phone = (TextView) findViewById(R.id.guest_phone_number);
+                        String phone = guest_phone.toString();
+                        TextView party_size = (TextView) findViewById(R.id.party_size);
+                        int size = Integer.parseInt(party_size.toString());
+                        //TextView timeofWaitlist = (TextView) findViewById(R.id.timeofWaitlist;
+                        //String date = timeofWaitlist.toString();
+                        String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                        TextView wait_times = (TextView) findViewById(R.id.wait_times);
+                        long quoted = Long.parseLong(wait_times.toString().replaceAll("min",""));
+                        //TextView waitlist_notes = (TextView) findViewById(R.id.waitlist_notes);
+                        //String notes = waitlist_notes.toString();
+                        try{
+                            returnWaitlistEntry(name,phone,size,date,quoted);
+                        }
+                        catch(Exception e){System.out.println(e);}
                         finish();
 
                 }
@@ -72,5 +92,12 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime){
+
+
+
+        return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime));
     }
 }
