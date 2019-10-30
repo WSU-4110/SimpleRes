@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/seat_party" />
-    <item android:title="@string/edit_party" />
+    <item android:title="@string/view_party" />
     <item android:title="@string/cancel_party" />
 </menu>

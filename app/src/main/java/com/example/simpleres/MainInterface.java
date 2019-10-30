@@ -26,6 +26,7 @@ public class MainInterface extends AppCompatActivity {
     private ListView waitListView;
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,39 +45,43 @@ public class MainInterface extends AppCompatActivity {
         Tables[8] = new TableClass(109, "Empty", "None" );
         Tables[9] = new TableClass(201, "Empty", "None" );
         Tables[10] = new TableClass(202, "Empty", "None" );
-// get from database tables
-try {
-    Tables[0] = tdb.getTableClass(101);
-    Tables[1] = tdb.getTableClass(102);
-    Tables[2] = tdb.getTableClass(103);
-    Tables[3] = tdb.getTableClass(104);
-    Tables[4] = tdb.getTableClass(105);
-    Tables[5] = tdb.getTableClass(106);
-    Tables[6] = tdb.getTableClass(107);
-    Tables[7] = tdb.getTableClass(108);
-    Tables[8] = tdb.getTableClass(109);
-    Tables[9] = tdb.getTableClass(201);
-    Tables[10] = tdb.getTableClass(202);
-}
-catch (Exception e){
-    System.out.println("error getting table info from database");}
-//add tables
-    try {
-        tdb.addTableClass(Tables[0]);
-        tdb.addTableClass(Tables[1]);
-        tdb.addTableClass(Tables[2]);
-        tdb.addTableClass(Tables[3]);
-        tdb.addTableClass(Tables[4]);
-        tdb.addTableClass(Tables[5]);
-        tdb.addTableClass(Tables[6]);
-        tdb.addTableClass(Tables[7]);
-        tdb.addTableClass(Tables[8]);
-        tdb.addTableClass(Tables[9]);
-        tdb.addTableClass(Tables[10]);
-    }
-    catch(Exception e) {
-        System.out.println("error adding tables to database");
-    }
+
+        // get from database tables
+        try {
+            Tables[0] = tdb.getTableClass(101);
+            Tables[1] = tdb.getTableClass(102);
+            Tables[2] = tdb.getTableClass(103);
+            Tables[3] = tdb.getTableClass(104);
+            Tables[4] = tdb.getTableClass(105);
+            Tables[5] = tdb.getTableClass(106);
+            Tables[6] = tdb.getTableClass(107);
+            Tables[7] = tdb.getTableClass(108);
+            Tables[8] = tdb.getTableClass(109);
+            Tables[9] = tdb.getTableClass(201);
+            Tables[10] = tdb.getTableClass(202);
+        }
+        catch (Exception e){
+             System.out.println("error getting table info from database");
+        }
+
+        //add tables
+        try {
+            tdb.addTableClass(Tables[0]);
+            tdb.addTableClass(Tables[1]);
+            tdb.addTableClass(Tables[2]);
+            tdb.addTableClass(Tables[3]);
+            tdb.addTableClass(Tables[4]);
+            tdb.addTableClass(Tables[5]);
+            tdb.addTableClass(Tables[6]);
+            tdb.addTableClass(Tables[7]);
+            tdb.addTableClass(Tables[8]);
+            tdb.addTableClass(Tables[9]);
+            tdb.addTableClass(Tables[10]);
+        }
+        catch(Exception e) {
+            System.out.println("error adding tables to database");
+        }
+
         wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         //creating new table buttons
@@ -197,7 +202,6 @@ catch (Exception e){
                         selectPartyTypeMenu.show();
                       //  break;
                 }
-
             }
         };
 
@@ -206,11 +210,8 @@ catch (Exception e){
             buttons[i].setOnClickListener(listener);
         }
 
-
         //top bar layout
         addPartyButton.setOnClickListener(listener);
-
-
 
         //Array of elements in the reservation listview
         resListView = (ListView) findViewById(R.id.reservationListView);
@@ -258,7 +259,6 @@ catch (Exception e){
         waitListView.setAdapter(wAdapter);
         //display a message when empty
         waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-
 
     }
 }

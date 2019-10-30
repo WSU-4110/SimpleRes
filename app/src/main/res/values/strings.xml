@@ -71,7 +71,7 @@
 
     <!-- reservation and waitlist party actions -->
     <string name="seat_party">Seat</string>
-    <string name="edit_party">Edit</string>
+    <string name="view_party">View</string>
     <string name="cancel_party">Cancel</string>
 
 
