@@ -60,7 +60,7 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                         TextView guest_phone = (TextView) findViewById(R.id.guest_phone_number);
                         String phone = guest_phone.toString();
                         TextView party_size = (TextView) findViewById(R.id.party_size);
-                        int size = Integer.parseInt(party_size.toString());
+                        //int size = Integer.parseInt(party_size.toString());
                         //TextView timeofWaitlist = (TextView) findViewById(R.id.timeofWaitlist;
                         //String date = timeofWaitlist.toString();
                         String date = WaitlistEntry.FormatDate(LocalDateTime.now());
@@ -69,7 +69,8 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                         //TextView waitlist_notes = (TextView) findViewById(R.id.waitlist_notes);
                         //String notes = waitlist_notes.toString();
                         try{
-                            returnWaitlistEntry(name,phone,size,date,quoted);
+                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+/*size*/2+",date="+date+",quoted="+quoted+")");
+                            returnWaitlistEntry(name,phone,/*size*/2,date,quoted);
                         }
                         catch(Exception e){System.out.println(e);}
                         finish();
