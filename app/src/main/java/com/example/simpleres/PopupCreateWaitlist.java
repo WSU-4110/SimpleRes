@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.time.LocalDateTime;
@@ -55,22 +56,20 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                     case R.id.add_to_waitlist_button:
                         //add waitlist info to database IF:
                         //user has entered name, phone number, size, quote time
-                        TextView guest_name = (TextView) findViewById(R.id.guest_name);
-                        String name = guest_name.toString();
-                        TextView guest_phone = (TextView) findViewById(R.id.guest_phone_number);
-                        String phone = guest_phone.toString();
-                        TextView party_size = (TextView) findViewById(R.id.party_size);
-                        //int size = Integer.parseInt(party_size.toString());
-                        //TextView timeofWaitlist = (TextView) findViewById(R.id.timeofWaitlist;
-                        //String date = timeofWaitlist.toString();
-                        String date = WaitlistEntry.FormatDate(LocalDateTime.now());
-                        TextView wait_times = (TextView) findViewById(R.id.wait_times);
-                        long quoted = Long.parseLong(wait_times.toString().replaceAll("min",""));
-                        //TextView waitlist_notes = (TextView) findViewById(R.id.waitlist_notes);
-                        //String notes = waitlist_notes.toString();
                         try{
-                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+/*size*/2+",date="+date+",quoted="+quoted+")");
-                            returnWaitlistEntry(name,phone,/*size*/2,date,quoted);
+                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText phoneField = findViewById(R.id.enter_number);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            final Spinner quotedField = findViewById(R.id.wait_times);
+
+                            String name = nameField.getText().toString();
+                            String phone = phoneField.getText().toString();
+                            int size = Integer.parseInt(sizeField.getText().toString());
+                            long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
+
+                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
+                            returnWaitlistEntry(name,phone,size,date,quoted);
                         }
                         catch(Exception e){System.out.println(e);}
                         finish();
@@ -96,9 +95,6 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
     }
 
     public WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime){
-
-
-
         return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime));
     }
 }
