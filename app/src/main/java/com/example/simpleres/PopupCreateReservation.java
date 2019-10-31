@@ -91,7 +91,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             String time = reservationTime.getSelectedItem().toString().replaceAll("pm","");
                             String [] timeValues = time.split(":");
 
-                            int hour = Integer.parseInt(timeValues[0]);
+                            int hour = Integer.parseInt(timeValues[0])+12;//adding 12 because dinner only
                             int minute = Integer.parseInt(timeValues[1]);
 
                             LocalDate  localDate = LocalDate.of(year,month,day);
