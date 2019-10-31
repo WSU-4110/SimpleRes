@@ -95,6 +95,11 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
     }
 
     private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime){
-        return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime));
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime);
+        wdb.addWaitlistEntry(entry);
+        entry.createId(wdb);
+        System.out.println("Waitlist Entry created in database with id:" + entry.getId());
+        return entry;
     }
 }

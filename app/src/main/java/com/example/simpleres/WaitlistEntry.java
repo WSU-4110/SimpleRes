@@ -78,8 +78,13 @@ public class WaitlistEntry {
         System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + FormattedDate);
         return FormattedDate;
     }
-    // returns time in HH:mm format
+    // returns time in HH:mmtt format//HH:MMam or HH:MMpm (converted from military time)
     public String ParseTime(){
-        return this.getFormattedDateTime().substring(11, 15);
+        String time = this.getFormattedDateTime().substring(11, 15);
+        String[] values =  time.split(":");
+        if (values[0]=="00") time = "12:00am";
+        else if(Integer.parseInt(values[0])>12) time = values[0] + ":"+values[1] + "pm";
+        else time = values[0] + ":"+values[1] + "am";
+        return time;
     }
 }
