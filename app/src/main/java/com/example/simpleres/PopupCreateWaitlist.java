@@ -62,14 +62,23 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                             final EditText phoneField = findViewById(R.id.enter_number);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
                             final Spinner quotedField = findViewById(R.id.wait_times);
+                            //throw exception if partysize field is empty ""
+                            //throw exception if name field is empty ""
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            }
 
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();
                             int size = Integer.parseInt(sizeField.getText().toString());
+
                             long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
                             returnWaitlistEntry(name,phone,size,date,quoted);
+                        }
+                        catch(IllegalArgumentException x){System.out.println(x);
+                        break;
                         }
                         catch(Exception e){System.out.println(e);}
                         finish();

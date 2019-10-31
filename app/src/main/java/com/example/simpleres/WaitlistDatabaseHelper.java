@@ -83,7 +83,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     public List<WaitlistEntry> getAllWaitlistEntries(){
         List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY;
+        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " ORDER BY "+KEY_TIME +" ASC";//Sort by time
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
