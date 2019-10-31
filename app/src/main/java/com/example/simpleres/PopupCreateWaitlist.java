@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.time.LocalDateTime;
 
 public class PopupCreateWaitlist extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -52,6 +56,22 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                     case R.id.add_to_waitlist_button:
                         //add waitlist info to database IF:
                         //user has entered name, phone number, size, quote time
+                        try{
+                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText phoneField = findViewById(R.id.enter_number);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            final Spinner quotedField = findViewById(R.id.wait_times);
+
+                            String name = nameField.getText().toString();
+                            String phone = phoneField.getText().toString();
+                            int size = Integer.parseInt(sizeField.getText().toString());
+                            long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
+
+                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
+                            returnWaitlistEntry(name,phone,size,date,quoted);
+                        }
+                        catch(Exception e){System.out.println(e);}
                         finish();
 
                 }
@@ -72,5 +92,9 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime){
+        return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime));
     }
 }
