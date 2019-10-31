@@ -76,6 +76,11 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                         //user has entered name, phone number, size, date, and time
                         try{
 
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            }
                             //getdate
                             final TextView reservationDate = findViewById(R.id.display_date);
                             String displayedDate = reservationDate.getText().toString();
@@ -99,9 +104,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
 
                             String dateTime = WaitlistEntry.FormatDate(localDateTime);
-                            final EditText nameField = findViewById(R.id.enter_name);
                             final EditText phoneField = findViewById(R.id.enter_number);
-                            final EditText sizeField = findViewById(R.id.enter_party_size);
 
 
                             String name = nameField.getText().toString();
@@ -109,13 +112,12 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             int size = Integer.parseInt(sizeField.getText().toString());
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
-                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);//TODO:Fix exception thrown, doesnt retrun its type but it completes function before bad call
+                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);
+                        }
+                        catch(IllegalArgumentException x){System.out.println(x);
+                            break;
                         }
                         catch(Exception e){System.out.println(e);}
-
-
-
-
                         finish();
                 }
             }

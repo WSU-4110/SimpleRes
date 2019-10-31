@@ -57,16 +57,16 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                         //add waitlist info to database IF:
                         //user has entered name, phone number, size, quote time
                         try{
-                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
                             final EditText nameField = findViewById(R.id.enter_name);
-                            final EditText phoneField = findViewById(R.id.enter_number);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
-                            final Spinner quotedField = findViewById(R.id.wait_times);
-                            //throw exception if partysize field is empty ""
-                            //throw exception if name field is empty ""
                             if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
+                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                            final EditText phoneField = findViewById(R.id.enter_number);
+                            final Spinner quotedField = findViewById(R.id.wait_times);
+                            //throw exception if partysize field is empty ""
+                            //throw exception if name field is empty ""
 
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();
