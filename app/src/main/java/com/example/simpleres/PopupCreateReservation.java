@@ -109,7 +109,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             int size = Integer.parseInt(sizeField.getText().toString());
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
-                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);
+                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);//TODO:Fix exception thrown, doesnt retrun its type but it completes function before bad call
                         }
                         catch(Exception e){System.out.println(e);}
 
@@ -158,7 +158,12 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
     }
     private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime){
-        return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1));
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1);
+        wdb.addWaitlistEntry(entry);
+        entry.createId(wdb);
+        System.out.println("Waitlist Entry created in database with id:" + entry.getId());
+        return entry;
     }
 }
 

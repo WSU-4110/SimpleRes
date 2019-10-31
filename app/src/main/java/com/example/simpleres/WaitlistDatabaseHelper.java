@@ -191,7 +191,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return val;
     }
-    //returns id that's generated in the sqlite database
+    //returns id that's generated in the sqlite database, must add to database first
     public int idCreation(WaitlistEntry waitlistEntry){
         //query to get the entry in database that matches class members
         String selectQuery = "SELECT  " + KEY_ID + " FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_NAME +" = ? "+
@@ -205,6 +205,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 Integer.toString(waitlistEntry.getNumberOfPeople()),
                 waitlistEntry.getFormattedDateTime(),
                 Integer.toString(waitlistEntry.getReservationFlag())});
+        if (cursor!=null)
+            cursor.moveToFirst();
         int id = Integer.parseInt(cursor.getString(0));
         cursor.close();
         return id;
