@@ -104,6 +104,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         }
         return waitlistEntryList;
     }
+    //populates waitlist List
     public List<WaitlistEntry> getWaitlistList(){
         List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
@@ -128,6 +129,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         }
         return waitlistEntryList;
     }
+    //populates Reservation List
     public List<WaitlistEntry> getReservationList(){
         List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
@@ -189,7 +191,9 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return val;
     }
+    //returns id that's generated in the sqlite database
     public int idCreation(WaitlistEntry waitlistEntry){
+        //query to get the entry in database that matches class members
         String selectQuery = "SELECT  " + KEY_ID + " FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_NAME +" = ? "+
                 "AND " + KEY_PHONE + " = ? "+
                 "AND " + KEY_PEOPLE + " = ? "+

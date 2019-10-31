@@ -17,9 +17,7 @@ public class WaitlistEntry {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
-
         this.reservationTime = ReservationTime;
-
         this.formattedDateTime = FormatDate(reservationTime);
     }
     // constructor for walk-in
@@ -80,5 +78,8 @@ public class WaitlistEntry {
         System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + FormattedDate);
         return FormattedDate;
     }
-
+    // returns time in HH:mm format
+    public String ParseTime(){
+        return this.getFormattedDateTime().substring(11, 15);
+    }
 }
