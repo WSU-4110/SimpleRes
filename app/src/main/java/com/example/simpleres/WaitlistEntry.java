@@ -47,7 +47,7 @@ public class WaitlistEntry {
     public int getId() { return this.id; }
     public void setId(int Id) { this.id = Id; }
     public void createId(WaitlistDatabaseHelper wdb) {
-
+        this.id = wdb.idCreation(this);
     }
     public String getName() {
         return this.name;
