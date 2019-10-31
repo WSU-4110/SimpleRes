@@ -29,11 +29,9 @@ public class WaitlistEntry {
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
         this.formattedDateTime = FormatDate(reservationTime);
-
     }
     // constructor for reservation
-    WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {
-        this.id = Id;
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
@@ -48,7 +46,9 @@ public class WaitlistEntry {
 
     public int getId() { return this.id; }
     public void setId(int Id) { this.id = Id; }
+    public void createId(WaitlistDatabaseHelper wdb) {
 
+    }
     public String getName() {
         return this.name;
     }

@@ -189,7 +189,22 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return val;
     }
-
+    public int idCreation(WaitlistEntry waitlistEntry){
+        String selectQuery = "SELECT  " + KEY_ID + " FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_NAME +" = ? "+
+                "AND " + KEY_PHONE + " = ? "+
+                "AND " + KEY_PEOPLE + " = ? "+
+                "AND " + KEY_TIME + " = ? "+
+                "AND " + KEY_RESERVATION + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,new String[] {waitlistEntry.getName(),
+                waitlistEntry.getTelephone(),
+                Integer.toString(waitlistEntry.getNumberOfPeople()),
+                waitlistEntry.getFormattedDateTime(),
+                Integer.toString(waitlistEntry.getReservationFlag())});
+        int id = Integer.parseInt(cursor.getString(0));
+        cursor.close();
+        return id;
+    }
 
 }
 
