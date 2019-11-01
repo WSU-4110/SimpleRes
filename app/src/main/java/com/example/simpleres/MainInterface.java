@@ -180,17 +180,15 @@ catch (Exception e){
                                         //open and begin create reservation pop-up activity
                                         Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
                                         startActivity(pop1);
-
                                         break;
                                     case "Waitlist":
 
                                         //open and begin create waitlist party pop-up activity
                                         Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
                                         startActivity(pop2);
-
                                         break;
                                 }
-
+                                //TODO: add some way to refresh ListView here
                                 return true;
                             }
                         });
@@ -216,21 +214,7 @@ try {
     //Array of elements in the reservation listview
     resListView = (ListView) findViewById(R.id.reservationListView);
     ArrayList<WaitlistEntry> resPartyArrayList = wdb.getReservationList();
-    //resPartyArrayList.addAll(wdb.getWaitlistList());
-       /* resPartyList.add(new Party("1:30", "Human" , "4"));
-        resPartyList.add(new Party("8:30", "Trump" , "1"));
-        resPartyList.add(new Party("4:30", "OG Obama" , "10"));
-        resPartyList.add(new Party("3:30", "HEEY Yo" , "4"));
-        resPartyList.add(new Party("6:30", "Selena gomez" , "4"));
-        resPartyList.add(new Party("4:30", "Drake" , "4"));
-        resPartyList.add(new Party("4:54", "Michael" , "1"));
-        resPartyList.add(new Party("4:30", "Bella" , "8"));
-        resPartyList.add(new Party("4:30", "Ben 10" , "10"));
-        resPartyList.add(new Party("7:30", "Frank Ocean" , "4"));
-        resPartyList.add(new Party("4:30", "Grandpa" , "4"));
-        resPartyList.add(new Party("8:30", "Hadi Elamin" , "4"));
-        resPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
-*/
+
     //adapter for the listview
     System.out.println("i am here");
     rAdapter = new ResPartyAdapter(this, resPartyArrayList);
@@ -244,19 +228,6 @@ try {
     waitListView = (ListView) findViewById(R.id.waitlistListView);
     ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
     waitPartyArrayList.addAll(wdb.getWaitlistList());
-        /*waitPartyArrayList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyArrayList.add(new Party("4:00", "Fernando" , "7"));
-        waitPartyArrayList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyArrayList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyArrayList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyArrayList.add(new Party("3:30", "Dumb Nigga" , "2"));
-        waitPartyArrayList.add(new Party("7:40", "Frank Ocean" , "5"));
-        waitPartyArrayList.add(new Party("8:00", "Travis" , "4"));
-        waitPartyArrayList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyArrayList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyArrayList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyArrayList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyArrayList.add(new Party("3:30", "Dumb Nigga" , "2"));*/
 
     //adapter for the listview
     wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
