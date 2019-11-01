@@ -76,6 +76,11 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                         //user has entered name, phone number, size, date, and time
                         try{
 
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            }
                             //getdate
                             final TextView reservationDate = findViewById(R.id.display_date);
                             String displayedDate = reservationDate.getText().toString();
@@ -91,7 +96,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             String time = reservationTime.getSelectedItem().toString().replaceAll("pm","");
                             String [] timeValues = time.split(":");
 
-                            int hour = Integer.parseInt(timeValues[0]);
+                            int hour = Integer.parseInt(timeValues[0])+12;//adding 12 because dinner only
                             int minute = Integer.parseInt(timeValues[1]);
 
                             LocalDate  localDate = LocalDate.of(year,month,day);
@@ -99,9 +104,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
 
                             String dateTime = WaitlistEntry.FormatDate(localDateTime);
-                            final EditText nameField = findViewById(R.id.enter_name);
                             final EditText phoneField = findViewById(R.id.enter_number);
-                            final EditText sizeField = findViewById(R.id.enter_party_size);
 
 
                             String name = nameField.getText().toString();
@@ -111,11 +114,10 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
                             returnWaitlistEntry(name,phone,size,dateTime,localDateTime);
                         }
+                        catch(IllegalArgumentException x){System.out.println(x);
+                            break;
+                        }
                         catch(Exception e){System.out.println(e);}
-
-
-
-
                         finish();
                 }
             }
@@ -158,7 +160,12 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
     }
     private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime){
-        return (new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1));
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1);
+        wdb.addWaitlistEntry(entry);
+        entry.createId(wdb);
+        System.out.println("Waitlist Entry created in database with id:" + entry.getId());
+        return entry;
     }
 }
 
