@@ -80,11 +80,13 @@ public class WaitlistEntry {
     }
     // returns time in HH:mmtt format//HH:MMam or HH:MMpm (converted from military time)
     public String ParseTime(){
-        String time = this.getFormattedDateTime().substring(11, 15);
+        if (this.formattedDateTime=="")
+            return "";
+        String time = this.getFormattedDateTime().substring(11, 16);
         String[] values =  time.split(":");
         if (values[0]=="00") time = "12:00am";
-        else if(Integer.parseInt(values[0])>12) time = values[0] + ":"+values[1] + "pm";
-        else time = values[0] + ":"+values[1] + "am";
+        else if(Integer.parseInt(values[0])>12) time = (Integer.parseInt(values[0])-12) + ":"+values[1] + "pm";
+        else time = Integer.parseInt(values[0]) + ":"+values[1] + "am";
         return time;
     }
 }

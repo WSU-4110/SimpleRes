@@ -105,8 +105,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         return waitlistEntryList;
     }
     //populates waitlist List
-    public List<WaitlistEntry> getWaitlistList(){
-        List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+    public ArrayList<WaitlistEntry> getWaitlistList(){
+        ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_RESERVATION+" = 0 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -121,8 +121,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setTelephone(cursor.getString(2));
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
-                waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
-                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -130,8 +129,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         return waitlistEntryList;
     }
     //populates Reservation List
-    public List<WaitlistEntry> getReservationList(){
-        List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+    public ArrayList<WaitlistEntry> getReservationList(){
+        ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -146,8 +145,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setTelephone(cursor.getString(2));
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
-                waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
-                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());

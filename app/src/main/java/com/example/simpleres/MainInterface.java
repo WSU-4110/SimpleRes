@@ -12,14 +12,16 @@ import android.widget.ListView;
 import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static android.R.id.empty;
 
 public class MainInterface extends AppCompatActivity {
-    //WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+    ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
+    ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
-    //WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     //instantiating database/database tables
 
     //initializing the listview and adapter for the list items
@@ -171,31 +173,43 @@ public class MainInterface extends AppCompatActivity {
 
                 //Add party (+) button in main interface -> top bar
                 if (view.getId() == R.id.addPartyButton) {
-                    PopupMenu selectPartyTypeMenu = new PopupMenu(MainInterface.this, addPartyButton);
-                    selectPartyTypeMenu.getMenuInflater().inflate(R.menu.party_type_menu, selectPartyTypeMenu.getMenu());
+                        PopupMenu selectPartyTypeMenu = new PopupMenu(MainInterface.this, addPartyButton);
+                        selectPartyTypeMenu.getMenuInflater().inflate(R.menu.party_type_menu, selectPartyTypeMenu.getMenu());
 
-                    selectPartyTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        selectPartyTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
 
-                            switch(item.toString()){
-                                case "Reservation":
-                                    //open and begin create reservation pop-up activity
-                                    Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
-                                    startActivity(pop1);
-                                    break;
-                                case "Waitlist":
-                                    //open and begin create waitlist party pop-up activity
-                                    Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
-                                    startActivity(pop2);
-                                    break;
+                                switch(item.toString()){
+                                    case "Reservation":
+
+                                        //open and begin create reservation pop-up activity
+                                        Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
+                                        startActivity(pop1);
+                                        break;
+                                    case "Waitlist":
+
+                                        //open and begin create waitlist party pop-up activity
+                                        Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
+                                        startActivity(pop2);
+                                        break;
+                                }
+
+                                return true;
                             }
+                        });
+                        //TODO: find better solution to refresh the list
+                        resPartyArrayList = wdb.getReservationList();
+                        rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                        resListView.setAdapter(rAdapter);
+                        resListView.setEmptyView(findViewById(R.id.emptyElement));
+                        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
+                        waitListView.setAdapter(wAdapter);
+                        waitListView.setEmptyView(findViewById(R.id.emptyElement));
+                        waitPartyArrayList = wdb.getWaitlistList();
+                        selectPartyTypeMenu.show();
+                      //  break;
 
-                            return true;
-                        }
-                    });
-
-                    selectPartyTypeMenu.show();
                 }
 
             }
@@ -209,52 +223,31 @@ public class MainInterface extends AppCompatActivity {
         //top bar layout
         addPartyButton.setOnClickListener(listener);
 
-        //Array of elements in the reservation listview
-        resListView = (ListView) findViewById(R.id.reservationListView);
-        ArrayList<Party> resPartyList = new ArrayList<>();
-        resPartyList.add(new Party("1:30", "Human" , "4"));
-        resPartyList.add(new Party("8:30", "Trump" , "1"));
-        resPartyList.add(new Party("4:30", "OG Obama" , "10"));
-        resPartyList.add(new Party("3:30", "HEEY Yo" , "4"));
-        resPartyList.add(new Party("6:30", "Selena gomez" , "4"));
-        resPartyList.add(new Party("4:30", "Drake" , "4"));
-        resPartyList.add(new Party("4:54", "Michael" , "1"));
-        resPartyList.add(new Party("4:30", "Bella" , "8"));
-        resPartyList.add(new Party("4:30", "Ben 10" , "10"));
-        resPartyList.add(new Party("7:30", "Frank Ocean" , "4"));
-        resPartyList.add(new Party("4:30", "Grandpa" , "4"));
-        resPartyList.add(new Party("8:30", "Hadi Elamin" , "4"));
-        resPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
 
-        //adapter for the listview
-        rAdapter = new ResPartyAdapter(this,resPartyList);
-        resListView.setAdapter(rAdapter);
-        //display a message when empty
-        resListView.setEmptyView(findViewById(R.id.emptyElement));
+try {
+    //Array of elements in the reservation listview
+    resListView = (ListView) findViewById(R.id.reservationListView);
+    resPartyArrayList = wdb.getReservationList();
 
-        //Array of elements in the reservation listview
-        waitListView = (ListView) findViewById(R.id.waitlistListView);
-        ArrayList<Party> waitPartyList = new ArrayList<>();
-        waitPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyList.add(new Party("4:00", "Fernando" , "7"));
-        waitPartyList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyList.add(new Party("3:30", "Dumb Nigga" , "2"));
-        waitPartyList.add(new Party("7:40", "Frank Ocean" , "5"));
-        waitPartyList.add(new Party("8:00", "Travis" , "4"));
-        waitPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyList.add(new Party("3:30", "Dumb Nigga" , "2"));
+    //adapter for the listview
+    rAdapter = new ResPartyAdapter(this, resPartyArrayList);
+    resListView.setAdapter(rAdapter);
+    //display a message when empty
+    resListView.setEmptyView(findViewById(R.id.emptyElement));
 
-        //adapter for the listview
-        wAdapter = new WaitPartyAdapter(this,waitPartyList);
-        waitListView.setAdapter(wAdapter);
-        //display a message when empty
-        waitListView.setEmptyView(findViewById(R.id.emptyElement2));
 
+    //Array of elements in the waitlist listview
+    waitListView = (ListView) findViewById(R.id.waitlistListView);
+    waitPartyArrayList = wdb.getWaitlistList();
+
+
+    //adapter for the listview
+    wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
+    waitListView.setAdapter(wAdapter);
+    //display a message when empty
+    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+}
+catch(Exception e) { System.out.println(e);}
 
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -336,3 +329,6 @@ public class MainInterface extends AppCompatActivity {
 
     }
 }
+
+
+
