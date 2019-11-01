@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 //It fits and connects the info of the customer to layout design of the row Item in the reservation list
-public class ResPartyAdapter extends ArrayAdapter<Party> {
+public class ResPartyAdapter extends ArrayAdapter<WaitlistEntry> {
     private Context mContext;
-    private List<Party> partyList = new ArrayList<>();
+    private List<WaitlistEntry> partyList = new ArrayList<>();
 
-    public ResPartyAdapter(@NonNull Context context, @LayoutRes ArrayList<Party> list) {
+    public ResPartyAdapter(@NonNull Context context, @LayoutRes ArrayList<WaitlistEntry> list) {
         super(context, 0 , list);
         mContext = context;
         partyList = list;
@@ -31,19 +31,19 @@ public class ResPartyAdapter extends ArrayAdapter<Party> {
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.reslist_item_layout,parent,false);
 
-        Party currentParty = partyList.get(position);
+        WaitlistEntry currentParty = partyList.get(position);
 
         //display the time of reservation
         TextView time = (TextView) listItem.findViewById(R.id.timeofreservation);
-        time.setText(currentParty.getTime());
+        time.setText(currentParty.ParseTime());
 
         //display the name of the customer
         TextView name = (TextView) listItem.findViewById(R.id.nameofResparty);
-        name.setText(currentParty.getPname());
+        name.setText(currentParty.getName());
 
         //display the size of the customers
         TextView size = (TextView) listItem.findViewById(R.id.sizeofResparty);
-        size.setText(currentParty.getPartySize());
+        size.setText(Integer.toString(currentParty.getNumberOfPeople()));
 
         return listItem;
     }

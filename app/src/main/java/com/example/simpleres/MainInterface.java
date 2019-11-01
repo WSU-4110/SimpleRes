@@ -11,11 +11,12 @@ import android.widget.PopupMenu;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static android.R.id.empty;
 
 public class MainInterface extends AppCompatActivity {
-    //WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
     //WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
@@ -211,11 +212,12 @@ catch (Exception e){
         addPartyButton.setOnClickListener(listener);
 
 
-
-        //Array of elements in the reservation listview
-        resListView = (ListView) findViewById(R.id.reservationListView);
-        ArrayList<Party> resPartyList = new ArrayList<>();
-        resPartyList.add(new Party("1:30", "Human" , "4"));
+try {
+    //Array of elements in the reservation listview
+    resListView = (ListView) findViewById(R.id.reservationListView);
+    ArrayList<WaitlistEntry> resPartyArrayList = wdb.getReservationList();
+    //resPartyArrayList.addAll(wdb.getWaitlistList());
+       /* resPartyList.add(new Party("1:30", "Human" , "4"));
         resPartyList.add(new Party("8:30", "Trump" , "1"));
         resPartyList.add(new Party("4:30", "OG Obama" , "10"));
         resPartyList.add(new Party("3:30", "HEEY Yo" , "4"));
@@ -228,37 +230,41 @@ catch (Exception e){
         resPartyList.add(new Party("4:30", "Grandpa" , "4"));
         resPartyList.add(new Party("8:30", "Hadi Elamin" , "4"));
         resPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
+*/
+    //adapter for the listview
+    System.out.println("i am here");
+    rAdapter = new ResPartyAdapter(this, resPartyArrayList);
+    System.out.println("i am here");
+    resListView.setAdapter(rAdapter);
+    //display a message when empty
+    resListView.setEmptyView(findViewById(R.id.emptyElement));
 
-        //adapter for the listview
-        rAdapter = new ResPartyAdapter(this,resPartyList);
-        resListView.setAdapter(rAdapter);
-        //display a message when empty
-        resListView.setEmptyView(findViewById(R.id.emptyElement));
 
+    //Array of elements in the reservation listview
+    waitListView = (ListView) findViewById(R.id.waitlistListView);
+    ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
+    waitPartyArrayList.addAll(wdb.getWaitlistList());
+        /*waitPartyArrayList.add(new Party("4:30", "Hadi Elamin" , "4"));
+        waitPartyArrayList.add(new Party("4:00", "Fernando" , "7"));
+        waitPartyArrayList.add(new Party("5:00", "Bella" , "1"));
+        waitPartyArrayList.add(new Party("6:00", "Michael" , "4"));
+        waitPartyArrayList.add(new Party("1:20", "Ben Franklin" , "7"));
+        waitPartyArrayList.add(new Party("3:30", "Dumb Nigga" , "2"));
+        waitPartyArrayList.add(new Party("7:40", "Frank Ocean" , "5"));
+        waitPartyArrayList.add(new Party("8:00", "Travis" , "4"));
+        waitPartyArrayList.add(new Party("4:30", "Hadi Elamin" , "4"));
+        waitPartyArrayList.add(new Party("5:00", "Bella" , "1"));
+        waitPartyArrayList.add(new Party("6:00", "Michael" , "4"));
+        waitPartyArrayList.add(new Party("1:20", "Ben Franklin" , "7"));
+        waitPartyArrayList.add(new Party("3:30", "Dumb Nigga" , "2"));*/
 
-        //Array of elements in the reservation listview
-        waitListView = (ListView) findViewById(R.id.waitlistListView);
-        ArrayList<Party> waitPartyList = new ArrayList<>();
-        waitPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyList.add(new Party("4:00", "Fernando" , "7"));
-        waitPartyList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyList.add(new Party("3:30", "Dumb Nigga" , "2"));
-        waitPartyList.add(new Party("7:40", "Frank Ocean" , "5"));
-        waitPartyList.add(new Party("8:00", "Travis" , "4"));
-        waitPartyList.add(new Party("4:30", "Hadi Elamin" , "4"));
-        waitPartyList.add(new Party("5:00", "Bella" , "1"));
-        waitPartyList.add(new Party("6:00", "Michael" , "4"));
-        waitPartyList.add(new Party("1:20", "Ben Franklin" , "7"));
-        waitPartyList.add(new Party("3:30", "Dumb Nigga" , "2"));
-
-        //adapter for the listview
-        wAdapter = new WaitPartyAdapter(this,waitPartyList);
-        waitListView.setAdapter(wAdapter);
-        //display a message when empty
-        waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-
+    //adapter for the listview
+    wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
+    waitListView.setAdapter(wAdapter);
+    //display a message when empty
+    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+}
+catch(Exception e) { System.out.println(e);}
 
     }
 }
