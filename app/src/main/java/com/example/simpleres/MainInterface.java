@@ -216,9 +216,7 @@ try {
     ArrayList<WaitlistEntry> resPartyArrayList = wdb.getReservationList();
 
     //adapter for the listview
-    System.out.println("i am here");
     rAdapter = new ResPartyAdapter(this, resPartyArrayList);
-    System.out.println("i am here");
     resListView.setAdapter(rAdapter);
     //display a message when empty
     resListView.setEmptyView(findViewById(R.id.emptyElement));
