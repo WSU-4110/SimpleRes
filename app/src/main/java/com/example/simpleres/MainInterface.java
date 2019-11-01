@@ -258,20 +258,66 @@ public class MainInterface extends AppCompatActivity {
 
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for reservation
+                PopupMenu resPartyActionMenu = new PopupMenu(MainInterface.this, adapterView );
+                resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                //just need to fix where the menu pops up
 
+                resPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.toString()){
+                            case "Seat":
+                                //call method / activity to seat the reservation party to a table
+                                break;
+                            case "View":
+                                //call method / activity to view or edit the reservation party's information
+                                break;
+                            case "Cancel":
+                                //call method / activity to cancel the reservation party
+                                break;
+                        }
 
+                        return true;
+                    }
+                });
+
+                resPartyActionMenu.show();
             }
         });
 
         waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for waitlist
+                PopupMenu waitPartyActionMenu = new PopupMenu(MainInterface.this, adapterView);
+                waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
+                //just need to fix where the menu pops up
+
+                waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.toString()){
+                            case "Seat":
+                                //call method / activity to seat the waitlist party to a table
+                                break;
+                            case "View":
+                                //call method / activity to view or edit the waitlist party's information
+                                break;
+                            case "Cancel":
+                                //call method / activity to cancel the waitlist party
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+
+                waitPartyActionMenu.show();
+
             }
         });
-
 
     }
 }
