@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.time.LocalDateTime;
 
 public class PopupCreateWaitlist extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -52,6 +56,31 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                     case R.id.add_to_waitlist_button:
                         //add waitlist info to database IF:
                         //user has entered name, phone number, size, quote time
+                        try{
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            }
+                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                            final EditText phoneField = findViewById(R.id.enter_number);
+                            final Spinner quotedField = findViewById(R.id.wait_times);
+                            //throw exception if partysize field is empty ""
+                            //throw exception if name field is empty ""
+
+                            String name = nameField.getText().toString();
+                            String phone = phoneField.getText().toString();
+                            int size = Integer.parseInt(sizeField.getText().toString());
+
+                            long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
+
+                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
+                            returnWaitlistEntry(name,phone,size,date,quoted);
+                        }
+                        catch(IllegalArgumentException x){System.out.println(x);
+                        break;
+                        }
+                        catch(Exception e){System.out.println(e);}
                         finish();
 
                 }
@@ -72,5 +101,14 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime){
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime);
+        wdb.addWaitlistEntry(entry);
+        entry.createId(wdb);
+        System.out.println("Waitlist Entry created in database with id:" + entry.getId());
+        return entry;
     }
 }

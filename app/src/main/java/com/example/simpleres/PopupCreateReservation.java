@@ -11,10 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public class PopupCreateReservation extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
@@ -70,6 +74,50 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                     case R.id.create_res_button:
                         //save reservation data to database IF:
                         //user has entered name, phone number, size, date, and time
+                        try{
+
+                            final EditText nameField = findViewById(R.id.enter_name);
+                            final EditText sizeField = findViewById(R.id.enter_party_size);
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            }
+                            //getdate
+                            final TextView reservationDate = findViewById(R.id.display_date);
+                            String displayedDate = reservationDate.getText().toString();
+                            System.out.println("date stored as: "+displayedDate);
+
+                            String[] dateValues = displayedDate.split("/");
+                            int month = Integer.parseInt(dateValues[0]);
+                            int day = Integer.parseInt(dateValues[1]);
+                            int year = Integer.parseInt(dateValues[2]);
+
+                            //get time
+                            final Spinner reservationTime = findViewById(R.id.reservation_times);
+                            String time = reservationTime.getSelectedItem().toString().replaceAll("pm","");
+                            String [] timeValues = time.split(":");
+
+                            int hour = Integer.parseInt(timeValues[0])+12;//adding 12 because dinner only
+                            int minute = Integer.parseInt(timeValues[1]);
+
+                            LocalDate  localDate = LocalDate.of(year,month,day);
+                            LocalTime localTime = LocalTime.of(hour,minute,0);
+                            LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
+
+                            String dateTime = WaitlistEntry.FormatDate(localDateTime);
+                            final EditText phoneField = findViewById(R.id.enter_number);
+
+
+                            String name = nameField.getText().toString();
+                            String phone = phoneField.getText().toString();
+                            int size = Integer.parseInt(sizeField.getText().toString());
+
+                            System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
+                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);
+                        }
+                        catch(IllegalArgumentException x){System.out.println(x);
+                            break;
+                        }
+                        catch(Exception e){System.out.println(e);}
                         finish();
                 }
             }
@@ -110,6 +158,14 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         //not used but can show the full date
         //String selectedDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
         //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
+    }
+    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime){
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1);
+        wdb.addWaitlistEntry(entry);
+        entry.createId(wdb);
+        System.out.println("Waitlist Entry created in database with id:" + entry.getId());
+        return entry;
     }
 }
 

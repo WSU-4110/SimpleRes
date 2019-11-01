@@ -9,16 +9,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
+import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
 import static android.R.id.empty;
 
 public class MainInterface extends AppCompatActivity {
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    //WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
 
-    WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
+    //WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     //instantiating database/database tables
 
     //initializing the listview and adapter for the list items
@@ -259,6 +260,20 @@ public class MainInterface extends AppCompatActivity {
         waitListView.setAdapter(wAdapter);
         //display a message when empty
         waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+
+        resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Create pop-up for reservation
+            }
+        });
+
+        waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Create pop-up for waitlist
+            }
+        });
 
     }
 }
