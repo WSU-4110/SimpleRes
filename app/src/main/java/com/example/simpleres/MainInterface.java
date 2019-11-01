@@ -260,7 +260,7 @@ public class MainInterface extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for reservation
-                PopupMenu resPartyActionMenu = new PopupMenu(MainInterface.this, adapterView );
+                PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
                 resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
 
@@ -291,7 +291,7 @@ public class MainInterface extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for waitlist
-                PopupMenu waitPartyActionMenu = new PopupMenu(MainInterface.this, adapterView);
+                PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
                 waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
 
