@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
+import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -258,6 +259,21 @@ catch (Exception e){
         waitListView.setAdapter(wAdapter);
         //display a message when empty
         waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+
+
+        resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Create pop-up for reservation
+            }
+        });
+
+        waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Create pop-up for waitlist
+            }
+        });
 
 
     }
