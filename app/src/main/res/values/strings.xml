@@ -49,7 +49,6 @@
     <string name="reservation_notes">Reservation notes: </string>
     <string name="enter_res_notes">Enter reservation notes (optional)</string>
 
-
     <!-- waitlist specific -->
     <string name="add_to_waitlist">Add to Waitlist</string>
     <string name="quote_time">Quoted wait time: </string>
@@ -69,5 +68,9 @@
     <string name="waitlist_notes">Waitlist notes: </string>
     <string name="enter_wait_notes">Enter waitlist notes (optional)</string>
 
+    <!-- party action menu -->
+    <string name="seat_party">Seat</string>
+    <string name="view_party">View</string>
+    <string name="cancel_party">Cancel</string>
 
 </resources>

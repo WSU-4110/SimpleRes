@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
+import android.widget.AdapterView;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,43 +47,48 @@ public class MainInterface extends AppCompatActivity {
         Tables[8] = new TableClass(109, "Empty", "None" );
         Tables[9] = new TableClass(201, "Empty", "None" );
         Tables[10] = new TableClass(202, "Empty", "None" );
-// get from database tables
-try {
-    Tables[0] = tdb.getTableClass(101);
-    Tables[1] = tdb.getTableClass(102);
-    Tables[2] = tdb.getTableClass(103);
-    Tables[3] = tdb.getTableClass(104);
-    Tables[4] = tdb.getTableClass(105);
-    Tables[5] = tdb.getTableClass(106);
-    Tables[6] = tdb.getTableClass(107);
-    Tables[7] = tdb.getTableClass(108);
-    Tables[8] = tdb.getTableClass(109);
-    Tables[9] = tdb.getTableClass(201);
-    Tables[10] = tdb.getTableClass(202);
-}
-catch (Exception e){
-    System.out.println("error getting table info from database");}
-//add tables
-    try {
-        tdb.addTableClass(Tables[0]);
-        tdb.addTableClass(Tables[1]);
-        tdb.addTableClass(Tables[2]);
-        tdb.addTableClass(Tables[3]);
-        tdb.addTableClass(Tables[4]);
-        tdb.addTableClass(Tables[5]);
-        tdb.addTableClass(Tables[6]);
-        tdb.addTableClass(Tables[7]);
-        tdb.addTableClass(Tables[8]);
-        tdb.addTableClass(Tables[9]);
-        tdb.addTableClass(Tables[10]);
-    }
-    catch(Exception e) {
-        System.out.println("error adding tables to database");
-    }
+
+        // get from database tables
+        try {
+            Tables[0] = tdb.getTableClass(101);
+            Tables[1] = tdb.getTableClass(102);
+            Tables[2] = tdb.getTableClass(103);
+            Tables[3] = tdb.getTableClass(104);
+            Tables[4] = tdb.getTableClass(105);
+            Tables[5] = tdb.getTableClass(106);
+            Tables[6] = tdb.getTableClass(107);
+            Tables[7] = tdb.getTableClass(108);
+            Tables[8] = tdb.getTableClass(109);
+            Tables[9] = tdb.getTableClass(201);
+            Tables[10] = tdb.getTableClass(202);
+        }
+        catch (Exception e){
+            System.out.println("error getting table info from database");
+        }
+
+        //add tables
+        try {
+            tdb.addTableClass(Tables[0]);
+            tdb.addTableClass(Tables[1]);
+            tdb.addTableClass(Tables[2]);
+            tdb.addTableClass(Tables[3]);
+            tdb.addTableClass(Tables[4]);
+            tdb.addTableClass(Tables[5]);
+            tdb.addTableClass(Tables[6]);
+            tdb.addTableClass(Tables[7]);
+            tdb.addTableClass(Tables[8]);
+            tdb.addTableClass(Tables[9]);
+            tdb.addTableClass(Tables[10]);
+        }
+        catch(Exception e) {
+            System.out.println("error adding tables to database");
+        }
+
         //wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
+
         buttons[0] = findViewById(R.id.button1);
         buttons[1] = findViewById(R.id.button2);
         buttons[2] = findViewById(R.id.button3);
@@ -98,24 +104,24 @@ catch (Exception e){
         //set tables on the interface with saved table status data on start
         for (int i = 0; i<10;i++)
         {
-                switch (Tables[i].getTableStatus()) {
-                    case "Entree":
-                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
-                        break;
-                    case "Dessert":
-                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
-                        break;
-                    case "Paid":
-                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
-                        break;
-                    case "Dirty":
-                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
-                        break;
-                    case "Empty":
-                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
-                        break;
-                }
+            switch (Tables[i].getTableStatus()) {
+                case "Entree":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                    break;
+                case "Dessert":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                    break;
+                case "Paid":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                    break;
+                case "Dirty":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                    break;
+                case "Empty":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                    break;
             }
+        }
 
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
@@ -127,8 +133,7 @@ catch (Exception e){
             public void onClick(View view) {
 
                 for (int i = 0; i<11;i++){
-                    if (view.getId() == buttons[i].getId())
-                    {
+                    if (view.getId() == buttons[i].getId()) {
                         final int j = i;
                         PopupMenu dropdownMenu = new PopupMenu(MainInterface.this, buttons[j]);
                         dropdownMenu.getMenuInflater().inflate(R.menu.dropdown_menu, dropdownMenu.getMenu());
@@ -181,15 +186,12 @@ catch (Exception e){
                                         //open and begin create reservation pop-up activity
                                         Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
                                         startActivity(pop1);
-
-
                                         break;
                                     case "Waitlist":
 
                                         //open and begin create waitlist party pop-up activity
                                         Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
                                         startActivity(pop2);
-
                                         break;
                                 }
 
@@ -217,7 +219,6 @@ catch (Exception e){
         for(int i=0;i<11;i++){
             buttons[i].setOnClickListener(listener);
         }
-
 
         //top bar layout
         addPartyButton.setOnClickListener(listener);
@@ -247,16 +248,85 @@ try {
     waitListView.setEmptyView(findViewById(R.id.emptyElement2));
 }
 catch(Exception e) { System.out.println(e);}
-    }
-    private void refreshList(){
-        resPartyArrayList = wdb.getReservationList();
-        rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-        resListView.setAdapter(rAdapter);
-        resListView.setEmptyView(findViewById(R.id.emptyElement));
-        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
-        waitListView.setAdapter(wAdapter);
-        waitListView.setEmptyView(findViewById(R.id.emptyElement));
-        waitPartyArrayList = wdb.getWaitlistList();
+
+        resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Create pop-up for reservation
+                PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
+                resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                //just need to fix where the menu pops up
+
+                resPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.toString()){
+                            case "Seat":
+                                //call method / activity to seat the reservation party to a table
+                                break;
+                            case "View":
+                                //call method / activity to view or edit the reservation party's information
+                                break;
+                            case "Cancel":
+                                //call method / activity to cancel the reservation party
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+
+                resPartyActionMenu.show();
+            }
+        });
+
+        waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Create pop-up for waitlist
+                PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
+                waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
+                //just need to fix where the menu pops up
+
+                waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.toString()){
+                            case "Seat":
+                                //call method / activity to seat the waitlist party to a table
+                                break;
+                            case "View":
+                                //call method / activity to view or edit the waitlist party's information
+
+                                //uncomment following when the new empty activty is made (it is named PopupViewReservation)
+                                //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
+
+                                //pass database ID for selected party to the activity
+
+                                //I think by saving the database ID to in int and then passing that to the activity like this:
+
+                                //int dbID = ???;
+                                //viewRes.putExtra("key", dbID);
+
+                                //uncomment following to start the activity
+                                //startActivity(viewRes); //see in activty where this information is pulled
+
+
+                                break;
+                            case "Cancel":
+                                //call method / activity to cancel the waitlist party
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+
+                waitPartyActionMenu.show();
+
+            }
+        });
+
     }
 }
 
