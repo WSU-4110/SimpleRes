@@ -95,7 +95,7 @@ catch (Exception e){
         buttons[10] = findViewById(R.id.button11);
 
         //set tables on the interface with saved table status data on start
-        for (int i = 0; i<10;i++)
+        for (int i = 0; i<11;i++)
         {
                 switch (Tables[i].getTableStatus()) {
                     case "Entree":
