@@ -304,6 +304,21 @@ public class MainInterface extends AppCompatActivity {
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
+
+                                //uncomment following when the new empty activty is made (it is named PopupViewReservation)
+                                //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
+
+                                //pass database ID for selected party to the activity
+
+                                //I think by saving the database ID to in int and then passing that to the activity like this:
+
+                                //int dbID = ???;
+                                //viewRes.putExtra("key", dbID);
+
+                                //uncomment following to start the activity
+                                //startActivity(viewRes); //see in activty where this information is pulled
+
+
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
@@ -321,6 +336,3 @@ public class MainInterface extends AppCompatActivity {
 
     }
 }
-
-//test
-//another test
