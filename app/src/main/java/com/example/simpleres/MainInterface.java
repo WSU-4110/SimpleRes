@@ -18,8 +18,9 @@ import static android.R.id.empty;
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+    ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
+    ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
-    //WaitlistEntry testEntry = new WaitlistEntry(2,"Jimmy","888-8888",1,WaitlistEntry.FormatDate(LocalDateTime.now()), LocalDateTime.now());
     //instantiating database/database tables
 
     //initializing the listview and adapter for the list items
@@ -180,21 +181,33 @@ catch (Exception e){
                                         //open and begin create reservation pop-up activity
                                         Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
                                         startActivity(pop1);
+
+
                                         break;
                                     case "Waitlist":
 
                                         //open and begin create waitlist party pop-up activity
                                         Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
                                         startActivity(pop2);
+
                                         break;
                                 }
-                                //TODO: add some way to refresh ListView here
+
                                 return true;
                             }
                         });
-
+                        //TODO: find better solution to refresh the list
+                        resPartyArrayList = wdb.getReservationList();
+                        rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                        resListView.setAdapter(rAdapter);
+                        resListView.setEmptyView(findViewById(R.id.emptyElement));
+                        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
+                        waitListView.setAdapter(wAdapter);
+                        waitListView.setEmptyView(findViewById(R.id.emptyElement));
+                        waitPartyArrayList = wdb.getWaitlistList();
                         selectPartyTypeMenu.show();
                       //  break;
+
                 }
 
             }
@@ -213,7 +226,7 @@ catch (Exception e){
 try {
     //Array of elements in the reservation listview
     resListView = (ListView) findViewById(R.id.reservationListView);
-    ArrayList<WaitlistEntry> resPartyArrayList = wdb.getReservationList();
+    resPartyArrayList = wdb.getReservationList();
 
     //adapter for the listview
     rAdapter = new ResPartyAdapter(this, resPartyArrayList);
@@ -222,10 +235,10 @@ try {
     resListView.setEmptyView(findViewById(R.id.emptyElement));
 
 
-    //Array of elements in the reservation listview
+    //Array of elements in the waitlist listview
     waitListView = (ListView) findViewById(R.id.waitlistListView);
-    ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
-    waitPartyArrayList.addAll(wdb.getWaitlistList());
+    waitPartyArrayList = wdb.getWaitlistList();
+
 
     //adapter for the listview
     wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
@@ -234,6 +247,18 @@ try {
     waitListView.setEmptyView(findViewById(R.id.emptyElement2));
 }
 catch(Exception e) { System.out.println(e);}
-
+    }
+    private void refreshList(){
+        resPartyArrayList = wdb.getReservationList();
+        rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+        resListView.setAdapter(rAdapter);
+        resListView.setEmptyView(findViewById(R.id.emptyElement));
+        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
+        waitListView.setAdapter(wAdapter);
+        waitListView.setEmptyView(findViewById(R.id.emptyElement));
+        waitPartyArrayList = wdb.getWaitlistList();
     }
 }
+
+
+
