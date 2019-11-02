@@ -333,7 +333,6 @@ catch(Exception e) { System.out.println(e);}
                                 //int dbID = ???;
                                 //viewRes.putExtra("key", dbID);
 
-                                //uncomment following to start the activity
                                 //startActivity(viewRes); //see in activty where this information is pulled
 
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
