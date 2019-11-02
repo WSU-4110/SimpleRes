@@ -68,7 +68,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
     //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
     TableClass getTableClass(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        System.out.println("Retrieving tableClass from database");
+        //System.out.println("Retrieving tableClass from database");
         Cursor cursor = db.query(TABLE_TABLE_INFO, new String[]{KEY_ID, KEY_STATUS, KEY_NAME}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)},null,null,KEY_ID +" ASC",null);
 
@@ -77,7 +77,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
 
         TableClass tableClass = new TableClass(parseInt(cursor.getString(0)), cursor.getString(1),
                 cursor.getString(2));
-
+        db.close();
         return tableClass;
     }
     //returns list of all waitlist entries
@@ -98,6 +98,7 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
                 tableClassList.add(tableClass);
             } while (cursor.moveToNext());
             }
+        db.close();
         return tableClassList;
         }
     //used to change values of existing entries in the database

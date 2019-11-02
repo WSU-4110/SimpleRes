@@ -75,7 +75,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         WaitlistEntry waitlistEntry = new WaitlistEntry(parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4), LocalDateTime.parse(cursor.getString(5)));
+                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4),parseInt(cursor.getString(5)));
 
         return waitlistEntry;
     }
@@ -186,6 +186,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int val = db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?",
                 new String[]{String.valueOf(waitlistEntry.getId())});
+        System.out.println("Counting cover for WaitlistEntry with contents: "+waitlistEntry.contents());
+        System.out.println("Number of rows affected: " + val);
         db.close();
         return val;
     }

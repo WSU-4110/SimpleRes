@@ -1,5 +1,6 @@
 package com.example.simpleres;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static android.R.id.empty;
+
 
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
@@ -64,27 +66,25 @@ public class MainInterface extends AppCompatActivity {
         }
         catch (Exception e){
             System.out.println("error getting table info from database");
+            System.out.println("adding tables in nested try/catch block");
+            try {
+                tdb.addTableClass(Tables[0]);
+                tdb.addTableClass(Tables[1]);
+                tdb.addTableClass(Tables[2]);
+                tdb.addTableClass(Tables[3]);
+                tdb.addTableClass(Tables[4]);
+                tdb.addTableClass(Tables[5]);
+                tdb.addTableClass(Tables[6]);
+                tdb.addTableClass(Tables[7]);
+                tdb.addTableClass(Tables[8]);
+                tdb.addTableClass(Tables[9]);
+                tdb.addTableClass(Tables[10]);
+            }
+            catch(Exception x) {
+                System.out.println("error adding tables to database");
+            }
         }
 
-        //add tables
-        try {
-            tdb.addTableClass(Tables[0]);
-            tdb.addTableClass(Tables[1]);
-            tdb.addTableClass(Tables[2]);
-            tdb.addTableClass(Tables[3]);
-            tdb.addTableClass(Tables[4]);
-            tdb.addTableClass(Tables[5]);
-            tdb.addTableClass(Tables[6]);
-            tdb.addTableClass(Tables[7]);
-            tdb.addTableClass(Tables[8]);
-            tdb.addTableClass(Tables[9]);
-            tdb.addTableClass(Tables[10]);
-        }
-        catch(Exception e) {
-            System.out.println("error adding tables to database");
-        }
-
-        //wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
@@ -198,17 +198,20 @@ public class MainInterface extends AppCompatActivity {
                                 return true;
                             }
                         });
-                        //TODO: find better solution to refresh the list
+                        /*
+                        TODO: find better solution to refresh the list,
+                         if you know a way to pause code execution until the activity is finished and then call recreate()
+                        */
                         resPartyArrayList = wdb.getReservationList();
                         rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                         resListView.setAdapter(rAdapter);
                         resListView.setEmptyView(findViewById(R.id.emptyElement));
-                        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
+                        wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
                         waitListView.setAdapter(wAdapter);
                         waitListView.setEmptyView(findViewById(R.id.emptyElement));
                         waitPartyArrayList = wdb.getWaitlistList();
                         selectPartyTypeMenu.show();
-                      //  break;
+                    //  break;
 
                 }
 
@@ -255,22 +258,34 @@ catch(Exception e) { System.out.println(e);}
                 //Create pop-up for reservation
                 PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
                 resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                final int pos = position;
                 //just need to fix where the menu pops up
 
                 resPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        System.out.println("position selected: "+pos);
+                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        int dbId = resPartyArrayList.get(pos).getId();
+                        WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+                        System.out.println("entry with contents: " + selectedEntry.contents());
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
+                                //countCover returns int of rows deleted;
+                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
+                                //the the selectedEntry must be modified in the PopupViewReservation activity
+                                wdb.updateWaitlistEntry(selectedEntry);
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
+                                wdb.deleteWaitlistEntry(selectedEntry);
                                 break;
                         }
+                        recreate();
 
                         return true;
                     }
@@ -287,17 +302,25 @@ catch(Exception e) { System.out.println(e);}
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
                 waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
-
+                final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        System.out.println("position selected: "+pos);
+                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        int dbId = waitPartyArrayList.get(pos).getId();
+                        WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+                        System.out.println("entry with contents: " + selectedEntry.contents());
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
+                                //countCover returns int of rows deleted;
+                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
-
+                                //the the selectedEntry must be modified in the PopupViewReservation activity
+                                wdb.updateWaitlistEntry(selectedEntry);
                                 //uncomment following when the new empty activty is made (it is named PopupViewReservation)
                                 //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
 
@@ -315,8 +338,10 @@ catch(Exception e) { System.out.println(e);}
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
+                                wdb.deleteWaitlistEntry(selectedEntry);
                                 break;
                         }
+                        recreate();
 
                         return true;
                     }
