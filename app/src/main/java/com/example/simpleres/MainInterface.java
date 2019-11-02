@@ -199,7 +199,10 @@ public class MainInterface extends AppCompatActivity {
                                 return true;
                             }
                         });
-                        //TODO: find better solution to refresh the list
+                        /*
+                        TODO: find better solution to refresh the list,
+                         if you know a way to pause code execution until the activity is finished and then call recreate()
+                        */
                         resPartyArrayList = wdb.getReservationList();
                         rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                         resListView.setAdapter(rAdapter);
@@ -270,9 +273,13 @@ catch(Exception e) { System.out.println(e);}
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
+                                //countCover returns int of rows deleted;
+                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
+                                //the the selectedEntry must be modified in the PopupViewReservation activity
+                                wdb.updateWaitlistEntry(selectedEntry);
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
@@ -308,10 +315,13 @@ catch(Exception e) { System.out.println(e);}
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
+                                //countCover returns int of rows deleted;
+                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
-
+                                //the the selectedEntry must be modified in the PopupViewReservation activity
+                                wdb.updateWaitlistEntry(selectedEntry);
                                 //uncomment following when the new empty activty is made (it is named PopupViewReservation)
                                 //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
 

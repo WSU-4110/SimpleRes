@@ -186,6 +186,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int val = db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?",
                 new String[]{String.valueOf(waitlistEntry.getId())});
+        System.out.println("Counting cover for WaitlistEntry with contents: "+waitlistEntry.contents());
+        System.out.println("Number of rows affected: " + val);
         db.close();
         return val;
     }
