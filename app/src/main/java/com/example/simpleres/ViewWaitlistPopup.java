@@ -44,6 +44,11 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         time_spinner.setAdapter(adapter);
         time_spinner.setOnItemSelectedListener(this);
 
+        //populate form with entry information
+        /* TODO: take the information for the specific entry (passed as an extra??) and use
+             it to populate the form as if the user entered it
+         */
+
         View.OnClickListener listener = new View.OnClickListener() {
 
             //method for which actions are taken when a button is clicked
@@ -51,11 +56,19 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
             public void onClick(View view) {
                 switch(view.getId()){
                     case R.id.exitViewWait:
+                        //essentially a 'cancel' button. User simply wants to view the waitlist party's information
+                        //or they wish to discard the changes that were made
                         finish();
                         break;
                     case R.id.exit_and_save:
-                        //add waitlist info to database IF:
-                        //user has entered name, phone number, size, quote time
+                        //if user selects this button, then they want to update the waitlist party to
+                        //reflect the changes that they made in this pop-up
+
+                        //here is where the information will be pulled from the form and stored
+
+                        /* TODO: pull the information from the form and overwrite the existing data entry
+                            with the updated information
+                         */
 
                         finish();
 
