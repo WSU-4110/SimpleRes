@@ -84,7 +84,7 @@ public class WaitlistEntry {
             return "";
         String time = this.getFormattedDateTime().substring(11, 16);
         String[] values =  time.split(":");
-        if (values[0]=="00") time = "12:00am";
+        if (Integer.parseInt(values[0])==0) time = 12 + ":"+values[1] + "am";
         else if(Integer.parseInt(values[0])>12) time = (Integer.parseInt(values[0])-12) + ":"+values[1] + "pm";
         else time = Integer.parseInt(values[0]) + ":"+values[1] + "am";
         return time;

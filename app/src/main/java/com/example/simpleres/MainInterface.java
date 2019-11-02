@@ -1,5 +1,6 @@
 package com.example.simpleres;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,27 +66,25 @@ public class MainInterface extends AppCompatActivity {
         }
         catch (Exception e){
             System.out.println("error getting table info from database");
+            System.out.println("adding tables in nested try/catch block");
+            try {
+                tdb.addTableClass(Tables[0]);
+                tdb.addTableClass(Tables[1]);
+                tdb.addTableClass(Tables[2]);
+                tdb.addTableClass(Tables[3]);
+                tdb.addTableClass(Tables[4]);
+                tdb.addTableClass(Tables[5]);
+                tdb.addTableClass(Tables[6]);
+                tdb.addTableClass(Tables[7]);
+                tdb.addTableClass(Tables[8]);
+                tdb.addTableClass(Tables[9]);
+                tdb.addTableClass(Tables[10]);
+            }
+            catch(Exception x) {
+                System.out.println("error adding tables to database");
+            }
         }
 
-        //add tables
-        try {
-            tdb.addTableClass(Tables[0]);
-            tdb.addTableClass(Tables[1]);
-            tdb.addTableClass(Tables[2]);
-            tdb.addTableClass(Tables[3]);
-            tdb.addTableClass(Tables[4]);
-            tdb.addTableClass(Tables[5]);
-            tdb.addTableClass(Tables[6]);
-            tdb.addTableClass(Tables[7]);
-            tdb.addTableClass(Tables[8]);
-            tdb.addTableClass(Tables[9]);
-            tdb.addTableClass(Tables[10]);
-        }
-        catch(Exception e) {
-            System.out.println("error adding tables to database");
-        }
-
-        //wdb.addWaitlistEntry(testEntry);//this is how you enter data into the database
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
@@ -207,7 +206,7 @@ public class MainInterface extends AppCompatActivity {
                         rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                         resListView.setAdapter(rAdapter);
                         resListView.setEmptyView(findViewById(R.id.emptyElement));
-                        rAdapter = new ResPartyAdapter(MainInterface.this, waitPartyArrayList);
+                        wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
                         waitListView.setAdapter(wAdapter);
                         waitListView.setEmptyView(findViewById(R.id.emptyElement));
                         waitPartyArrayList = wdb.getWaitlistList();
