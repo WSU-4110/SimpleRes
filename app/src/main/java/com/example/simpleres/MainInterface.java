@@ -278,6 +278,8 @@ catch(Exception e) { System.out.println(e);}
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
                                 //the the selectedEntry must be modified in the PopupViewReservation activity
+                                Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
+                                startActivity(viewRes);
                                 wdb.updateWaitlistEntry(selectedEntry);
                                 break;
                             case "Cancel":

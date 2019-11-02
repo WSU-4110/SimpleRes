@@ -73,4 +73,8 @@
     <string name="view_party">View</string>
     <string name="cancel_party">Cancel</string>
 
+    <!--view party pop-up -->
+    <string name="exit_and_save">Save Changes</string>
+    <string name="view_reservation">View Reservation</string>
+
 </resources>
