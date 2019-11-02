@@ -16,6 +16,7 @@ import java.util.List;
 
 import static android.R.id.empty;
 
+
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
@@ -208,7 +209,7 @@ public class MainInterface extends AppCompatActivity {
                         waitListView.setEmptyView(findViewById(R.id.emptyElement));
                         waitPartyArrayList = wdb.getWaitlistList();
                         selectPartyTypeMenu.show();
-                      //  break;
+                    //  break;
 
                 }
 
@@ -255,11 +256,17 @@ catch(Exception e) { System.out.println(e);}
                 //Create pop-up for reservation
                 PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
                 resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                final int pos = position;
                 //just need to fix where the menu pops up
 
                 resPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        System.out.println("position selected: "+pos);
+                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        int dbId = resPartyArrayList.get(pos).getId();
+                        WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+                        System.out.println("entry with contents: " + selectedEntry.contents());
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
@@ -269,8 +276,10 @@ catch(Exception e) { System.out.println(e);}
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
+                                wdb.deleteWaitlistEntry(selectedEntry);
                                 break;
                         }
+                        recreate();
 
                         return true;
                     }
@@ -287,10 +296,15 @@ catch(Exception e) { System.out.println(e);}
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
                 waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
-
+                final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        System.out.println("position selected: "+pos);
+                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        int dbId = waitPartyArrayList.get(pos).getId();
+                        WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+                        System.out.println("entry with contents: " + selectedEntry.contents());
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
@@ -315,8 +329,10 @@ catch(Exception e) { System.out.println(e);}
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
+                                wdb.deleteWaitlistEntry(selectedEntry);
                                 break;
                         }
+                        recreate();
 
                         return true;
                     }
