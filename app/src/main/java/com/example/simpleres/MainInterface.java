@@ -336,7 +336,8 @@ catch(Exception e) { System.out.println(e);}
                                 //uncomment following to start the activity
                                 //startActivity(viewRes); //see in activty where this information is pulled
 
-
+                                Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
+                                startActivity(viewWait);
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
