@@ -126,6 +126,9 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
+        //top bar 'refresh' list button
+        final ImageButton refreshList = findViewById(R.id.refreshList);
+
         View.OnClickListener listener = new View.OnClickListener() {
 
             //method for which actions are taken when a button is clicked
@@ -198,21 +201,19 @@ public class MainInterface extends AppCompatActivity {
                                 return true;
                             }
                         });
-                        /*
-                        TODO: find better solution to refresh the list,
-                         if you know a way to pause code execution until the activity is finished and then call recreate()
-                        */
-                        resPartyArrayList = wdb.getReservationList();
-                        rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-                        resListView.setAdapter(rAdapter);
-                        resListView.setEmptyView(findViewById(R.id.emptyElement));
-                        wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
-                        waitListView.setAdapter(wAdapter);
-                        waitListView.setEmptyView(findViewById(R.id.emptyElement));
-                        waitPartyArrayList = wdb.getWaitlistList();
-                        selectPartyTypeMenu.show();
-                    //  break;
 
+                        selectPartyTypeMenu.show();
+                }
+
+                if(view.getId() == R.id.refreshList){
+                    resPartyArrayList = wdb.getReservationList();
+                    rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                    resListView.setAdapter(rAdapter);
+                    resListView.setEmptyView(findViewById(R.id.emptyElement));
+                    wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
+                    waitListView.setAdapter(wAdapter);
+                    waitListView.setEmptyView(findViewById(R.id.emptyElement));
+                    waitPartyArrayList = wdb.getWaitlistList();
                 }
 
             }
@@ -223,34 +224,34 @@ public class MainInterface extends AppCompatActivity {
             buttons[i].setOnClickListener(listener);
         }
 
-        //top bar layout
+        //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
+        refreshList.setOnClickListener(listener);
 
 
-try {
-    //Array of elements in the reservation listview
-    resListView = (ListView) findViewById(R.id.reservationListView);
-    resPartyArrayList = wdb.getReservationList();
+        try {
+            //Array of elements in the reservation listview
+            resListView = (ListView) findViewById(R.id.reservationListView);
+            resPartyArrayList = wdb.getReservationList();
 
-    //adapter for the listview
-    rAdapter = new ResPartyAdapter(this, resPartyArrayList);
-    resListView.setAdapter(rAdapter);
-    //display a message when empty
-    resListView.setEmptyView(findViewById(R.id.emptyElement));
-
-
-    //Array of elements in the waitlist listview
-    waitListView = (ListView) findViewById(R.id.waitlistListView);
-    waitPartyArrayList = wdb.getWaitlistList();
+            //adapter for the listview
+            rAdapter = new ResPartyAdapter(this, resPartyArrayList);
+            resListView.setAdapter(rAdapter);
+            //display a message when empty
+            resListView.setEmptyView(findViewById(R.id.emptyElement));
 
 
-    //adapter for the listview
-    wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
-    waitListView.setAdapter(wAdapter);
-    //display a message when empty
-    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-}
-catch(Exception e) { System.out.println(e);}
+            //Array of elements in the waitlist listview
+            waitListView = (ListView) findViewById(R.id.waitlistListView);
+            waitPartyArrayList = wdb.getWaitlistList();
+
+            //adapter for the listview
+            wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
+            waitListView.setAdapter(wAdapter);
+            //display a message when empty
+            waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+            }
+        catch(Exception e) { System.out.println(e);}
 
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -278,6 +279,8 @@ catch(Exception e) { System.out.println(e);}
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
                                 //the the selectedEntry must be modified in the PopupViewReservation activity
+                                Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
+                                startActivity(viewRes);
                                 wdb.updateWaitlistEntry(selectedEntry);
                                 break;
                             case "Cancel":
@@ -331,10 +334,10 @@ catch(Exception e) { System.out.println(e);}
                                 //int dbID = ???;
                                 //viewRes.putExtra("key", dbID);
 
-                                //uncomment following to start the activity
                                 //startActivity(viewRes); //see in activty where this information is pulled
 
-
+                                Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
+                                startActivity(viewWait);
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party

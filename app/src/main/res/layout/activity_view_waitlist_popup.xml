@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#131018"
+    tools:context=".ViewWaitlistPopup">
+
+    <TextView
+        android:id="@+id/view_waitlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/view_waitlist"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/exitViewWait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#00000000"
+        android:contentDescription="exit_adding_to_waitlist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <TextView
+        android:id="@+id/guest_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/guest_name"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_waitlist" />
+
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_name"
+        android:inputType="textPersonName"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guest_name" />
+
+    <TextView
+        android:id="@+id/guest_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/guest_phone_number"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+
+    <EditText
+        android:id="@+id/enter_number"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:digits="0123456789"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_number"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number" />
+
+    <TextView
+        android:id="@+id/waitlist_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/waitlist_notes"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_number" />
+
+    <EditText
+        android:id="@+id/enter_wait_notes"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:gravity="start|top"
+        android:hint="@string/enter_wait_notes"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:textAlignment="textStart"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_notes" />
+
+    <TextView
+        android:id="@+id/quote_time"
+        android:layout_width="235dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/quote_time"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/guest_phone_number"
+        app:layout_constraintTop_toBottomOf="@+id/enter_party_size" />
+
+    <TextView
+        android:id="@+id/party_size"
+        android:layout_width="235dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/size_of_party"
+        android:textColor="@color/color1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/waitlist_notes"
+        app:layout_constraintTop_toBottomOf="@+id/view_waitlist" />
+
+    <EditText
+        android:id="@+id/enter_party_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:digits="123456789"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:hint="@string/enter_party_size"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textColor="@color/color1"
+        android:textColorHint="@color/color1"
+        app:layout_constraintStart_toEndOf="@+id/enter_number"
+        app:layout_constraintTop_toBottomOf="@+id/party_size" />
+
+    <Spinner
+        android:id="@+id/wait_times"
+        android:layout_width="125dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/color1"
+        android:spinnerMode="dialog"
+        app:layout_constraintStart_toEndOf="@+id/enter_name"
+        app:layout_constraintTop_toBottomOf="@+id/quote_time" />
+
+    <Button
+        android:id="@+id/exit_and_save"
+        android:layout_width="212dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="164dp"
+        android:text="@string/exit_and_save"
+        app:layout_constraintStart_toEndOf="@+id/enter_wait_notes"
+        app:layout_constraintTop_toBottomOf="@+id/wait_times" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
