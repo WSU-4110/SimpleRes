@@ -11,14 +11,14 @@ public class WaitlistEntry {
     private String formattedDateTime;
     private int reservationFlag = 0;
     private LocalDateTime reservationTime;
-// general purpose constructor
-    WaitlistEntry(int Id, String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime) {
+// database constructor
+    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag) {
         this.id = Id;
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
-        this.reservationTime = ReservationTime;
-        this.formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = FormattedDateTime;
+        this.reservationFlag = ReservationFlag;
     }
     // constructor for walk-in
     WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
@@ -80,11 +80,16 @@ public class WaitlistEntry {
     }
     // returns time in HH:mmtt format//HH:MMam or HH:MMpm (converted from military time)
     public String ParseTime(){
-        String time = this.getFormattedDateTime().substring(11, 15);
+        if (this.formattedDateTime=="")
+            return "";
+        String time = this.getFormattedDateTime().substring(11, 16);
         String[] values =  time.split(":");
-        if (values[0]=="00") time = "12:00am";
-        else if(Integer.parseInt(values[0])>12) time = values[0] + ":"+values[1] + "pm";
-        else time = values[0] + ":"+values[1] + "am";
+        if (Integer.parseInt(values[0])==0) time = 12 + ":"+values[1] + "am";
+        else if(Integer.parseInt(values[0])>12) time = (Integer.parseInt(values[0])-12) + ":"+values[1] + "pm";
+        else time = Integer.parseInt(values[0]) + ":"+values[1] + "am";
         return time;
+    }
+    public String contents (){
+        return ("id:"+this.getId()+", "+""+this.getName()+", "+""+this.getTelephone()+", "+""+this.getNumberOfPeople()+", "+""+this.getFormattedDateTime()+", "+""+this.getReservationFlag());
     }
 }

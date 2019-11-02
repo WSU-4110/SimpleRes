@@ -75,7 +75,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         WaitlistEntry waitlistEntry = new WaitlistEntry(parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4), LocalDateTime.parse(cursor.getString(5)));
+                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4),parseInt(cursor.getString(5)));
 
         return waitlistEntry;
     }
@@ -105,8 +105,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         return waitlistEntryList;
     }
     //populates waitlist List
-    public List<WaitlistEntry> getWaitlistList(){
-        List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+    public ArrayList<WaitlistEntry> getWaitlistList(){
+        ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_RESERVATION+" = 0 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -121,8 +121,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setTelephone(cursor.getString(2));
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
-                waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
-                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -130,8 +129,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         return waitlistEntryList;
     }
     //populates Reservation List
-    public List<WaitlistEntry> getReservationList(){
-        List<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+    public ArrayList<WaitlistEntry> getReservationList(){
+        ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -146,8 +145,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setTelephone(cursor.getString(2));
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
-                waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
-                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -188,6 +186,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int val = db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?",
                 new String[]{String.valueOf(waitlistEntry.getId())});
+        System.out.println("Counting cover for WaitlistEntry with contents: "+waitlistEntry.contents());
+        System.out.println("Number of rows affected: " + val);
         db.close();
         return val;
     }
