@@ -11,11 +11,11 @@
         android:layout_alignBaseline="@+id/Here"
         android:layout_alignBottom="@+id/Here"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="-2dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="6dp"
         android:layout_toEndOf="@+id/timeofWaitlist"
         android:layout_toRightOf="@id/timeofWaitlist"
         android:textColor="@color/color1"
@@ -24,13 +24,13 @@
 
     <TextView
         android:id="@+id/timeofWaitlist"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="29dp"
         android:layout_alignBaseline="@+id/Here"
         android:layout_alignBottom="@+id/Here"
         android:layout_alignParentStart="false"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="-3dp"
         android:ems="3"
         android:textColor="@color/color1" />
 
@@ -59,7 +59,7 @@
         android:layout_marginRight="-2dp"
         android:buttonTint="@color/color1"
         android:focusable="false"
-        android:text="Here"
+        android:text="@string/waitlist_text"
         android:textColor="@color/color1" />
 
 

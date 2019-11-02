@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PopupCreateWaitlist"></activity>
+        <activity android:name=".ViewWaitlistPopup"></activity>
+        <activity android:name=".ViewReservationPopup" />
+        <activity android:name=".PopupCreateWaitlist" />
         <activity android:name=".PopupCreateReservation" />
         <activity android:name=".EnterPasswordActivity" />
         <activity android:name=".CreatePasswordActivity" />

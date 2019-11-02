@@ -108,7 +108,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             String dateTime = WaitlistEntry.FormatDate(localDateTime);
                             final EditText phoneField = findViewById(R.id.enter_number);
 
-
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();
                             int size = Integer.parseInt(sizeField.getText().toString());
