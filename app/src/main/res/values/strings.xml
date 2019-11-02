@@ -78,4 +78,11 @@
     <string name="view_reservation">View Reservation</string>
     <string name="view_waitlist">View Waitlist Party</string>
 
+    <!-- res list -->
+    <string name="waitlist_text">Text</string>
+    <string name="sent_text">Sent</string>
+    <string name="res_arrived">Arrived</string>
+    <string name="res_here">Here</string>
+
+
 </resources>

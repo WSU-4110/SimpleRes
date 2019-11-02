@@ -47,7 +47,7 @@
         android:ems="2"
         android:textColor="@color/color1" />
 
-    <Button
+    <CheckBox
         android:id="@+id/Here"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,10 +55,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="false"
         android:layout_marginTop="-7dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="-2dp"
+        android:buttonTint="@color/color1"
         android:focusable="false"
-        android:text="Text" />
+        android:text="@string/res_here"
+        android:textColor="@color/color1" />
 
 
 </RelativeLayout>
