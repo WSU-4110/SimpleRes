@@ -118,7 +118,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                         //build LocalDateTime
                         LocalDate localDate = LocalDate.of(year,month,day);
                         LocalTime localTime = LocalTime.of(hour,minute,0);
-                        final LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
+                        LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
                         //here is where the information will be pulled from the form and stored
                         selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime));
                         selectedEntry.setName(nameField.getText().toString());

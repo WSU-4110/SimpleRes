@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -59,7 +61,8 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         final EditText nameField = findViewById(R.id.enter_name);
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
-        //final Spinner quotedField = findViewById(R.id.wait_times);
+        final Spinner quotedField = findViewById(R.id.wait_times);
+
 
         //populate form with entry information
         nameField.setText(selectedEntry.getName());
@@ -83,8 +86,30 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the waitlist party to
                         //reflect the changes that they made in this pop-up
-
+                        String currentDate = selectedEntry.ParseDate();
+                        System.out.println("date stored as: "+currentDate);
+                        String[] dateValues = currentDate.split("/");
+                        int month = Integer.parseInt(dateValues[0]);
+                        int day = Integer.parseInt(dateValues[1]);
+                        int year = Integer.parseInt(dateValues[2]);
+                        //get time
+                        boolean pmFlag = false;
+                        if (selectedEntry.ParseTime().contains("pm"))
+                            pmFlag = true;
+                        String time = selectedEntry.ParseTime().replaceAll("am","").replaceAll("pm","");
+                        String [] timeValues = time.split(":");
+                        int hour = Integer.parseInt(timeValues[0]);
+                        if (pmFlag)
+                            hour+=12;
+                        int minute = Integer.parseInt(timeValues[1]);
+                        System.out.print("year month and day: "+year+", "+month+", "+day);
+                        //build LocalDateTime
+                        LocalDate localDate = LocalDate.of(year,month,day);
+                        LocalTime localTime = LocalTime.of(hour,minute,0);
+                        LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
                         //here is where the information will be pulled from the form and stored
+                        long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
+                        selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime.plusMinutes(quoted)));// this will always add at least 5 minutes when a change is made needs tweaking in the menu
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
