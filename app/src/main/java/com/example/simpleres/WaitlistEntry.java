@@ -97,7 +97,7 @@ public class WaitlistEntry {
     public String ParseDate(){
         if (this.formattedDateTime=="")
             return "";
-        String date = this.getFormattedDateTime().substring(0,9);
+        String date = this.getFormattedDateTime().substring(0,10);
         String [] values = date.split("-");//splits time into 3 values that are stings representing year month and day in that order
         date = values[2]+"/"+values[1]+"/"+values[0];
         return date;

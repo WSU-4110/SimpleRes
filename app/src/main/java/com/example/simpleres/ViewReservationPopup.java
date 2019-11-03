@@ -61,7 +61,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         });
 
         //spinner for reservation times
-        Spinner time_spinner = findViewById(R.id.reservation_times);
+        final Spinner time_spinner = findViewById(R.id.reservation_times);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.reservation_times,
@@ -74,12 +74,16 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         final EditText nameField = findViewById(R.id.enter_name);
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
-        //final Spinner reservationTime = findViewById(R.id.reservation_times);
+        final TextView reservationDate = findViewById(R.id.display_date);
 
         //populate form with entry information
+        reservationDate.setText(selectedEntry.ParseDate());
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
+        time_spinner.setTooltipText(selectedEntry.ParseTime());
+
+
         //not sure how to pull the reservation time with how it is stored
         //not sure how to pull the date with how it is stored
         //can't pull notes for party - needs to be be added to the DB
@@ -98,9 +102,25 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the reservation to
                         //reflect the changes that they made in this pop-up
-
+                        //get date
+                        String displayedDate = reservationDate.getText().toString();
+                        System.out.println("date stored as: "+displayedDate);
+                        String[] dateValues = displayedDate.split("/");
+                        int month = Integer.parseInt(dateValues[0]);
+                        int day = Integer.parseInt(dateValues[1]);
+                        int year = Integer.parseInt(dateValues[2]);
+                        //get time
+                        String time = time_spinner.getSelectedItem().toString().replaceAll("pm","");
+                        String [] timeValues = time.split(":");
+                        int hour = Integer.parseInt(timeValues[0])+12;//adding 12 because dinner only
+                        int minute = Integer.parseInt(timeValues[1]);
+                        System.out.print("year month and day: "+year+", "+month+", "+day);
+                        //build LocalDateTime
+                        LocalDate localDate = LocalDate.of(year,month,day);
+                        LocalTime localTime = LocalTime.of(hour,minute,0);
+                        final LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
                         //here is where the information will be pulled from the form and stored
-
+                        selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime));
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
