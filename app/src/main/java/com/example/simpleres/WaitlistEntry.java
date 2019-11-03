@@ -94,4 +94,12 @@ public class WaitlistEntry {
     public String contents (){
         return ("id:"+this.getId()+", "+""+this.getName()+", "+""+this.getTelephone()+", "+""+this.getNumberOfPeople()+", "+""+this.getFormattedDateTime()+", "+""+this.getReservationFlag());
     }
+    public String ParseDate(){
+        if (this.formattedDateTime=="")
+            return "";
+        String date = this.getFormattedDateTime().substring(0,9);
+        String [] values = date.split("-");//splits time into 3 values that are stings representing year month and day in that order
+        date = values[2]+"/"+values[1]+"/"+values[0];
+        return date;
+    }
 }
