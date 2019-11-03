@@ -361,13 +361,14 @@ public class MainInterface extends AppCompatActivity {
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
                                 viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewWait);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        //recreate();
 
                         return true;
                     }
