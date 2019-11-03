@@ -81,8 +81,8 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-        time_spinner.setTooltipText(selectedEntry.ParseTime());
-
+        //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
+        //bug spinner time does not display properly
 
         //not sure how to pull the reservation time with how it is stored
         //not sure how to pull the date with how it is stored
