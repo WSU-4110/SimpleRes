@@ -277,13 +277,15 @@ public class MainInterface extends AppCompatActivity {
                                 viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewRes);
                                 //wdb.updateWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        recreate();
+
 
                         return true;
                     }
