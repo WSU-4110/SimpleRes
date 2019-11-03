@@ -70,17 +70,9 @@ public class MainInterface extends AppCompatActivity {
             System.out.println("error getting table info from database");
             System.out.println("adding tables in nested try/catch block");
             try {
-                tdb.addTableClass(Tables[0]);
-                tdb.addTableClass(Tables[1]);
-                tdb.addTableClass(Tables[2]);
-                tdb.addTableClass(Tables[3]);
-                tdb.addTableClass(Tables[4]);
-                tdb.addTableClass(Tables[5]);
-                tdb.addTableClass(Tables[6]);
-                tdb.addTableClass(Tables[7]);
-                tdb.addTableClass(Tables[8]);
-                tdb.addTableClass(Tables[9]);
-                tdb.addTableClass(Tables[10]);
+                for (int i=0; i<11; i++) {
+                    tdb.addTableClass(Tables[i]);
+                }
             }
             catch(Exception x) {
                 System.out.println("error adding tables to database");
