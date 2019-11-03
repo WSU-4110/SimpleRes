@@ -37,10 +37,18 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
 
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
+        //get ID that is passed as an extra
+        int entryId = getIntent().getIntExtra("DB_ID", 0);
+
+        //create link to the database
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+
+        //grab information for the selected entry
+        final WaitlistEntry selectedEntry = wdb.getWaitlistEntry(entryId);
+
         //button to close the window without saving, exit and save changes
         final ImageButton exitViewRes = findViewById(R.id.exitViewRes);
         final Button exitAndSave = findViewById(R.id.exit_and_save);
-
 
         //button to select a new reservation date
         final Button selectDate = findViewById(R.id.select_date);
@@ -62,11 +70,19 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         time_spinner.setAdapter(adapter);
         time_spinner.setOnItemSelectedListener(this);
 
+        //objects for the datafields
+        final EditText nameField = findViewById(R.id.enter_name);
+        final EditText sizeField = findViewById(R.id.enter_party_size);
+        final EditText phoneField = findViewById(R.id.enter_number);
+        //final Spinner reservationTime = findViewById(R.id.reservation_times);
 
         //populate form with entry information
-        /* TODO: take the information for the specific entry (passed as an extra??) and use
-             it to populate the form as if the user entered it
-         */
+        nameField.setText(selectedEntry.getName());
+        sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
+        phoneField.setText(selectedEntry.getTelephone());
+        //not sure how to pull the reservation time with how it is stored
+        //not sure how to pull the date with how it is stored
+        //can't pull notes for party - needs to be be added to the DB
 
         View.OnClickListener listener = new View.OnClickListener() {
             //method for which actions are taken when a button is clicked
@@ -85,10 +101,12 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
 
                         //here is where the information will be pulled from the form and stored
 
-                        /* TODO: pull the information from the form and overwrite the existing data entry
-                            with the updated information
-                         */
-
+                        selectedEntry.setName(nameField.getText().toString());
+                        selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
+                        selectedEntry.setTelephone(phoneField.getText().toString());
+                        //don't know how to pull/display/save the time for the reservation
+                        //don't know how to pull/display/save the date for the reservation
+                        //can't store the reservation notes - needs to be added to the DB
                         finish();
                 }
             }

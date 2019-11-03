@@ -38,7 +38,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
 
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
-
         //button to close the window, create reservation
         final ImageButton exitCreateRes = findViewById(R.id.exitCreateRes);
         final Button createRes = findViewById(R.id.create_res_button);
