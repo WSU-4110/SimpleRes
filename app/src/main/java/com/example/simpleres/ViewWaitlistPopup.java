@@ -21,7 +21,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_waitlist_popup);
 
-
+        //setting the pop-up window dimensions
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -30,9 +30,14 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
 
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
-        //buttons to close window, add party to waitlist
-        final ImageButton exitCreateRes = findViewById(R.id.exitViewWait);
-        final Button addToWaitlist = findViewById(R.id.exit_and_save);
+        //get ID that is passed as an extra
+        int entryId = getIntent().getIntExtra("DB_ID", 0);
+
+        //create link to the database
+        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+
+        //grab information for the selected entry
+        final WaitlistEntry selectedEntry = wdb.getWaitlistEntry(entryId);
 
         //spinner for waitlist times
         Spinner time_spinner = findViewById(R.id.wait_times);
@@ -42,12 +47,27 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                 R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time_spinner.setAdapter(adapter);
+        //time_spinner.setSelection(//call method to calculate position);
         time_spinner.setOnItemSelectedListener(this);
 
+
+        //buttons to close window, add party to waitlist
+        final ImageButton exitCreateRes = findViewById(R.id.exitViewWait);
+        final Button addToWaitlist = findViewById(R.id.exit_and_save);
+
+        //objects for the datafields
+        final EditText nameField = findViewById(R.id.enter_name);
+        final EditText sizeField = findViewById(R.id.enter_party_size);
+        final EditText phoneField = findViewById(R.id.enter_number);
+        //final Spinner quotedField = findViewById(R.id.wait_times);
+
         //populate form with entry information
-        /* TODO: take the information for the specific entry (passed as an extra??) and use
-             it to populate the form as if the user entered it
-         */
+        nameField.setText(selectedEntry.getName());
+        sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
+        phoneField.setText(selectedEntry.getTelephone());
+        //can't pull the time party was quoted - needs to be added to the DB
+        //can't pull notes for party - needs to be be added to the DB
+
 
         View.OnClickListener listener = new View.OnClickListener() {
 
@@ -65,13 +85,13 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         //reflect the changes that they made in this pop-up
 
                         //here is where the information will be pulled from the form and stored
-
-                        /* TODO: pull the information from the form and overwrite the existing data entry
-                            with the updated information
-                         */
+                        selectedEntry.setName(nameField.getText().toString());
+                        selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
+                        selectedEntry.setTelephone(phoneField.getText().toString());
+                        //can't pull/save the time party was quoted - needs to be added to DB
+                        //can't pull/save the notes for party - needs to be added to DB
 
                         finish();
-
                 }
             }
         };
@@ -92,5 +112,4 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 }

@@ -11,6 +11,8 @@ public class WaitlistEntry {
     private String formattedDateTime;
     private int reservationFlag = 0;
     private LocalDateTime reservationTime;
+
+
 // database constructor
     WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag) {
         this.id = Id;

@@ -280,8 +280,9 @@ public class MainInterface extends AppCompatActivity {
                                 //call method / activity to view or edit the reservation party's information
                                 //the the selectedEntry must be modified in the PopupViewReservation activity
                                 Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
+                                viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewRes);
-                                wdb.updateWaitlistEntry(selectedEntry);
+                                //wdb.updateWaitlistEntry(selectedEntry);
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
@@ -309,11 +310,13 @@ public class MainInterface extends AppCompatActivity {
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
                         System.out.println("position selected: "+pos);
                         //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
                         int dbId = waitPartyArrayList.get(pos).getId();
                         WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
                         System.out.println("entry with contents: " + selectedEntry.contents());
+
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
@@ -322,21 +325,8 @@ public class MainInterface extends AppCompatActivity {
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
-                                //the the selectedEntry must be modified in the PopupViewReservation activity
-                                wdb.updateWaitlistEntry(selectedEntry);
-                                //uncomment following when the new empty activty is made (it is named PopupViewReservation)
-                                //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
-
-                                //pass database ID for selected party to the activity
-
-                                //I think by saving the database ID to in int and then passing that to the activity like this:
-
-                                //int dbID = ???;
-                                //viewRes.putExtra("key", dbID);
-
-                                //startActivity(viewRes); //see in activty where this information is pulled
-
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
+                                viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewWait);
                                 break;
                             case "Cancel":
