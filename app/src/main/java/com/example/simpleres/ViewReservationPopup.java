@@ -41,7 +41,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         int entryId = getIntent().getIntExtra("DB_ID", 0);
 
         //create link to the database
-        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        final WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
 
         //grab information for the selected entry
         final WaitlistEntry selectedEntry = wdb.getWaitlistEntry(entryId);
@@ -104,6 +104,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
+                        wdb.updateWaitlistEntry(selectedEntry);
                         //don't know how to pull/display/save the time for the reservation
                         //don't know how to pull/display/save the date for the reservation
                         //can't store the reservation notes - needs to be added to the DB

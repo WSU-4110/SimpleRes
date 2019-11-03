@@ -34,7 +34,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         int entryId = getIntent().getIntExtra("DB_ID", 0);
 
         //create link to the database
-        WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+        final WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
 
         //grab information for the selected entry
         final WaitlistEntry selectedEntry = wdb.getWaitlistEntry(entryId);
@@ -88,6 +88,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
+                        wdb.updateWaitlistEntry(selectedEntry);
                         //can't pull/save the time party was quoted - needs to be added to DB
                         //can't pull/save the notes for party - needs to be added to DB
 
