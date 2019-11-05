@@ -82,7 +82,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
-                            //getdate
+                            //get date
                             final TextView reservationDate = findViewById(R.id.display_date);
                             String displayedDate = reservationDate.getText().toString();
                             System.out.println("date stored as: "+displayedDate);
