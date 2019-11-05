@@ -5,4 +5,5 @@
     <item android:drawable="@drawable/blue" android:state_pressed="false"/>
     <item android:drawable="@drawable/red" android:state_pressed="false"/>
     <item android:drawable="@drawable/green" android:state_pressed="false"/>
+    <item android:drawable="@drawable/pink" android:state_pressed="false"/>
 </selector>
