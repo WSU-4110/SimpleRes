@@ -99,6 +99,9 @@ public class MainInterface extends AppCompatActivity {
         for (int i = 0; i<11;i++)
         {
             switch (Tables[i].getTableStatus()) {
+                case "Seated":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                    break;
                 case "Entree":
                     buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                     break;
@@ -143,6 +146,9 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
+                                    case "Seated":
+                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                        break;
                                     case "Entree":
                                         buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
@@ -267,11 +273,11 @@ public class MainInterface extends AppCompatActivity {
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
-
                                 Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
                                 for (int i = 0; i < 11; i++) {
                                     final int j = i+1; //display table number selected for the first 9 tables
                                     final int k = i; //used to display table number selected for tables 201 and 202 and set table name
+                                    final WaitlistEntry selectedEntryTemp = selectedEntry;
                                     buttons[i].setOnClickListener(new View.OnClickListener() {
                                         int pressCount;
 
@@ -279,28 +285,19 @@ public class MainInterface extends AppCompatActivity {
                                             pressCount++;
                                             //wait for a table to be selected before continuing
                                             if (pressCount == 1) {
-                                                //action on click here
-                                                if (k == 10) {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 202 +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(resPartyArrayList.get(pos).getName());
-                                                }
-                                                else if (k == 9) {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 201 +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(resPartyArrayList.get(pos).getName());
-                                                }
-                                                else {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 10+j +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(resPartyArrayList.get(pos).getName());
-                                                }
+                                                Tables[k].setTableName(resPartyArrayList.get(pos).getName());
+                                                Tables[k].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                tdb.updateTableInfo(Tables[k]);
+                                                buttons[k].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                                //countCover returns int of rows deleted;
+                                                wdb.countCover(selectedEntryTemp);
                                                 recreate();
                                             }
                                         }
 
                                     });
                                 }
-
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
@@ -317,7 +314,6 @@ public class MainInterface extends AppCompatActivity {
                                 recreate();
                                 break;
                         }
-
 
                         return true;
                     }
@@ -350,37 +346,22 @@ public class MainInterface extends AppCompatActivity {
                                 //call method / activity to seat the waitlist party to a table
                                 Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
                                 for (int i = 0; i < 11; i++) {
-                                    final int j = i+1; //display table number selected for the first 9 tables
                                     final int k = i; //used to display table number selected for tables 201 and 202 and set table name
+                                    final WaitlistEntry selectedEntryTemp = selectedEntry;
                                     buttons[i].setOnClickListener(new View.OnClickListener() {
-                                        int pressCount;
 
                                         public void onClick(View v) {
-                                            pressCount++;
-                                            //wait for a table to be selected before continuing
-                                            if (pressCount == 1) {
-                                                //action on click here
-                                                if (k == 10) {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 202 +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(waitPartyArrayList.get(pos).getName());
-                                                }
-                                                else if (k == 9) {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 201 +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(waitPartyArrayList.get(pos).getName());
-                                                }
-                                                else {
-                                                    Toast.makeText(MainInterface.this, "Table "+ 10+j +" selected", Toast.LENGTH_SHORT).show();
-                                                    Tables[k].setTableName(waitPartyArrayList.get(pos).getName());
-                                                }
-                                                recreate();
-                                            }
-                                        }
+                                            Tables[k].setTableName(waitPartyArrayList.get(pos).getName());
+                                            Tables[k].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                            tdb.updateTableInfo(Tables[k]);
+                                            buttons[k].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
 
+                                            //countCover returns int of rows deleted;
+                                            wdb.countCover(selectedEntryTemp);
+                                            recreate();
+                                        }
                                     });
                                 }
-
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
