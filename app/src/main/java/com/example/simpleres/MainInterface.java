@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,17 +70,9 @@ public class MainInterface extends AppCompatActivity {
             System.out.println("error getting table info from database");
             System.out.println("adding tables in nested try/catch block");
             try {
-                tdb.addTableClass(Tables[0]);
-                tdb.addTableClass(Tables[1]);
-                tdb.addTableClass(Tables[2]);
-                tdb.addTableClass(Tables[3]);
-                tdb.addTableClass(Tables[4]);
-                tdb.addTableClass(Tables[5]);
-                tdb.addTableClass(Tables[6]);
-                tdb.addTableClass(Tables[7]);
-                tdb.addTableClass(Tables[8]);
-                tdb.addTableClass(Tables[9]);
-                tdb.addTableClass(Tables[10]);
+                for (int i=0; i<11; i++) {
+                    tdb.addTableClass(Tables[i]);
+                }
             }
             catch(Exception x) {
                 System.out.println("error adding tables to database");
@@ -102,9 +96,12 @@ public class MainInterface extends AppCompatActivity {
         buttons[10] = findViewById(R.id.button11);
 
         //set tables on the interface with saved table status data on start
-        for (int i = 0; i<10;i++)
+        for (int i = 0; i<11;i++)
         {
             switch (Tables[i].getTableStatus()) {
+                case "Seated":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                    break;
                 case "Entree":
                     buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                     break;
@@ -149,6 +146,9 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
+                                    case "Seated":
+                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                        break;
                                     case "Entree":
                                         buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
@@ -273,8 +273,31 @@ public class MainInterface extends AppCompatActivity {
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                for (int i = 0; i < 11; i++) {
+                                    final int j = i+1; //display table number selected for the first 9 tables
+                                    final int k = i; //used to display table number selected for tables 201 and 202 and set table name
+                                    final WaitlistEntry selectedEntryTemp = selectedEntry;
+                                    buttons[i].setOnClickListener(new View.OnClickListener() {
+                                        int pressCount;
+
+                                        public void onClick(View v) {
+                                            pressCount++;
+                                            //wait for a table to be selected before continuing
+                                            if (pressCount == 1) {
+                                                Tables[k].setTableName(resPartyArrayList.get(pos).getName());
+                                                Tables[k].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                tdb.updateTableInfo(Tables[k]);
+                                                buttons[k].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                                //countCover returns int of rows deleted;
+                                                wdb.countCover(selectedEntryTemp);
+                                                recreate();
+                                            }
+                                        }
+
+                                    });
+                                }
                                 break;
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
@@ -283,13 +306,14 @@ public class MainInterface extends AppCompatActivity {
                                 viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewRes);
                                 //wdb.updateWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        recreate();
 
                         return true;
                     }
@@ -320,21 +344,38 @@ public class MainInterface extends AppCompatActivity {
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                for (int i = 0; i < 11; i++) {
+                                    final int k = i; //used to display table number selected for tables 201 and 202 and set table name
+                                    final WaitlistEntry selectedEntryTemp = selectedEntry;
+                                    buttons[i].setOnClickListener(new View.OnClickListener() {
+
+                                        public void onClick(View v) {
+                                            Tables[k].setTableName(waitPartyArrayList.get(pos).getName());
+                                            Tables[k].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                            tdb.updateTableInfo(Tables[k]);
+                                            buttons[k].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                            //countCover returns int of rows deleted;
+                                            wdb.countCover(selectedEntryTemp);
+                                            recreate();
+                                        }
+                                    });
+                                }
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
                                 viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewWait);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        recreate();
 
                         return true;
                     }
