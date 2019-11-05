@@ -128,7 +128,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="265dp"
         android:layout_marginTop="32dp"
-        android:text="@string/quote_time"
+        android:text="Add to wait time:"
         android:textColor="@color/color1"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/guest_phone_number"
