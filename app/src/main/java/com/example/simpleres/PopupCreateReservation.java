@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -104,7 +103,7 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             LocalTime localTime = LocalTime.of(hour,minute,0);
                             LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
 
-                            String dateTime = WaitlistEntry.FormatDate(localDateTime);
+                            String dateTime = WaitlistEntry.formatDate(localDateTime);
                             final EditText phoneField = findViewById(R.id.enter_number);
 
                             String name = nameField.getText().toString();

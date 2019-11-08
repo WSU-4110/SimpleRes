@@ -77,20 +77,20 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         final TextView reservationDate = findViewById(R.id.display_date);
         final EditText notesField = findViewById(R.id.enter_res_notes);
         //populate form with entry information
-        reservationDate.setText(selectedEntry.ParseDate());
+        reservationDate.setText(selectedEntry.parseDate());
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
         notesField.setText(selectedEntry.getReservationNotes());
 
 
-        String time = selectedEntry.ParseTime().replaceAll("pm","");
+        String time = selectedEntry.parseTime().replaceAll("pm","");
         String [] timeValues = time.split(":");
         int hour = Integer.parseInt(timeValues[0]);
         int minute = Integer.parseInt(timeValues[1]);
         time_spinner.setSelection(WaitlistEntry.getSpinnerPos(hour,minute));
 
-        //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
+        //time_spinner.setTooltipText(selectedEntry.parseTime()); might have set on different adapter
         //bug spinner time does not display properly
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -125,7 +125,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                         LocalTime localTime = LocalTime.of(hour,minute,0);
                         LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
                         //here is where the information will be pulled from the form and stored
-                        selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime));
+                        selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime));
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());

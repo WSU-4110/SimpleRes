@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.time.LocalDateTime;
 
@@ -62,7 +61,7 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                             if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
-                            String date = WaitlistEntry.FormatDate(LocalDateTime.now());
+                            String date = WaitlistEntry.formatDate(LocalDateTime.now());
                             final EditText phoneField = findViewById(R.id.enter_number);
                             final Spinner quotedField = findViewById(R.id.wait_times);
 

@@ -30,7 +30,7 @@ public class WaitlistEntry {
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
-        this.formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = formatDate(reservationTime);
         this.reservationNotes = ReservationNotes;
     }
     // constructor for reservation
@@ -41,7 +41,7 @@ public class WaitlistEntry {
 
         this.reservationTime = ReservationTime;
         this.reservationFlag = ReservationFlag;
-        this.formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = formatDate(reservationTime);
         this.reservationNotes = ReservationNotes;
     }
     public WaitlistEntry() {
@@ -80,15 +80,15 @@ public class WaitlistEntry {
     public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
 
 //date format for easy sorting year-month-day hours:minutes:seconds
-    public static String FormatDate(LocalDateTime myDateTimeObj) {
+    public static String formatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        String FormattedDate = myDateTimeObj.format(myFormatObj);
-        System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + FormattedDate);
-        return FormattedDate;
+        String formattedDate = myDateTimeObj.format(myFormatObj);
+        System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + formattedDate);
+        return formattedDate;
     }
     // returns time in HH:mmtt format//HH:MMam or HH:MMpm (converted from military time)
-    public String ParseTime(){
+    public String parseTime(){
         if (this.formattedDateTime=="")
             return "";
         String time = this.getFormattedDateTime().substring(11, 16);
@@ -101,7 +101,7 @@ public class WaitlistEntry {
     public String contents (){
         return ("id:"+this.getId()+", "+""+this.getName()+", "+""+this.getTelephone()+", "+""+this.getNumberOfPeople()+", "+""+this.getFormattedDateTime()+", "+""+this.getReservationFlag());
     }
-    public String ParseDate(){
+    public String parseDate(){
         if (this.formattedDateTime=="")
             return "";
         String date = this.getFormattedDateTime().substring(0,10);
