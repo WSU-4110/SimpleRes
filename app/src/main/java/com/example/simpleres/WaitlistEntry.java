@@ -15,14 +15,14 @@ public class WaitlistEntry {
 
 
 // database constructor
-    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag) {
+    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String ReservationNotes) {
         this.id = Id;
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.formattedDateTime = FormattedDateTime;
         this.reservationFlag = ReservationFlag;
-        this.reservationNotes = "";
+        this.reservationNotes = ReservationNotes;
     }
     // constructor for waitlist
     WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes) {

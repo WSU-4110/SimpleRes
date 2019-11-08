@@ -81,9 +81,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-
-        //notesField.getEditableText().insert(0, selectedEntry.getReservationNotes());
-        //notesField.setText(selectedEntry.getReservationNotes());
+        notesField.setText(selectedEntry.getReservationNotes());
 
         //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
         //bug spinner time does not display properly

@@ -77,7 +77,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         WaitlistEntry waitlistEntry = new WaitlistEntry(parseInt(cursor.getString(0)), cursor.getString(1),
-                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4),parseInt(cursor.getString(5)));
+                cursor.getString(2),parseInt(cursor.getString(3)),cursor.getString(4),parseInt(cursor.getString(5)),cursor.getString(6));
 
         return waitlistEntry;
     }

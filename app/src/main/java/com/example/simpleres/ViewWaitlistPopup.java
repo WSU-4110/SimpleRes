@@ -67,9 +67,9 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
+        notesField.setText(selectedEntry.getReservationNotes());
 
         //notes not displaying properly
-        //notesField.setText(selectedEntry.getReservationNotes());
 
         //can't pull the time party was quoted - needs to be added to the DB
         //can't pull notes for party - needs to be be added to the DB
