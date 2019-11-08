@@ -216,7 +216,7 @@ public class MainInterface extends AppCompatActivity {
                     resListView.setEmptyView(findViewById(R.id.emptyElement));
                     wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
                     waitListView.setAdapter(wAdapter);
-                    waitListView.setEmptyView(findViewById(R.id.emptyElement));
+                    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
                     waitPartyArrayList = wdb.getWaitlistList();
                 }
 
