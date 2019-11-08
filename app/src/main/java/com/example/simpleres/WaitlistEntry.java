@@ -25,16 +25,16 @@ public class WaitlistEntry {
         this.reservationNotes = "";
     }
     // constructor for waitlist
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
         this.formattedDateTime = FormatDate(reservationTime);
-        this.reservationNotes = "";
+        this.reservationNotes = ReservationNotes;
     }
     // constructor for reservation
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag, String ReservationNotes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
@@ -42,7 +42,7 @@ public class WaitlistEntry {
         this.reservationTime = ReservationTime;
         this.reservationFlag = ReservationFlag;
         this.formattedDateTime = FormatDate(reservationTime);
-        this.reservationNotes = "";
+        this.reservationNotes = ReservationNotes;
     }
     public WaitlistEntry() {
 

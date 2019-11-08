@@ -125,7 +125,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
-                waitlistEntry.setReservationNotes(cursor.getString(7));
+                waitlistEntry.setReservationNotes(cursor.getString(6));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -150,7 +150,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
-                waitlistEntry.setReservationNotes(cursor.getString(7));
+                waitlistEntry.setReservationNotes(cursor.getString(6));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
