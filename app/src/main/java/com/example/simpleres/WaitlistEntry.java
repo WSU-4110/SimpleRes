@@ -109,4 +109,12 @@ public class WaitlistEntry {
         date = values[2]+"/"+values[1]+"/"+values[0];
         return date;
     }
+    static public int getSpinnerPos(int hours, int minutes)
+    {
+        int first_time = 4;
+        if (minutes==30)
+            return ((hours-first_time)*2)+1;
+        return (hours-first_time)*2;
+
+    }
 }

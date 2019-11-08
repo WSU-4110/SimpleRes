@@ -83,6 +83,13 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         phoneField.setText(selectedEntry.getTelephone());
         notesField.setText(selectedEntry.getReservationNotes());
 
+
+        String time = selectedEntry.ParseTime().replaceAll("pm","");
+        String [] timeValues = time.split(":");
+        int hour = Integer.parseInt(timeValues[0]);
+        int minute = Integer.parseInt(timeValues[1]);
+        time_spinner.setSelection(WaitlistEntry.getSpinnerPos(hour,minute));
+
         //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
         //bug spinner time does not display properly
 
