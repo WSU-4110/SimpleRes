@@ -75,18 +75,18 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
         final TextView reservationDate = findViewById(R.id.display_date);
-
+        final EditText notesField = findViewById(R.id.enter_res_notes);
         //populate form with entry information
         reservationDate.setText(selectedEntry.ParseDate());
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
+
+        //notesField.getEditableText().insert(0, selectedEntry.getReservationNotes());
+        //notesField.setText(selectedEntry.getReservationNotes());
+
         //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
         //bug spinner time does not display properly
-
-        //not sure how to pull the reservation time with how it is stored
-        //not sure how to pull the date with how it is stored
-        //can't pull notes for party - needs to be be added to the DB
 
         View.OnClickListener listener = new View.OnClickListener() {
             //method for which actions are taken when a button is clicked
@@ -124,10 +124,8 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
+                        selectedEntry.setReservationNotes(notesField.getText().toString());
                         wdb.updateWaitlistEntry(selectedEntry);
-                        //don't know how to pull/display/save the time for the reservation
-                        //don't know how to pull/display/save the date for the reservation
-                        //can't store the reservation notes - needs to be added to the DB
                         finish();
                 }
             }

@@ -62,12 +62,15 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
         final Spinner quotedField = findViewById(R.id.wait_times);
-
-
+        final EditText notesField = findViewById(R.id.enter_wait_notes);
         //populate form with entry information
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
+
+        //notes not displaying properly
+        //notesField.setText(selectedEntry.getReservationNotes());
+
         //can't pull the time party was quoted - needs to be added to the DB
         //can't pull notes for party - needs to be be added to the DB
 
@@ -113,6 +116,8 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
+                        selectedEntry.setReservationNotes(notesField.getText().toString());
+
                         wdb.updateWaitlistEntry(selectedEntry);
                         //can't pull/save the time party was quoted - needs to be added to DB
                         //can't pull/save the notes for party - needs to be added to DB
