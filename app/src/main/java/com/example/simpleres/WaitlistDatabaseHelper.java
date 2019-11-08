@@ -23,7 +23,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_PEOPLE = "people";
     private static final String KEY_TIME = "expectedTime";
     private static final String KEY_RESERVATION = "reservationFlag";
-
+    private static final String KEY_NOTES = "reservationNotes";
 
 
     public WaitlistDatabaseHelper(Context context){
@@ -38,7 +38,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 + KEY_PHONE + " TEXT,"
                 + KEY_PEOPLE + " TEXT,"
                 + KEY_TIME + " TEXT,"
-                + KEY_RESERVATION + " TEXT"
+                + KEY_RESERVATION + " TEXT,"
+                + KEY_NOTES + " TEXT"
                 + ")";
         System.out.println("Executing SQLite: \n"+CREATE_WAITLIST_TABLE);
         db.execSQL(CREATE_WAITLIST_TABLE);
@@ -61,6 +62,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
         values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
         values.put(KEY_RESERVATION, waitlistEntry.getReservationFlag());
+        values.put(KEY_NOTES, waitlistEntry.getReservationNotes());
         db.insert(TABLE_WAITLIST_ENTRY,null, values);
         System.out.println(DATABASE_NAME+"connection closed");
     }
@@ -68,7 +70,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
     WaitlistEntry getWaitlistEntry(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_WAITLIST_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME, KEY_RESERVATION}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_WAITLIST_ENTRY, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_PEOPLE, KEY_TIME, KEY_RESERVATION, KEY_NOTES}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)},null,null,KEY_TIME +" ASC",null);
 
         if (cursor!=null)
@@ -98,6 +100,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservedTime(LocalDateTime.parse(cursor.getString(5)));
                 waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(6)));
+                waitlistEntry.setReservationNotes(cursor.getString(7));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -122,6 +125,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
+                waitlistEntry.setReservationNotes(cursor.getString(7));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -146,6 +150,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
                 waitlistEntry.setFormattedDateTime(cursor.getString(4));
                 waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
+                waitlistEntry.setReservationNotes(cursor.getString(7));
 
                 waitlistEntryList.add(waitlistEntry);
             } while (cursor.moveToNext());
@@ -162,6 +167,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_PEOPLE, waitlistEntry.getNumberOfPeople());
         values.put(KEY_TIME, waitlistEntry.getFormattedDateTime());
         values.put(KEY_RESERVATION, waitlistEntry.getReservationFlag());
+        values.put(KEY_NOTES, waitlistEntry.getReservationNotes());
+
         return db.update(TABLE_WAITLIST_ENTRY, values, KEY_ID + "=?",
                 new String []{String.valueOf(waitlistEntry.getId())});
     }
@@ -198,7 +205,8 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
                 "AND " + KEY_PHONE + " = ? "+
                 "AND " + KEY_PEOPLE + " = ? "+
                 "AND " + KEY_TIME + " = ? "+
-                "AND " + KEY_RESERVATION + " = ?";
+                "AND " + KEY_RESERVATION + " = ?"+
+                "AND " + KEY_NOTES + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,new String[] {waitlistEntry.getName(),
                 waitlistEntry.getTelephone(),

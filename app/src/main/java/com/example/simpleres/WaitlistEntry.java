@@ -76,6 +76,9 @@ public class WaitlistEntry {
     public int getReservationFlag(){return this.reservationFlag;}
     public void setReservationFlag(int ReservationFlag){this.reservationFlag=ReservationFlag;}
 
+    public String getReservationNotes(){return this.reservationNotes;}
+    public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
+
 //date format for easy sorting year-month-day hours:minutes:seconds
     public static String FormatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
