@@ -10,6 +10,7 @@ public class WaitlistEntry {
     private int numberOfPeople;
     private String formattedDateTime;
     private int reservationFlag = 0;
+    private String reservationNotes;
     private LocalDateTime reservationTime;
 
 
@@ -21,14 +22,16 @@ public class WaitlistEntry {
         this.numberOfPeople = NumberOfPeople;
         this.formattedDateTime = FormattedDateTime;
         this.reservationFlag = ReservationFlag;
+        this.reservationNotes = "";
     }
-    // constructor for walk-in
+    // constructor for waitlist
     WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
         this.formattedDateTime = FormatDate(reservationTime);
+        this.reservationNotes = "";
     }
     // constructor for reservation
     WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {
@@ -39,6 +42,7 @@ public class WaitlistEntry {
         this.reservationTime = ReservationTime;
         this.reservationFlag = ReservationFlag;
         this.formattedDateTime = FormatDate(reservationTime);
+        this.reservationNotes = "";
     }
     public WaitlistEntry() {
 
