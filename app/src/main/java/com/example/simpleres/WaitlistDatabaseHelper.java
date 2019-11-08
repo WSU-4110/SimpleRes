@@ -181,13 +181,13 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
         return cursor.getCount();
     }
-//countCover functions as delete while returning the count of affected rows
+//countCover functions as delete while returning party size as an integer
     public int countCover(WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();
-        int val = db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?",
-                new String[]{String.valueOf(waitlistEntry.getId())});
+        int val = waitlistEntry.getNumberOfPeople();
+        db.delete(TABLE_WAITLIST_ENTRY, KEY_ID + "=?", new String[]{String.valueOf(waitlistEntry.getId())});
         System.out.println("Counting cover for WaitlistEntry with contents: "+waitlistEntry.contents());
-        System.out.println("Number of rows affected: " + val);
+        System.out.println("returning number of people: " + val);
         db.close();
         return val;
     }
