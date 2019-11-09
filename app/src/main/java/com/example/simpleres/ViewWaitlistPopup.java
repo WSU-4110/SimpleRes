@@ -62,12 +62,15 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
         final Spinner quotedField = findViewById(R.id.wait_times);
-
-
+        final EditText notesField = findViewById(R.id.enter_wait_notes);
         //populate form with entry information
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
+        notesField.setText(selectedEntry.getReservationNotes());
+
+        //notes not displaying properly
+
         //can't pull the time party was quoted - needs to be added to the DB
         //can't pull notes for party - needs to be be added to the DB
 
@@ -86,7 +89,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the waitlist party to
                         //reflect the changes that they made in this pop-up
-                        String currentDate = selectedEntry.ParseDate();
+                        String currentDate = selectedEntry.parseDate();
                         System.out.println("date stored as: "+currentDate);
                         String[] dateValues = currentDate.split("/");
                         int month = Integer.parseInt(dateValues[0]);
@@ -94,9 +97,9 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         int year = Integer.parseInt(dateValues[2]);
                         //get time
                         boolean pmFlag = false;
-                        if (selectedEntry.ParseTime().contains("pm"))
+                        if (selectedEntry.parseTime().contains("pm"))
                             pmFlag = true;
-                        String time = selectedEntry.ParseTime().replaceAll("am","").replaceAll("pm","");
+                        String time = selectedEntry.parseTime().replaceAll("am","").replaceAll("pm","");
                         String [] timeValues = time.split(":");
                         int hour = Integer.parseInt(timeValues[0]);
                         if (pmFlag)
@@ -109,10 +112,12 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
                         //here is where the information will be pulled from the form and stored
                         long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
-                        selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime.plusMinutes(quoted)));// this will always add at least 5 minutes when a change is made needs tweaking in the menu
+                        selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime.plusMinutes(quoted)));// this will always add at least 5 minutes when a change is made needs tweaking in the menu
                         selectedEntry.setName(nameField.getText().toString());
                         selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                         selectedEntry.setTelephone(phoneField.getText().toString());
+                        selectedEntry.setReservationNotes(notesField.getText().toString());
+
                         wdb.updateWaitlistEntry(selectedEntry);
                         //can't pull/save the time party was quoted - needs to be added to DB
                         //can't pull/save the notes for party - needs to be added to DB
