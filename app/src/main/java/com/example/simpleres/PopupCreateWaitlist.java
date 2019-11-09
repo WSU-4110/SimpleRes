@@ -58,11 +58,13 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                         try{
                             final EditText nameField = findViewById(R.id.enter_name);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
-                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                            final EditText phoneField = findViewById(R.id.enter_number);
+
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
+                               || phoneField.getText().toString().length() != 10 ){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
                             String date = WaitlistEntry.formatDate(LocalDateTime.now());
-                            final EditText phoneField = findViewById(R.id.enter_number);
                             final Spinner quotedField = findViewById(R.id.wait_times);
 
                             final EditText notesField = findViewById(R.id.enter_wait_notes);
