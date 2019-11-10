@@ -37,10 +37,18 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
 
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
+        //get ID that is passed as an extra
+        int entryId = getIntent().getIntExtra("DB_ID", 0);
+
+        //create link to the database
+        final WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
+
+        //grab information for the selected entry
+        final WaitlistEntry selectedEntry = wdb.getWaitlistEntry(entryId);
+
         //button to close the window without saving, exit and save changes
         final ImageButton exitViewRes = findViewById(R.id.exitViewRes);
         final Button exitAndSave = findViewById(R.id.exit_and_save);
-
 
         //button to select a new reservation date
         final Button selectDate = findViewById(R.id.select_date);
@@ -53,7 +61,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         });
 
         //spinner for reservation times
-        Spinner time_spinner = findViewById(R.id.reservation_times);
+        final Spinner time_spinner = findViewById(R.id.reservation_times);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.reservation_times,
@@ -62,11 +70,28 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
         time_spinner.setAdapter(adapter);
         time_spinner.setOnItemSelectedListener(this);
 
-
+        //objects for the datafields
+        final EditText nameField = findViewById(R.id.enter_name);
+        final EditText sizeField = findViewById(R.id.enter_party_size);
+        final EditText phoneField = findViewById(R.id.enter_number);
+        final TextView reservationDate = findViewById(R.id.display_date);
+        final EditText notesField = findViewById(R.id.enter_res_notes);
         //populate form with entry information
-        /* TODO: take the information for the specific entry (passed as an extra??) and use
-             it to populate the form as if the user entered it
-         */
+        reservationDate.setText(selectedEntry.parseDate());
+        nameField.setText(selectedEntry.getName());
+        sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
+        phoneField.setText(selectedEntry.getTelephone());
+        notesField.setText(selectedEntry.getReservationNotes());
+
+
+        String time = selectedEntry.parseTime().replaceAll("pm","");
+        String [] timeValues = time.split(":");
+        int hour = Integer.parseInt(timeValues[0]);
+        int minute = Integer.parseInt(timeValues[1]);
+        time_spinner.setSelection(WaitlistEntry.getSpinnerPos(hour,minute));
+
+        //time_spinner.setTooltipText(selectedEntry.parseTime()); might have set on different adapter
+        //bug spinner time does not display properly
 
         View.OnClickListener listener = new View.OnClickListener() {
             //method for which actions are taken when a button is clicked
@@ -82,12 +107,46 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the reservation to
                         //reflect the changes that they made in this pop-up
+                        try {
+                            if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
+                                    || phoneField.getText().toString().length() != 10){
+                                throw new IllegalArgumentException("Cannot have name, party size fields blank, or incomplete phone number!") ;
+                            }
+                            //get date
+                            String displayedDate = reservationDate.getText().toString();
+                            System.out.println("date stored as: " + displayedDate);
+                            String[] dateValues = displayedDate.split("/");
+                            int month = Integer.parseInt(dateValues[0]);
+                            int day = Integer.parseInt(dateValues[1]);
+                            int year = Integer.parseInt(dateValues[2]);
 
-                        //here is where the information will be pulled from the form and stored
+                            //get time
+                            String time = time_spinner.getSelectedItem().toString().replaceAll("pm", "");
+                            String[] timeValues = time.split(":");
+                            int hour = Integer.parseInt(timeValues[0]) + 12;//adding 12 because dinner only
+                            int minute = Integer.parseInt(timeValues[1]);
+                            System.out.print("year month and day: " + year + ", " + month + ", " + day);
 
-                        /* TODO: pull the information from the form and overwrite the existing data entry
-                            with the updated information
-                         */
+                            //build LocalDateTime
+                            LocalDate localDate = LocalDate.of(year, month, day);
+                            LocalTime localTime = LocalTime.of(hour, minute, 0);
+                            LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+
+                            //here is where the information will be pulled from the form and stored
+                            selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime));
+                            selectedEntry.setName(nameField.getText().toString());
+                            selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
+                            selectedEntry.setTelephone(phoneField.getText().toString());
+                            selectedEntry.setReservationNotes(notesField.getText().toString());
+                            wdb.updateWaitlistEntry(selectedEntry);
+
+                        } catch(IllegalArgumentException x){
+                            System.out.println(x);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println(e);
+                        }
 
                         finish();
                 }

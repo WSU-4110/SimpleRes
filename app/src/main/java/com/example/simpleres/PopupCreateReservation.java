@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -37,7 +36,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
-
 
         //button to close the window, create reservation
         final ImageButton exitCreateRes = findViewById(R.id.exitCreateRes);
@@ -80,10 +78,13 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
 
                             final EditText nameField = findViewById(R.id.enter_name);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
-                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                            final EditText phoneField = findViewById(R.id.enter_number);
+
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
+                                    || phoneField.getText().toString().length() != 10){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
-                            //getdate
+                            //get date
                             final TextView reservationDate = findViewById(R.id.display_date);
                             String displayedDate = reservationDate.getText().toString();
                             System.out.println("date stored as: "+displayedDate);
@@ -105,15 +106,19 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             LocalTime localTime = LocalTime.of(hour,minute,0);
                             LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
 
-                            String dateTime = WaitlistEntry.FormatDate(localDateTime);
-                            final EditText phoneField = findViewById(R.id.enter_number);
+                            String dateTime = WaitlistEntry.formatDate(localDateTime);
 
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();
                             int size = Integer.parseInt(sizeField.getText().toString());
 
+                            final EditText notesField = findViewById(R.id.enter_res_notes);
+                            String notes = notesField.getText().toString();
+
+
+
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
-                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime);
+                            returnWaitlistEntry(name,phone,size,dateTime,localDateTime,notes);
                         }
                         catch(IllegalArgumentException x){System.out.println(x);
                             break;
@@ -160,9 +165,9 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         //String selectedDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
         //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
     }
-    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime){
+    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime,String ReservationNotes){
         WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
-        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1,ReservationNotes);
         wdb.addWaitlistEntry(entry);
         entry.createId(wdb);
         System.out.println("Waitlist Entry created in database with id:" + entry.getId());

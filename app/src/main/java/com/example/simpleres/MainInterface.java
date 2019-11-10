@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,23 +70,14 @@ public class MainInterface extends AppCompatActivity {
             System.out.println("error getting table info from database");
             System.out.println("adding tables in nested try/catch block");
             try {
-                tdb.addTableClass(Tables[0]);
-                tdb.addTableClass(Tables[1]);
-                tdb.addTableClass(Tables[2]);
-                tdb.addTableClass(Tables[3]);
-                tdb.addTableClass(Tables[4]);
-                tdb.addTableClass(Tables[5]);
-                tdb.addTableClass(Tables[6]);
-                tdb.addTableClass(Tables[7]);
-                tdb.addTableClass(Tables[8]);
-                tdb.addTableClass(Tables[9]);
-                tdb.addTableClass(Tables[10]);
+                for (int i=0; i<11; i++) {
+                    tdb.addTableClass(Tables[i]);
+                }
             }
             catch(Exception x) {
                 System.out.println("error adding tables to database");
             }
         }
-
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
@@ -105,6 +98,9 @@ public class MainInterface extends AppCompatActivity {
         for (int i = 0; i<11;i++)
         {
             switch (Tables[i].getTableStatus()) {
+                case "Seated":
+                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                    break;
                 case "Entree":
                     buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                     break;
@@ -129,6 +125,10 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'refresh' list button
         final ImageButton refreshList = findViewById(R.id.refreshList);
 
+        final Button cancelSeating = findViewById(R.id.cancel_seating);
+        final View cancelSeatingView = findViewById(R.id.cancel_seating);
+        cancelSeatingView.setVisibility(View.INVISIBLE);
+
         View.OnClickListener listener = new View.OnClickListener() {
 
             //method for which actions are taken when a button is clicked
@@ -149,6 +149,9 @@ public class MainInterface extends AppCompatActivity {
 
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
+                                    case "Seated":
+                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                        break;
                                     case "Entree":
                                         buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
                                         break;
@@ -212,7 +215,7 @@ public class MainInterface extends AppCompatActivity {
                     resListView.setEmptyView(findViewById(R.id.emptyElement));
                     wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
                     waitListView.setAdapter(wAdapter);
-                    waitListView.setEmptyView(findViewById(R.id.emptyElement));
+                    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
                     waitPartyArrayList = wdb.getWaitlistList();
                 }
 
@@ -270,25 +273,61 @@ public class MainInterface extends AppCompatActivity {
                         int dbId = resPartyArrayList.get(pos).getId();
                         WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
                         System.out.println("entry with contents: " + selectedEntry.contents());
+                        final WaitlistEntry selectedEntryTemp = selectedEntry;
+
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the reservation party to a table
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                cancelSeatingView.setVisibility(View.VISIBLE);
+                                View.OnClickListener seatingListener = new View.OnClickListener() {
+
+                                    //method for which actions are taken when a button is clicked
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        for (int i = 0; i<11;i++) {
+                                            if (view.getId() == buttons[i].getId()) {
+                                                Tables[i].setTableName(resPartyArrayList.get(pos).getName());
+                                                Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                tdb.updateTableInfo(Tables[i]);
+                                                buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                                //countCover returns int of rows deleted;
+                                                wdb.countCover(selectedEntryTemp);
+                                                recreate();
+                                            }
+                                        }
+
+                                        if (view.getId() == cancelSeating.getId()) {
+                                            cancelSeating.setVisibility(View.INVISIBLE);
+                                            recreate();
+                                            }
+
+                                    }
+                                };
+                                //set listeners after the seating option is selected
+                                for (int l = 0; l<11; l++) {
+                                 buttons[l].setOnClickListener(seatingListener);
+                                }
+                                cancelSeating.setOnClickListener(seatingListener);
+
                                 break;
                             case "View":
                                 //call method / activity to view or edit the reservation party's information
                                 //the the selectedEntry must be modified in the PopupViewReservation activity
                                 Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
+                                viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewRes);
-                                wdb.updateWaitlistEntry(selectedEntry);
+                                //wdb.updateWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        recreate();
 
                         return true;
                     }
@@ -300,7 +339,7 @@ public class MainInterface extends AppCompatActivity {
 
         waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> adapterView, final View view, int position, long id) {
                 //Create pop-up for waitlist
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
                 waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
@@ -309,42 +348,65 @@ public class MainInterface extends AppCompatActivity {
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+
                         System.out.println("position selected: "+pos);
                         //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
                         int dbId = waitPartyArrayList.get(pos).getId();
                         WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
                         System.out.println("entry with contents: " + selectedEntry.contents());
+                        final WaitlistEntry selectedEntryTemp = selectedEntry;
+
                         switch(item.toString()){
                             case "Seat":
                                 //call method / activity to seat the waitlist party to a table
-                                //countCover returns int of rows deleted;
-                                wdb.countCover(selectedEntry);
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                cancelSeatingView.setVisibility(View.VISIBLE);
+                                View.OnClickListener seatingListener = new View.OnClickListener() {
+
+                                    //method for which actions are taken when a button is clicked
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        for (int i = 0; i<11;i++) {
+                                            if (view.getId() == buttons[i].getId()) {
+                                                Tables[i].setTableName(waitPartyArrayList.get(pos).getName());
+                                                Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                tdb.updateTableInfo(Tables[i]);
+                                                buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                                //countCover returns int of rows deleted;
+                                                wdb.countCover(selectedEntryTemp);
+                                                recreate();
+                                            }
+                                        }
+
+                                        if (view.getId() == cancelSeating.getId()) {
+                                            cancelSeating.setVisibility(View.INVISIBLE);
+                                            recreate();
+                                        }
+
+                                    }
+                                };
+                                //set listeners after the seating option is selected
+                                for (int l = 0; l<11; l++) {
+                                    buttons[l].setOnClickListener(seatingListener);
+                                }
+                                cancelSeating.setOnClickListener(seatingListener);
+
                                 break;
                             case "View":
                                 //call method / activity to view or edit the waitlist party's information
-                                //the the selectedEntry must be modified in the PopupViewReservation activity
-                                wdb.updateWaitlistEntry(selectedEntry);
-                                //uncomment following when the new empty activty is made (it is named PopupViewReservation)
-                                //Intent viewRes = new Intent(getApplicationContext(), PopupViewReservation.class);
-
-                                //pass database ID for selected party to the activity
-
-                                //I think by saving the database ID to in int and then passing that to the activity like this:
-
-                                //int dbID = ???;
-                                //viewRes.putExtra("key", dbID);
-
-                                //startActivity(viewRes); //see in activty where this information is pulled
-
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
+                                viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivity(viewWait);
+                                recreate();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the waitlist party
                                 wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
                                 break;
                         }
-                        recreate();
 
                         return true;
                     }
