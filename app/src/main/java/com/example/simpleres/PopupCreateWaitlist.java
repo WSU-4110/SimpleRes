@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.EditText;
 
 import java.time.LocalDateTime;
 
-public class PopupCreateWaitlist extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PopupCreateWaitlist extends MainInterface implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +80,18 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                             String notes = notesField.getText().toString();
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
+
                             returnWaitlistEntry(name,phone,size,date,quoted,notes);
+
                         }
                         catch(IllegalArgumentException x){System.out.println(x);
                         break;
                         }
                         catch(Exception e){System.out.println(e);}
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
 
                 }

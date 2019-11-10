@@ -35,7 +35,7 @@ public class ResPartyAdapter extends ArrayAdapter<WaitlistEntry> {
 
         //display the time of reservation
         TextView time = (TextView) listItem.findViewById(R.id.timeofreservation);
-        time.setText(currentParty.parseTime());
+        time.setText(currentParty.ParseTime());
 
         //display the name of the customer
         TextView name = (TextView) listItem.findViewById(R.id.nameofResparty);

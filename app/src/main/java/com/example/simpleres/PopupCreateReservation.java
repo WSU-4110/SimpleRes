@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+
+
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,8 +25,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-public class PopupCreateReservation extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
-
+public class PopupCreateReservation extends MainInterface implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
+   // private static MainInterface instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,12 +122,18 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
 
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
+
                             returnWaitlistEntry(name,phone,size,dateTime,localDateTime,notes);
+
                         }
                         catch(IllegalArgumentException x){System.out.println(x);
                             break;
                         }
                         catch(Exception e){System.out.println(e);}
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }
@@ -173,5 +183,21 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         System.out.println("Waitlist Entry created in database with id:" + entry.getId());
         return entry;
     }
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == isfinished) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Completed the reservation sucseccfully
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
+    }
+
+ */
 }
 

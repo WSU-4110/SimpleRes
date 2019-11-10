@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-public class ViewReservationPopup extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener {
+public class ViewReservationPopup extends MainInterface implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,7 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the reservation to
                         //reflect the changes that they made in this pop-up
+
                         try {
                             if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
                                     || phoneField.getText().toString().length() != 10){
@@ -148,6 +150,9 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                             System.out.println(e);
                         }
 
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }
