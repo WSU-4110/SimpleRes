@@ -78,7 +78,10 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
 
                             final EditText nameField = findViewById(R.id.enter_name);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
-                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""){
+                            final EditText phoneField = findViewById(R.id.enter_number);
+
+                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
+                                    || phoneField.getText().toString().length() != 10){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
                             //get date
@@ -104,7 +107,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
 
                             String dateTime = WaitlistEntry.formatDate(localDateTime);
-                            final EditText phoneField = findViewById(R.id.enter_number);
 
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();

@@ -49,9 +49,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                 R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         time_spinner.setAdapter(adapter);
-        //time_spinner.setSelection(//call method to calculate position);
         time_spinner.setOnItemSelectedListener(this);
-
 
         //buttons to close window, add party to waitlist
         final ImageButton exitCreateRes = findViewById(R.id.exitViewWait);
@@ -63,17 +61,12 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
         final EditText phoneField = findViewById(R.id.enter_number);
         final Spinner quotedField = findViewById(R.id.wait_times);
         final EditText notesField = findViewById(R.id.enter_wait_notes);
+
         //populate form with entry information
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
         notesField.setText(selectedEntry.getReservationNotes());
-
-        //notes not displaying properly
-
-        //can't pull the time party was quoted - needs to be added to the DB
-        //can't pull notes for party - needs to be be added to the DB
-
 
         View.OnClickListener listener = new View.OnClickListener() {
 
@@ -89,39 +82,49 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the waitlist party to
                         //reflect the changes that they made in this pop-up
-                        String currentDate = selectedEntry.parseDate();
-                        System.out.println("date stored as: "+currentDate);
-                        String[] dateValues = currentDate.split("/");
-                        int month = Integer.parseInt(dateValues[0]);
-                        int day = Integer.parseInt(dateValues[1]);
-                        int year = Integer.parseInt(dateValues[2]);
-                        //get time
-                        boolean pmFlag = false;
-                        if (selectedEntry.parseTime().contains("pm"))
-                            pmFlag = true;
-                        String time = selectedEntry.parseTime().replaceAll("am","").replaceAll("pm","");
-                        String [] timeValues = time.split(":");
-                        int hour = Integer.parseInt(timeValues[0]);
-                        if (pmFlag)
-                            hour+=12;
-                        int minute = Integer.parseInt(timeValues[1]);
-                        System.out.print("year month and day: "+year+", "+month+", "+day);
-                        //build LocalDateTime
-                        LocalDate localDate = LocalDate.of(year,month,day);
-                        LocalTime localTime = LocalTime.of(hour,minute,0);
-                        LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
-                        //here is where the information will be pulled from the form and stored
-                        long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min",""));
-                        selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime.plusMinutes(quoted)));// this will always add at least 5 minutes when a change is made needs tweaking in the menu
-                        selectedEntry.setName(nameField.getText().toString());
-                        selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
-                        selectedEntry.setTelephone(phoneField.getText().toString());
-                        selectedEntry.setReservationNotes(notesField.getText().toString());
+                        try {
+                            if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
+                                    || phoneField.getText().toString().length() != 10 ){
+                                throw new IllegalArgumentException("Cannot have name, party size fields blank, or incomplete phone number!") ;
+                            }
+                            String currentDate = selectedEntry.parseDate();
+                            System.out.println("date stored as: " + currentDate);
+                            String[] dateValues = currentDate.split("/");
+                            int month = Integer.parseInt(dateValues[0]);
+                            int day = Integer.parseInt(dateValues[1]);
+                            int year = Integer.parseInt(dateValues[2]);
+                            //get time
+                            boolean pmFlag = false;
+                            if (selectedEntry.parseTime().contains("pm"))
+                                pmFlag = true;
+                            String time = selectedEntry.parseTime().replaceAll("am", "").replaceAll("pm", "");
+                            String[] timeValues = time.split(":");
+                            int hour = Integer.parseInt(timeValues[0]);
+                            if (pmFlag)
+                                hour += 12;
+                            int minute = Integer.parseInt(timeValues[1]);
+                            System.out.print("year month and day: " + year + ", " + month + ", " + day);
+                            //build LocalDateTime
+                            LocalDate localDate = LocalDate.of(year, month, day);
+                            LocalTime localTime = LocalTime.of(hour, minute, 0);
+                            LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+                            //here is where the information will be pulled from the form and stored
+                            long quoted = Long.parseLong(quotedField.getSelectedItem().toString().replaceAll("min", ""));
+                            selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime.plusMinutes(quoted)));// this will always add at least 5 minutes when a change is made needs tweaking in the menu
+                            selectedEntry.setName(nameField.getText().toString());
+                            selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
+                            selectedEntry.setTelephone(phoneField.getText().toString());
+                            selectedEntry.setReservationNotes(notesField.getText().toString());
 
-                        wdb.updateWaitlistEntry(selectedEntry);
-                        //can't pull/save the time party was quoted - needs to be added to DB
-                        //can't pull/save the notes for party - needs to be added to DB
+                            wdb.updateWaitlistEntry(selectedEntry);
 
+                        } catch(IllegalArgumentException x){
+                            System.out.println(x);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println(e);
+                        }
                         finish();
                 }
             }

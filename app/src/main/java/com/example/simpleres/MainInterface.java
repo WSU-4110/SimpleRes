@@ -79,7 +79,6 @@ public class MainInterface extends AppCompatActivity {
             }
         }
 
-
         //creating new table buttons
         final Button[] buttons = new Button[11];
 
