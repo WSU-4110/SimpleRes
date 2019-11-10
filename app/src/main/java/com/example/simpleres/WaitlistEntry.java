@@ -13,7 +13,6 @@ public class WaitlistEntry {
     private String reservationNotes;
     private LocalDateTime reservationTime;
 
-
 // database constructor
     WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String ReservationNotes) {
         this.id = Id;
@@ -29,8 +28,10 @@ public class WaitlistEntry {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
+
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
         this.formattedDateTime = formatDate(reservationTime);
+
         this.reservationNotes = ReservationNotes;
     }
     // constructor for reservation
@@ -38,10 +39,11 @@ public class WaitlistEntry {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
+        this.reservationFlag = ReservationFlag;
 
         this.reservationTime = ReservationTime;
-        this.reservationFlag = ReservationFlag;
         this.formattedDateTime = formatDate(reservationTime);
+
         this.reservationNotes = ReservationNotes;
     }
     public WaitlistEntry() {

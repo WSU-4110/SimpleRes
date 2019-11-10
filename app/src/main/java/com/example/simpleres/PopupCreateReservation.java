@@ -115,8 +115,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             final EditText notesField = findViewById(R.id.enter_res_notes);
                             String notes = notesField.getText().toString();
 
-
-
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
                             returnWaitlistEntry(name,phone,size,dateTime,localDateTime,notes);
                         }
