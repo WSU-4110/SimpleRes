@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class WaitlistParty extends Party {
     //class members
     private long quoteTime;
-    private static int reservationFlag = 1; //will be used by database
 
     //construct waitlist object
     WaitlistParty(int partyId, String partyName, String partyTelephone, int partyNumberOfPeople,

@@ -5,6 +5,7 @@ public class ReservationParty extends Party {
     private String date;
     private String time;
 
+
     //constructors
     ReservationParty(int partyId, String partyName, String partyTelephone, int partyNumberOfPeople,
                      String partyNotes, String partyDate, String partyTime){
