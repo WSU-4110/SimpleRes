@@ -62,7 +62,7 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                             final EditText phoneField = findViewById(R.id.enter_number);
 
                             if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
-                               || phoneField.getText().toString().length() != 10 ){
+                                    || phoneField.getText().toString().length() != 10 ){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
                             String date = WaitlistEntry.formatDate(LocalDateTime.now());
@@ -80,12 +80,10 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                             String notes = notesField.getText().toString();
 
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
-
                             returnWaitlistEntry(name,phone,size,date,quoted,notes);
-
                         }
                         catch(IllegalArgumentException x){System.out.println(x);
-                        break;
+                            break;
                         }
                         catch(Exception e){System.out.println(e);}
 

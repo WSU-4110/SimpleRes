@@ -10,35 +10,39 @@ public class WaitlistEntry {
     private int numberOfPeople;
     private String formattedDateTime;
     private int reservationFlag = 0;
+    private String reservationNotes;
     private LocalDateTime reservationTime;
 
 
-// database constructor
-    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag) {
+    // database constructor
+    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String ReservationNotes) {
         this.id = Id;
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.formattedDateTime = FormattedDateTime;
         this.reservationFlag = ReservationFlag;
+        this.reservationNotes = ReservationNotes;
     }
-    // constructor for walk-in
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime) {
+    // constructor for waitlist
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
-        this.formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = formatDate(reservationTime);
+        this.reservationNotes = ReservationNotes;
     }
     // constructor for reservation
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag) {
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag, String ReservationNotes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
 
         this.reservationTime = ReservationTime;
         this.reservationFlag = ReservationFlag;
-        this.formattedDateTime = FormatDate(reservationTime);
+        this.formattedDateTime = formatDate(reservationTime);
+        this.reservationNotes = ReservationNotes;
     }
     public WaitlistEntry() {
 
@@ -72,16 +76,19 @@ public class WaitlistEntry {
     public int getReservationFlag(){return this.reservationFlag;}
     public void setReservationFlag(int ReservationFlag){this.reservationFlag=ReservationFlag;}
 
-//date format for easy sorting year-month-day hours:minutes:seconds
-    public static String FormatDate(LocalDateTime myDateTimeObj) {
+    public String getReservationNotes(){return this.reservationNotes;}
+    public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
+
+    //date format for easy sorting year-month-day hours:minutes:seconds
+    public static String formatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        String FormattedDate = myDateTimeObj.format(myFormatObj);
-        System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + FormattedDate);
-        return FormattedDate;
+        String formattedDate = myDateTimeObj.format(myFormatObj);
+        System.out.println("Date formatted from " + myDateTimeObj.toString() + " to " + formattedDate);
+        return formattedDate;
     }
     // returns time in HH:mmtt format//HH:MMam or HH:MMpm (converted from military time)
-    public String ParseTime(){
+    public String parseTime(){
         if (this.formattedDateTime=="")
             return "";
         String time = this.getFormattedDateTime().substring(11, 16);
@@ -94,12 +101,20 @@ public class WaitlistEntry {
     public String contents (){
         return ("id:"+this.getId()+", "+""+this.getName()+", "+""+this.getTelephone()+", "+""+this.getNumberOfPeople()+", "+""+this.getFormattedDateTime()+", "+""+this.getReservationFlag());
     }
-    public String ParseDate(){
+    public String parseDate(){
         if (this.formattedDateTime=="")
             return "";
         String date = this.getFormattedDateTime().substring(0,10);
         String [] values = date.split("-");//splits time into 3 values that are stings representing year month and day in that order
         date = values[2]+"/"+values[1]+"/"+values[0];
         return date;
+    }
+    static public int getSpinnerPos(int hours, int minutes)
+    {
+        int first_time = 4;
+        if (minutes==30)
+            return ((hours-first_time)*2)+1;
+        return (hours-first_time)*2;
+
     }
 }
