@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-public class PopupCreateReservation extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
+public class PopupCreateReservation extends MainInterface implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,10 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
                             break;
                         }
                         catch(Exception e){System.out.println(e);}
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }
@@ -174,4 +179,6 @@ public class PopupCreateReservation extends AppCompatActivity implements Adapter
         return entry;
     }
 }
+
+
 

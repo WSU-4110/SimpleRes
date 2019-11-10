@@ -14,7 +14,7 @@ public class WaitlistEntry {
     private LocalDateTime reservationTime;
 
 
-// database constructor
+    // database constructor
     WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String ReservationNotes) {
         this.id = Id;
         this.name = Name;
@@ -79,7 +79,7 @@ public class WaitlistEntry {
     public String getReservationNotes(){return this.reservationNotes;}
     public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
 
-//date format for easy sorting year-month-day hours:minutes:seconds
+    //date format for easy sorting year-month-day hours:minutes:seconds
     public static String formatDate(LocalDateTime myDateTimeObj) {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the waitlist party to
                         //reflect the changes that they made in this pop-up
+
                         try {
                             if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
                                     || phoneField.getText().toString().length() != 10 ){
@@ -125,6 +127,10 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         catch(Exception e){
                             System.out.println(e);
                         }
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }

@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -33,6 +34,8 @@ public class MainInterface extends AppCompatActivity {
     private ListView waitListView;
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
+    static final int isfinished = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,7 @@ public class MainInterface extends AppCompatActivity {
                 System.out.println("error adding tables to database");
             }
         }
+
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
@@ -191,19 +195,22 @@ public class MainInterface extends AppCompatActivity {
 
                                         //open and begin create reservation pop-up activity
                                         Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
-                                        startActivity(pop1);
+                                        startActivityForResult(pop1, isfinished);
                                         break;
                                     case "Waitlist":
 
                                         //open and begin create waitlist party pop-up activity
                                         Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
-                                        startActivity(pop2);
+                                        startActivityForResult(pop2, isfinished);
+                                        //startActivity(pop2);
                                         break;
                                 }
 
                                 return true;
                             }
                         });
+
+
 
                         selectPartyTypeMenu.show();
                 }
@@ -318,7 +325,8 @@ public class MainInterface extends AppCompatActivity {
                                 //the the selectedEntry must be modified in the PopupViewReservation activity
                                 Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
                                 viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
-                                startActivity(viewRes);
+                                startActivityForResult(viewRes, isfinished);
+                                //startActivity(viewRes);
                                 //wdb.updateWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
@@ -398,7 +406,8 @@ public class MainInterface extends AppCompatActivity {
                                 //call method / activity to view or edit the waitlist party's information
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
                                 viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
-                                startActivity(viewWait);
+                                startActivityForResult(viewWait, isfinished);
+                                //startActivity(viewWait);
                                 recreate();
                                 break;
                             case "Cancel":
@@ -417,6 +426,41 @@ public class MainInterface extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            //for some reason the request code isn't returning RESULT_OK the else statement will make
+            // it do it anyways but it makes the original code redundant, but it wont work if i just have the refresh code alone
+            if(resultCode == RESULT_OK){
+               // String result=data.getStringExtra("result");
+
+                resPartyArrayList = wdb.getReservationList();
+                rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                resListView.setAdapter(rAdapter);
+                resListView.setEmptyView(findViewById(R.id.emptyElement));
+                wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
+                waitListView.setAdapter(wAdapter);
+                waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+                waitPartyArrayList = wdb.getWaitlistList();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+
+            }
+            else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
+            {
+                resPartyArrayList = wdb.getReservationList();
+                rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                resListView.setAdapter(rAdapter);
+                resListView.setEmptyView(findViewById(R.id.emptyElement));
+                wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
+                waitListView.setAdapter(wAdapter);
+                waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+                waitPartyArrayList = wdb.getWaitlistList();
+            }
+        }
     }
 }
 

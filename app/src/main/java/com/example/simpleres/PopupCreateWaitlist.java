@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.EditText;
 
 import java.time.LocalDateTime;
 
-public class PopupCreateWaitlist extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PopupCreateWaitlist extends MainInterface implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                             final EditText phoneField = findViewById(R.id.enter_number);
 
                             if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
-                               || phoneField.getText().toString().length() != 10 ){
+                                    || phoneField.getText().toString().length() != 10 ){
                                 throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
                             }
                             String date = WaitlistEntry.formatDate(LocalDateTime.now());
@@ -82,9 +83,13 @@ public class PopupCreateWaitlist extends AppCompatActivity implements AdapterVie
                             returnWaitlistEntry(name,phone,size,date,quoted,notes);
                         }
                         catch(IllegalArgumentException x){System.out.println(x);
-                        break;
+                            break;
                         }
                         catch(Exception e){System.out.println(e);}
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
 
                 }
