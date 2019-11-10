@@ -76,18 +76,23 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
         final EditText sizeField = findViewById(R.id.enter_party_size);
         final EditText phoneField = findViewById(R.id.enter_number);
         final TextView reservationDate = findViewById(R.id.display_date);
-
+        final EditText notesField = findViewById(R.id.enter_res_notes);
         //populate form with entry information
-        reservationDate.setText(selectedEntry.ParseDate());
+        reservationDate.setText(selectedEntry.parseDate());
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-        //time_spinner.setTooltipText(selectedEntry.ParseTime()); might have set on different adapter
-        //bug spinner time does not display properly
+        notesField.setText(selectedEntry.getReservationNotes());
 
-        //not sure how to pull the reservation time with how it is stored
-        //not sure how to pull the date with how it is stored
-        //can't pull notes for party - needs to be be added to the DB
+
+        String time = selectedEntry.parseTime().replaceAll("pm","");
+        String [] timeValues = time.split(":");
+        int hour = Integer.parseInt(timeValues[0]);
+        int minute = Integer.parseInt(timeValues[1]);
+        time_spinner.setSelection(WaitlistEntry.getSpinnerPos(hour,minute));
+
+        //time_spinner.setTooltipText(selectedEntry.parseTime()); might have set on different adapter
+        //bug spinner time does not display properly
 
         View.OnClickListener listener = new View.OnClickListener() {
             //method for which actions are taken when a button is clicked
@@ -103,32 +108,47 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the reservation to
                         //reflect the changes that they made in this pop-up
-                        //get date
-                        String displayedDate = reservationDate.getText().toString();
-                        System.out.println("date stored as: "+displayedDate);
-                        String[] dateValues = displayedDate.split("/");
-                        int month = Integer.parseInt(dateValues[0]);
-                        int day = Integer.parseInt(dateValues[1]);
-                        int year = Integer.parseInt(dateValues[2]);
-                        //get time
-                        String time = time_spinner.getSelectedItem().toString().replaceAll("pm","");
-                        String [] timeValues = time.split(":");
-                        int hour = Integer.parseInt(timeValues[0])+12;//adding 12 because dinner only
-                        int minute = Integer.parseInt(timeValues[1]);
-                        System.out.print("year month and day: "+year+", "+month+", "+day);
-                        //build LocalDateTime
-                        LocalDate localDate = LocalDate.of(year,month,day);
-                        LocalTime localTime = LocalTime.of(hour,minute,0);
-                        LocalDateTime localDateTime = LocalDateTime.of(localDate,localTime);
-                        //here is where the information will be pulled from the form and stored
-                        selectedEntry.setFormattedDateTime(WaitlistEntry.FormatDate(localDateTime));
-                        selectedEntry.setName(nameField.getText().toString());
-                        selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
-                        selectedEntry.setTelephone(phoneField.getText().toString());
-                        wdb.updateWaitlistEntry(selectedEntry);
-                        //don't know how to pull/display/save the time for the reservation
-                        //don't know how to pull/display/save the date for the reservation
-                        //can't store the reservation notes - needs to be added to the DB
+
+                        try {
+                            if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
+                                    || phoneField.getText().toString().length() != 10){
+                                throw new IllegalArgumentException("Cannot have name, party size fields blank, or incomplete phone number!") ;
+                            }
+                            //get date
+                            String displayedDate = reservationDate.getText().toString();
+                            System.out.println("date stored as: " + displayedDate);
+                            String[] dateValues = displayedDate.split("/");
+                            int month = Integer.parseInt(dateValues[0]);
+                            int day = Integer.parseInt(dateValues[1]);
+                            int year = Integer.parseInt(dateValues[2]);
+
+                            //get time
+                            String time = time_spinner.getSelectedItem().toString().replaceAll("pm", "");
+                            String[] timeValues = time.split(":");
+                            int hour = Integer.parseInt(timeValues[0]) + 12;//adding 12 because dinner only
+                            int minute = Integer.parseInt(timeValues[1]);
+                            System.out.print("year month and day: " + year + ", " + month + ", " + day);
+
+                            //build LocalDateTime
+                            LocalDate localDate = LocalDate.of(year, month, day);
+                            LocalTime localTime = LocalTime.of(hour, minute, 0);
+                            LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+
+                            //here is where the information will be pulled from the form and stored
+                            selectedEntry.setFormattedDateTime(WaitlistEntry.formatDate(localDateTime));
+                            selectedEntry.setName(nameField.getText().toString());
+                            selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
+                            selectedEntry.setTelephone(phoneField.getText().toString());
+                            selectedEntry.setReservationNotes(notesField.getText().toString());
+                            wdb.updateWaitlistEntry(selectedEntry);
+
+                        } catch(IllegalArgumentException x){
+                            System.out.println(x);
+                            break;
+                        }
+                        catch(Exception e){
+                            System.out.println(e);
+                        }
 
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
