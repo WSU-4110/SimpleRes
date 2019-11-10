@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Calendar;
 
-public class ViewReservationPopup extends AppCompatActivity implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener {
+public class ViewReservationPopup extends MainInterface implements AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,10 @@ public class ViewReservationPopup extends AppCompatActivity implements AdapterVi
                         //don't know how to pull/display/save the time for the reservation
                         //don't know how to pull/display/save the date for the reservation
                         //can't store the reservation notes - needs to be added to the DB
+
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }

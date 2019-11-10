@@ -2,6 +2,7 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,9 @@ public class ViewWaitlistPopup extends AppCompatActivity implements AdapterView.
                         //can't pull/save the time party was quoted - needs to be added to DB
                         //can't pull/save the notes for party - needs to be added to DB
 
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_OK,returnIntent);
                         finish();
                 }
             }
