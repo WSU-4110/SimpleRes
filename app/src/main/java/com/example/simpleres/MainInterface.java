@@ -1,6 +1,5 @@
 package com.example.simpleres;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,11 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static android.R.id.empty;
-
 
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
@@ -126,9 +120,6 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
-        //top bar 'refresh' list button
-        final ImageButton refreshList = findViewById(R.id.refreshList);
-
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
         cancelSeatingView.setVisibility(View.INVISIBLE);
@@ -210,22 +201,8 @@ public class MainInterface extends AppCompatActivity {
                             }
                         });
 
-
-
                         selectPartyTypeMenu.show();
                 }
-
-                if(view.getId() == R.id.refreshList){
-                    resPartyArrayList = wdb.getReservationList();
-                    rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-                    resListView.setAdapter(rAdapter);
-                    resListView.setEmptyView(findViewById(R.id.emptyElement));
-                    wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
-                    waitListView.setAdapter(wAdapter);
-                    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-                    waitPartyArrayList = wdb.getWaitlistList();
-                }
-
             }
         };
 
@@ -236,8 +213,6 @@ public class MainInterface extends AppCompatActivity {
 
         //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
-        refreshList.setOnClickListener(listener);
-
 
         try {
             //Array of elements in the reservation listview

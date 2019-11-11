@@ -2,9 +2,11 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.time.LocalDateTime;
 
@@ -49,6 +52,12 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
             //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
+                //used for input validation toasts
+                boolean showDateToast = true;
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                int yOffset = 80;
+
                 switch(view.getId()){
                     case R.id.exitCreateWait:
                         finish();
@@ -61,16 +70,41 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                             final EditText sizeField = findViewById(R.id.enter_party_size);
                             final EditText phoneField = findViewById(R.id.enter_number);
 
-                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
-                                    || phoneField.getText().toString().length() != 10 ){
-                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            //input validation
+                            if (nameField.getText().toString().equals("")) {
+
+                                Toast toast = Toast.makeText(context, "Please enter party name!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have name fields blank!");
+
+                            }  else if (phoneField.getText().toString().length() != 10){
+
+                                Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have incomplete phone number!");
+
+                            } else if(sizeField.getText().toString().equals("")){
+
+                                showDateToast = false;
+
+                                Toast toast = Toast.makeText(context, "Please enter party size!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                                throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
+
                             String date = WaitlistEntry.formatDate(LocalDateTime.now());
                             final Spinner quotedField = findViewById(R.id.wait_times);
 
                             final EditText notesField = findViewById(R.id.enter_wait_notes);
-                            //throw exception if partysize field is empty ""
-                            //throw exception if name field is empty ""
 
                             String name = nameField.getText().toString();
                             String phone = phoneField.getText().toString();
@@ -82,7 +116,15 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",date="+date+",quoted="+quoted+")");
                             returnWaitlistEntry(name,phone,size,date,quoted,notes);
                         }
-                        catch(IllegalArgumentException x){System.out.println(x);
+                        catch(IllegalArgumentException x){
+
+                            if(showDateToast) {
+                                Toast toast = Toast.makeText(context, "Please select a date!", duration);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                            }
+
+                            System.out.println(x);
                             break;
                         }
                         catch(Exception e){System.out.println(e);}
