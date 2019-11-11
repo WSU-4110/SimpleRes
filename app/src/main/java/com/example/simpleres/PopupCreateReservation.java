@@ -1,12 +1,13 @@
 package com.example.simpleres;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -67,6 +69,12 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
             //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
+                //used for input validation toasts
+                boolean showDateToast = true;
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                int yOffset = 80;
+
                 switch(view.getId()){
 
                     case R.id.exitCreateRes:
@@ -81,10 +89,37 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
                             final EditText sizeField = findViewById(R.id.enter_party_size);
                             final EditText phoneField = findViewById(R.id.enter_number);
 
-                            if(sizeField.getText().toString() == "" || nameField.getText().toString() == ""
-                                    || phoneField.getText().toString().length() != 10){
-                                throw new IllegalArgumentException("Cannot have name or party size fields blank!") ;
+                            //input validation
+                            if (nameField.getText().toString().equals("")) {
+
+                                Toast toast = Toast.makeText(context, "Please enter party name!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have name fields blank!");
+
+                            }  else if (phoneField.getText().toString().length() != 10){
+
+                                Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have incomplete phone number!");
+
+                            } else if(sizeField.getText().toString().equals("")){
+
+                                showDateToast = false;
+
+                                Toast toast = Toast.makeText(context, "Please enter party size!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                                throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
+
                             //get date
                             final TextView reservationDate = findViewById(R.id.display_date);
                             String displayedDate = reservationDate.getText().toString();
@@ -116,12 +151,17 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
                             final EditText notesField = findViewById(R.id.enter_res_notes);
                             String notes = notesField.getText().toString();
 
-
-
                             System.out.println("Creating entry with parameters (name="+name+",phone="+phone+",size="+size+",dateTime="+dateTime+",localDate="+localDateTime.toString()+")");
                             returnWaitlistEntry(name,phone,size,dateTime,localDateTime,notes);
                         }
-                        catch(IllegalArgumentException x){System.out.println(x);
+                        catch(IllegalArgumentException x){
+
+                            if(showDateToast) {
+                                Toast toast = Toast.makeText(context, "Please select a date!", duration);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                            }
+                            System.out.println(x);
                             break;
                         }
                         catch(Exception e){System.out.println(e);}
@@ -140,9 +180,6 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //uncomment following if we want a toast
-        //String text = parent.getItemAtPosition(position).toString();
-        //Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -166,9 +203,6 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
         String date = month + "/" + dayOfMonth + "/" + year;
         mDisplayDate.setText(date);
 
-        //not used but can show the full date
-        //String selectedDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
-        //Toast.makeText(PopupCreateReservation.this, selectedDateString, Toast.LENGTH_LONG).show();
     }
     private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime,String ReservationNotes){
         WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);

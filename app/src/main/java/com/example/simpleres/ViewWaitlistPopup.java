@@ -2,9 +2,11 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,6 +77,12 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
             //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
+                //used for input validation toasts
+                boolean showDateToast = true;
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                int yOffset = 80;
+
                 switch(view.getId()){
                     case R.id.exitViewWait:
                         //essentially a 'cancel' button. User simply wants to view the waitlist party's information
@@ -83,12 +92,38 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the waitlist party to
                         //reflect the changes that they made in this pop-up
-
+                        //input validation
                         try {
-                            if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
-                                    || phoneField.getText().toString().length() != 10 ){
-                                throw new IllegalArgumentException("Cannot have name, party size fields blank, or incomplete phone number!") ;
+                            if (nameField.getText().toString().equals("")) {
+
+                                Toast toast = Toast.makeText(context, "Please enter party name!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have name fields blank!");
+
+                            }  else if (phoneField.getText().toString().length() != 10){
+
+                                Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have incomplete phone number!");
+
+                            } else if(sizeField.getText().toString().equals("")){
+
+                                showDateToast = false;
+
+                                Toast toast = Toast.makeText(context, "Please enter party size!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                                throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
+
                             String currentDate = selectedEntry.parseDate();
                             System.out.println("date stored as: " + currentDate);
                             String[] dateValues = currentDate.split("/");
@@ -121,6 +156,13 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
                             wdb.updateWaitlistEntry(selectedEntry);
 
                         } catch(IllegalArgumentException x){
+
+                            if(showDateToast) {
+                                Toast toast = Toast.makeText(context, "Please select a date!", duration);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                            }
+
                             System.out.println(x);
                             break;
                         }
@@ -143,9 +185,7 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //uncomment following if we want a toast
-        //String text = parent.getItemAtPosition(position).toString();
-        //Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

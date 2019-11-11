@@ -1,6 +1,5 @@
 package com.example.simpleres;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,11 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static android.R.id.empty;
-
 
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
