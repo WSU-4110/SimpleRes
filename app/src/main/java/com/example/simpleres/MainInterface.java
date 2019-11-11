@@ -120,9 +120,6 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
-        //top bar 'refresh' list button
-        final ImageButton refreshList = findViewById(R.id.refreshList);
-
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
         cancelSeatingView.setVisibility(View.INVISIBLE);
@@ -204,22 +201,8 @@ public class MainInterface extends AppCompatActivity {
                             }
                         });
 
-
-
                         selectPartyTypeMenu.show();
                 }
-
-                if(view.getId() == R.id.refreshList){
-                    resPartyArrayList = wdb.getReservationList();
-                    rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-                    resListView.setAdapter(rAdapter);
-                    resListView.setEmptyView(findViewById(R.id.emptyElement));
-                    wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
-                    waitListView.setAdapter(wAdapter);
-                    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-                    waitPartyArrayList = wdb.getWaitlistList();
-                }
-
             }
         };
 
@@ -230,8 +213,6 @@ public class MainInterface extends AppCompatActivity {
 
         //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
-        refreshList.setOnClickListener(listener);
-
 
         try {
             //Array of elements in the reservation listview
