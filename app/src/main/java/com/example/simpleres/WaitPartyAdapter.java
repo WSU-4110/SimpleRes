@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Adapter for waitlist
 //It fits and connects the info of the customer to layout design of the row Item in the waitlist
 public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
     private Context mContext;

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+//Adapter for reservation list
 //It fits and connects the info of the customer to layout design of the row Item in the reservation list
 public class ResPartyAdapter extends ArrayAdapter<WaitlistEntry> {
     private Context mContext;
