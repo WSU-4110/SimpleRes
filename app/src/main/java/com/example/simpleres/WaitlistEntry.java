@@ -117,4 +117,6 @@ public class WaitlistEntry {
         return (hours-first_time)*2;
 
     }
+
+
 }

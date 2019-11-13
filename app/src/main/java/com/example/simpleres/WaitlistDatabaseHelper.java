@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,38 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if (cursor.moveToFirst()){
+            do {
+                WaitlistEntry waitlistEntry = new WaitlistEntry();
+
+                waitlistEntry.setId(Integer.parseInt(cursor.getString(0)));
+                waitlistEntry.setName(cursor.getString(1));
+                waitlistEntry.setTelephone(cursor.getString(2));
+                waitlistEntry.setNumberOfPeople(Integer.parseInt(cursor.getString(3)));
+                waitlistEntry.setFormattedDateTime(cursor.getString(4));
+                waitlistEntry.setReservationFlag(Integer.parseInt(cursor.getString(5)));
+                waitlistEntry.setReservationNotes(cursor.getString(6));
+
+                waitlistEntryList.add(waitlistEntry);
+            } while (cursor.moveToNext());
+        }
+        return waitlistEntryList;
+    }
+
+    //populates a list of of reservations made for a particular day
+    //Formatted Date = YYYY-MM-DD
+    //SELECT * FROM waitlist Where expectedTime like '%2019-11-13%'
+    public ArrayList<WaitlistEntry> getDateReservationList(String formattedDate){
+        //check string
+        String[] values= formattedDate.split("-");
+        if (values.length!=3)//ensures that the string in the format "substring-substring-substring"
+            throw new IllegalArgumentException("formattedDate not in format substring-substring-substring");
+        ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_TIME +" LIKE '%'"+ formattedDate +"%' ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
