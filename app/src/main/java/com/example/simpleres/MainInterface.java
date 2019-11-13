@@ -3,10 +3,13 @@ package com.example.simpleres;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
@@ -29,7 +32,32 @@ public class MainInterface extends AppCompatActivity {
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
     static final int isfinished = 1;
+    public String sms = "Look mom, I can fly";
+    public void SendSMS(String phone){
+        try{
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("smsto:"));
+            i.setType("vnd.android-dir/mms-sms");
+            i.putExtra("address", phone);
+            i.putExtra("sms_body",sms);
+            startActivity(Intent.createChooser(i, "Send sms via:"));
+        }
+        catch(Exception e){
+            Toast.makeText(MainInterface.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void Text(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        if(checked){
+            int dbId = waitPartyArrayList.get(1).getId();
+            WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+            String number = selectedEntry.getTelephone();
+            SendSMS(number);
+        }
 
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
