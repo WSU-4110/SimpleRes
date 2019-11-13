@@ -161,7 +161,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     //populates a list of of reservations made for a particular day
     //Formatted Date = YYYY-MM-DD
-    //SELECT * FROM waitlist Where expectedTime like '%2019-11-13%'
+    //SELECT * FROM waitlist WHERE expectedTime LIKE '%2019-11-13%' AND reservationFlag = 1 ORDER BY expectedTime ASC
     public ArrayList<WaitlistEntry> getDateReservationList(String formattedDate){
         //check string
         String[] values= formattedDate.split("-");
@@ -169,7 +169,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             throw new IllegalArgumentException("formattedDate not in format substring-substring-substring");
         ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_TIME +" LIKE '%'"+ formattedDate +"%' ORDER BY " + KEY_TIME + " ASC";
+        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_TIME +" LIKE '%'"+ formattedDate +"%' AND "+KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 
