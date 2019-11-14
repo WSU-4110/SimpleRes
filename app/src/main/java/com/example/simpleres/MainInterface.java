@@ -120,6 +120,9 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
+        //top bar 'Access Calendar' button
+        final ImageButton accessCalendar = findViewById(R.id.access_calendar);
+
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
         cancelSeatingView.setVisibility(View.INVISIBLE);
@@ -203,6 +206,32 @@ public class MainInterface extends AppCompatActivity {
 
                         selectPartyTypeMenu.show();
                 }
+
+                if(view.getId() == R.id.access_calendar){
+                    //currently just using this button to test pop-ups.....
+
+                    //this is where the date picker will occur
+
+                    //when user selects a date, store it here:
+                    String dateSelected = "YYYY-MM-DD"; //YYYY-MM-DD is just a placeholder
+
+                    boolean isFuture = true;
+                    //check to see if date is past or future -- if current day, simply closer datePicker
+                        //if past -> isFuture = false;
+
+                    //if(isFuture)
+                        //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
+                    //Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                    //futurePop.putExtra("DATE_SELECTED", dateSelected);
+                    //startActivity(futurePop);
+
+                    //else
+                        //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
+                    Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                    pastPop.putExtra("DATE_SELECTED", dateSelected);
+                    startActivity(pastPop);
+
+                }
             }
         };
 
@@ -213,6 +242,7 @@ public class MainInterface extends AppCompatActivity {
 
         //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
+        accessCalendar.setOnClickListener(listener);
 
         try {
             //Array of elements in the reservation listview

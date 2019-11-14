@@ -84,5 +84,10 @@
     <string name="res_arrived">Arrived</string>
     <string name="res_here">Here</string>
 
+    <!-- calendar -->
+    <string name="viewing_past_date">Viewing Past Date</string>
+    <string name="viewing_future_date">Viewing Future Date</string>
+    <string name="covers_completed">covers completed on this date</string>
+
 
 </resources>
