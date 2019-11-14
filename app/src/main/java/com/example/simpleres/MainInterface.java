@@ -221,15 +221,15 @@ public class MainInterface extends AppCompatActivity {
 
                     //if(isFuture)
                         //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
-                    //Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
-                    //futurePop.putExtra("DATE_SELECTED", dateSelected);
-                    //startActivity(futurePop);
+                    Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                    futurePop.putExtra("DATE_SELECTED", dateSelected);
+                    startActivity(futurePop);
 
                     //else
                         //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
-                    Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
-                    pastPop.putExtra("DATE_SELECTED", dateSelected);
-                    startActivity(pastPop);
+                    //Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                    //pastPop.putExtra("DATE_SELECTED", dateSelected);
+                    //startActivity(pastPop);
 
                 }
             }

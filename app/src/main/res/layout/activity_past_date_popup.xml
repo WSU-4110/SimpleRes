@@ -8,12 +8,12 @@
     tools:context=".PastDatePopup">
 
     <TextView
-        android:id="@+id/viewDateMessage"
+        android:id="@+id/onDateMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:fontFamily="sans-serif-light"
-        android:text="@string/viewing_past_date"
+        android:text="@string/on_date"
         android:textColor="@color/color1"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,14 +21,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/closePopup"
+        android:id="@+id/closePastPopup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toEndOf="@+id/viewDateMessage"
+        app:layout_constraintStart_toEndOf="@+id/onDateMessage"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
@@ -37,12 +37,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Month Day, Year"
+        android:text="@string/display_date"
         android:textColor="@color/color1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewDateMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/onDateMessage" />
 
     <TextView
         android:id="@+id/displayCoversCompleted"

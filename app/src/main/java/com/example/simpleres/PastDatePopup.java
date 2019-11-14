@@ -27,7 +27,7 @@ public class PastDatePopup extends AppCompatActivity {
         //fields
         final TextView displayDate = findViewById(R.id.display_date);
         final TextView displayCovers = findViewById(R.id.displayCoversCompleted);
-        final ImageButton closePopup = findViewById(R.id.closePopup);
+        final ImageButton closePopup = findViewById(R.id.closePastPopup);
 
         //PASSED EXTRA containing the date selected in form YYYY-MM-DD
         String dateSelected = getIntent().getStringExtra("DATE_SELECTED");
@@ -58,7 +58,7 @@ public class PastDatePopup extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(view.getId() == R.id.closePopup){
+                if(view.getId() == R.id.closePastPopup){
                     finish();
                 }
             }

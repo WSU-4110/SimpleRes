@@ -85,9 +85,11 @@
     <string name="res_here">Here</string>
 
     <!-- calendar -->
-    <string name="viewing_past_date">Viewing Past Date</string>
-    <string name="viewing_future_date">Viewing Future Date</string>
-    <string name="covers_completed">covers completed on this date</string>
+    <string name="on_date">On Date</string>
+    <string name="display_date">Month Day, Year</string>
+    <string name="reservations_made">Reservations made: </string>
+    <string name="covers_completed">covers were completed</string>
+
 
 
 </resources>
