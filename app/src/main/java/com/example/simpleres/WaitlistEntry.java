@@ -11,6 +11,7 @@ public class WaitlistEntry {
     private String formattedDateTime;
     private int reservationFlag = 0;
     private String reservationNotes;
+    private int checkBox = 0;
     private LocalDateTime reservationTime;
 
 
@@ -76,6 +77,12 @@ public class WaitlistEntry {
     public int getReservationFlag(){return this.reservationFlag;}
     public void setReservationFlag(int ReservationFlag){this.reservationFlag=ReservationFlag;}
 
+    public int getCheckBox(){return this.checkBox;}
+    public void setCheckBox(int CheckBox){this.checkBox=CheckBox;}
+    public void toggleCheckBox(){
+        if (getCheckBox()==0) setCheckBox(1);
+        else if (getCheckBox()==1) setCheckBox(0);
+    }
     public String getReservationNotes(){return this.reservationNotes;}
     public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
 
