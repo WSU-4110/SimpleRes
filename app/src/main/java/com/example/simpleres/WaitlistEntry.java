@@ -106,7 +106,7 @@ public class WaitlistEntry {
             return "";
         String date = this.getFormattedDateTime().substring(0,10);
         String [] values = date.split("-");//splits time into 3 values that are stings representing year month and day in that order
-        date = values[2]+"/"+values[1]+"/"+values[0];
+        date = values[1]+"/"+values[2]+"/"+values[0];
         return date;
     }
     static public int getSpinnerPos(int hours, int minutes)
@@ -117,6 +117,5 @@ public class WaitlistEntry {
         return (hours-first_time)*2;
 
     }
-
 
 }
