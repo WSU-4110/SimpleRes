@@ -2,7 +2,7 @@ package com.example.simpleres;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+//TODO:Add checkmark flag
 public class WaitlistEntry {
     private int id;
     private String name;
