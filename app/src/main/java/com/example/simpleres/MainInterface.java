@@ -201,9 +201,39 @@ public class MainInterface extends AppCompatActivity {
 
                                     case "Walk-In":
 
-                                        //open and being seat walk-in activity
+                                        //open and begin seat walk-in activity
                                         Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
-                                        startActivity(pop3);
+                                        startActivityForResult(pop3, isfinished);
+                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                        cancelSeatingView.setVisibility(View.VISIBLE);
+                                        View.OnClickListener seatingListener = new View.OnClickListener() {
+
+                                            //method for which actions are taken when a button is clicked
+                                            @Override
+                                            public void onClick(View view) {
+
+                                                for (int i = 0; i<11;i++) {
+                                                    if (view.getId() == buttons[i].getId()) {
+                                                        Tables[i].setTableName("Walk-in");
+                                                        Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                        tdb.updateTableInfo(Tables[i]);
+                                                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                        recreate();
+                                                    }
+                                                }
+
+                                                if (view.getId() == cancelSeating.getId()) {
+                                                    cancelSeating.setVisibility(View.INVISIBLE);
+                                                    recreate();
+                                                }
+                                            }
+                                        };
+                                        //set listeners after the seating option is selected
+                                        for (int l = 0; l<11; l++) {
+                                            buttons[l].setOnClickListener(seatingListener);
+                                        }
+                                        cancelSeating.setOnClickListener(seatingListener);
+
                                         break;
                                 }
 
@@ -458,8 +488,8 @@ public class MainInterface extends AppCompatActivity {
                 waitPartyArrayList = wdb.getWaitlistList();
             }
             if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
-
+                // if walk-in seating is cancelled this is called and gets rid of the seating option
+                recreate();
             }
             else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
             {
