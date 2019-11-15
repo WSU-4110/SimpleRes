@@ -64,7 +64,6 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
     //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
     TableClass getCover(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        //System.out.println("Retrieving tableClass from database");
         Cursor cursor = db.query(COVER_TABLE_INFO, new String[]{KEY_DATE, KEY_COVER}, KEY_DATE + "=?",
                 new String[]{String.valueOf(id)},null,null,KEY_DATE +" ASC",null);
 
@@ -95,10 +94,6 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
     //used to change values of existing entries in the database
     public int updateCover(Cover cover){
         SQLiteDatabase db = this.getWritableDatabase();
-        /*System.out.println("updating table" + tableClass.getTableNumber() + " with the following information:\n"+
-                "Status: "+tableClass.getTableStatus()+"\n"+
-                "TableName: "+tableClass.getTableName()
-                );*/
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, cover.getDateAsString());
         values.put(KEY_COVER, cover.getDailyCover());
