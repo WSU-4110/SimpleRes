@@ -51,10 +51,10 @@ public class FutureDatePopup extends AppCompatActivity {
                     finish();
                 }
             }
-
-            //Just like in main interface, listen for when a party is tapped and open menu
-                //menu will only have 'Cancel' or 'View' options -> may need to make new menu resource file
         };
+
+        //Just like in main interface, listen for when a party is tapped and open menu
+            //menu will only have 'Cancel' or 'View' options -> use future_party_action_menu instead
 
         closePopup.setOnClickListener(listener);
     }

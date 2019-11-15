@@ -4,6 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#131018"
     tools:context=".SeatWalkInParty">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="515dp"
+        android:layout_height="333dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053">
+
+        <ImageButton
+            android:id="@+id/closeSeatWalkIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.142"
+            app:layout_constraintStart_toEndOf="@+id/seatWalkInParty"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:id="@+id/seatWalkInParty"
+            android:layout_width="249dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/seat_walk_in"
+            android:textColor="@color/color1"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/partySize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/enter_walk_in_size"
+            android:textColor="@color/color1"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.34"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seatWalkInParty" />
+
+        <EditText
+            android:id="@+id/enterWalkInSize"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/color1"
+            android:digits="123456789"
+            android:ems="10"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/enter_size"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:textColor="@color/color1"
+            android:textColorHint="@color/color1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/partySize"
+            app:layout_constraintTop_toBottomOf="@+id/seatWalkInParty" />
+
+        <Button
+            android:id="@+id/selectATable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="92dp"
+            android:text="@string/select_table"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/seatWalkInParty" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

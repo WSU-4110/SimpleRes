@@ -3,4 +3,5 @@
 
     <item android:title="@string/party_reservation" />
     <item android:title="@string/party_waitlist" />
+    <item android:title="@string/party_walk_in" />
 </menu>

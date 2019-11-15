@@ -198,6 +198,13 @@ public class MainInterface extends AppCompatActivity {
                                         startActivityForResult(pop2, isfinished);
                                         //startActivity(pop2);
                                         break;
+
+                                    case "Walk-In":
+
+                                        //open and being seat walk-in activity
+                                        Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
+                                        startActivity(pop3);
+                                        break;
                                 }
 
                                 return true;
