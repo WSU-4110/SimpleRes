@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewWaitlistPopup"></activity>
+        <activity android:name=".SeatWalkInParty"></activity>
+        <activity android:name=".FutureDatePopup" />
+        <activity android:name=".PastDatePopup" />
+        <activity android:name=".ViewWaitlistPopup" />
         <activity android:name=".ViewReservationPopup" />
         <activity android:name=".PopupCreateWaitlist" />
         <activity android:name=".PopupCreateReservation" />
