@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,10 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
         //display the size of the customers
         TextView size = (TextView) listItem.findViewById(R.id.sizeofWaitparty);
         size.setText(Integer.toString(currentParty.getNumberOfPeople()));
+
+        //display the checkbox state in the list
+        CheckBox text = listItem.findViewById(R.id.Here);
+        text.setChecked(currentParty.getCheckBox()==1);
 
         return listItem;
     }
