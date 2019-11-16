@@ -48,7 +48,7 @@
         android:textColor="@color/color1" />
 
     <CheckBox
-        android:id="@+id/Here"
+        android:id="@+id/SendText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -60,7 +60,8 @@
         android:buttonTint="@color/color1"
         android:focusable="false"
         android:text="@string/waitlist_text"
-        android:textColor="@color/color1" />
+        android:textColor="@color/color1"
+        android:onClick="Text"/>
 
 
 </RelativeLayout>
