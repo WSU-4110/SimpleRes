@@ -1,7 +1,9 @@
 package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,15 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MainInterface extends AppCompatActivity {
+public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
@@ -181,6 +188,9 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Access Calendar' button
         final ImageButton accessCalendar = findViewById(R.id.access_calendar);
 
+        //top bar 'Access past or future' button
+        final ImageButton accessPastOrFuture = findViewById(R.id.access_past_or_future);
+
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
         cancelSeatingView.setVisibility(View.INVISIBLE);
@@ -303,18 +313,22 @@ public class MainInterface extends AppCompatActivity {
                 }
 
                 if(view.getId() == R.id.access_calendar){
-                    //currently just using this button to test pop-ups.....
-
                     //this is where the date picker will occur
+                    showDatePickerDialog(view);
 
-                    //when user selects a date, store it here:
-                    String dateSelected = "YYYY-MM-DD"; //YYYY-MM-DD is just a placeholder
-
-                    boolean isFuture = true;
-                    //check to see if date is past or future -- if current day, simply closer datePicker
-                        //if past -> isFuture = false;
-
-                    //if(isFuture)
+/*
+                    if(isFuture) {
+                        Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                        futurePop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(futurePop);
+                        Toast.makeText(MainInterface.this, "future", Toast.LENGTH_LONG).show();
+                    }
+                   if(!isFuture) {
+                       Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                       pastPop.putExtra("DATE_SELECTED", dateSelected);
+                       startActivity(pastPop);
+                       Toast.makeText(MainInterface.this, "past", Toast.LENGTH_LONG).show();
+                    }
                         //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
                     Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
                     futurePop.putExtra("DATE_SELECTED", dateSelected);
@@ -322,10 +336,47 @@ public class MainInterface extends AppCompatActivity {
 
                     //else
                         //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
-                    //Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
-                    //pastPop.putExtra("DATE_SELECTED", dateSelected);
-                    //startActivity(pastPop);
+                    Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                     pastPop.putExtra("DATE_SELECTED", dateSelected);
+                    startActivity(pastPop);
+*/
+                }
 
+                if(view.getId() == R.id.access_past_or_future) {
+                    //get current day to compare
+                    LocalDate today = LocalDate.now();
+                    int year = today.getYear();
+                    int month = today.getMonthValue();
+                    int dayOfMonth = today.getDayOfMonth();
+                    String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+
+                    //store selected date
+                    final TextView reservationDate = findViewById(R.id.selected_date);
+                    String dateSelected = reservationDate.getText().toString();
+                    System.out.println("date stored as: "+dateSelected);
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                    LocalDate dateSelectedParsed = LocalDate.parse(dateSelected, formatter);
+                    LocalDate currentDayParsed = LocalDate.parse(currentDay, formatter);
+
+                    if(dateSelectedParsed.equals(today)){
+                        Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_LONG).show();
+                    }
+                    else if (dateSelectedParsed.isAfter(currentDayParsed)) {
+                        //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
+                        Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                        futurePop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(futurePop);
+                        Toast.makeText(MainInterface.this, "future", Toast.LENGTH_LONG).show();
+                    }
+                    else if (dateSelectedParsed.isBefore(currentDayParsed)) {
+                        //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
+                        Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                        pastPop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(pastPop);
+                        Toast.makeText(MainInterface.this, "past", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         };
@@ -338,6 +389,7 @@ public class MainInterface extends AppCompatActivity {
         //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
         accessCalendar.setOnClickListener(listener);
+        accessPastOrFuture.setOnClickListener(listener);
 
         try {
             //Array of elements in the reservation listview
@@ -572,6 +624,26 @@ public class MainInterface extends AppCompatActivity {
         }
     }
 
+    private TextView mDisplayDate;
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        month = month + 1;
+
+        mDisplayDate = findViewById(R.id.selected_date);
+
+        String dateSelected = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+        mDisplayDate.setText(dateSelected);
+
+    }
+    public void showDatePickerDialog(View v){
+        DialogFragment datePicker = new DatePickerActivity();
+        datePicker.show(getSupportFragmentManager(), "date picker");
+    }
 }
 
 
