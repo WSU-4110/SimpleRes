@@ -1,6 +1,5 @@
 package com.example.simpleres;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
@@ -85,7 +84,7 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-        notesField.setText(selectedEntry.getReservationNotes());
+        notesField.setText(selectedEntry.getNotes());
 
 
         String time = selectedEntry.parseTime().replaceAll("pm","");
@@ -173,7 +172,7 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
                             selectedEntry.setName(nameField.getText().toString());
                             selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                             selectedEntry.setTelephone(phoneField.getText().toString());
-                            selectedEntry.setReservationNotes(notesField.getText().toString());
+                            selectedEntry.setNotes(notesField.getText().toString());
                             wdb.updateWaitlistEntry(selectedEntry);
 
                         } catch(IllegalArgumentException x){

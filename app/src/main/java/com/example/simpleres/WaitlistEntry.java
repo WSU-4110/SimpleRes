@@ -2,7 +2,6 @@ package com.example.simpleres;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 public class WaitlistEntry {
     private int id;
     private String name;
@@ -10,31 +9,42 @@ public class WaitlistEntry {
     private int numberOfPeople;
     private String formattedDateTime;
     private int reservationFlag = 0;
-    private String reservationNotes;
+    private String notes;
     private LocalDateTime reservationTime;
+    private int checkBox = 0;
 
 
     // database constructor
-    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String ReservationNotes) {
+    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String Notes) {
         this.id = Id;
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.formattedDateTime = FormattedDateTime;
         this.reservationFlag = ReservationFlag;
-        this.reservationNotes = ReservationNotes;
+        this.notes = Notes;
+    }
+    WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime, int ReservationFlag, String Notes, int CheckBox) {
+        this.id = Id;
+        this.name = Name;
+        this.telephone = Telephone;
+        this.numberOfPeople = NumberOfPeople;
+        this.formattedDateTime = FormattedDateTime;
+        this.reservationFlag = ReservationFlag;
+        this.notes = Notes;
+        this.checkBox = CheckBox;
     }
     // constructor for waitlist
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes) {
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String Notes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
         this.reservationTime = LocalDateTime.now().plusMinutes(QuotedTime); //this adds quoted time to current time
         this.formattedDateTime = formatDate(reservationTime);
-        this.reservationNotes = ReservationNotes;
+        this.notes = Notes;
     }
     // constructor for reservation
-    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag, String ReservationNotes) {
+    WaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime ReservationTime, int ReservationFlag, String Notes) {
         this.name = Name;
         this.telephone = Telephone;
         this.numberOfPeople = NumberOfPeople;
@@ -42,7 +52,7 @@ public class WaitlistEntry {
         this.reservationTime = ReservationTime;
         this.reservationFlag = ReservationFlag;
         this.formattedDateTime = formatDate(reservationTime);
-        this.reservationNotes = ReservationNotes;
+        this.notes = Notes;
     }
     public WaitlistEntry() {
 
@@ -76,8 +86,16 @@ public class WaitlistEntry {
     public int getReservationFlag(){return this.reservationFlag;}
     public void setReservationFlag(int ReservationFlag){this.reservationFlag=ReservationFlag;}
 
-    public String getReservationNotes(){return this.reservationNotes;}
-    public void setReservationNotes(String ReservationNotes){this.reservationNotes=ReservationNotes;}
+    public int getCheckBox(){return this.checkBox;}
+    public void setCheckBox(int CheckBox){this.checkBox=CheckBox;}
+    public void setCheckBoxOn(){if(getCheckBox()==0) setCheckBox(1);}
+    public void setCheckBoxOff(){if(getCheckBox()==1) setCheckBox(0);}
+    public void toggleCheckBox(){
+        if (getCheckBox()==0) setCheckBox(1);
+        else if (getCheckBox()==1) setCheckBox(0);
+    }
+    public String getNotes(){return this.notes;}
+    public void setNotes(String ReservationNotes){this.notes =ReservationNotes;}
 
     //date format for easy sorting year-month-day hours:minutes:seconds
     public static String formatDate(LocalDateTime myDateTimeObj) {

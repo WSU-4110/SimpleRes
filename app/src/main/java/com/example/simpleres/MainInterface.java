@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
@@ -62,7 +64,35 @@ public class MainInterface extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
+/*      setContentView(R.layout.waitlist_list_item);
+        CheckBox checkBox = findViewById(R.id.Here);
+        try {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                        System.out.println("checked");// Do your coding
+                    else
+                        System.out.println("unchecked");// Do your coding
+                }
+            });
+        }
+        catch(Exception e){System.out.println(e);}
+        setContentView(R.layout.reslist_item_layout);
+        try {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                        System.out.println("checked");// Do your coding
+                    else
+                        System.out.println("unchecked");// Do your coding
+                }
+            });
+        }
+        catch(Exception e){System.out.println(e);}*/
 
+        setContentView(R.layout.activity_main_interface);
         //creating new table objects
         final TableClass[] Tables = new TableClass[11];
         Tables[0] = new TableClass(101, "Empty", "None" );
@@ -303,6 +333,9 @@ public class MainInterface extends AppCompatActivity {
             }
         catch(Exception e) { System.out.println(e);}
 
+
+
+
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -386,6 +419,7 @@ public class MainInterface extends AppCompatActivity {
         });
 
         waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, int position, long id) {
                 //Create pop-up for waitlist
@@ -394,6 +428,7 @@ public class MainInterface extends AppCompatActivity {
                 //just need to fix where the menu pops up
                 final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
@@ -465,7 +500,11 @@ public class MainInterface extends AppCompatActivity {
 
             }
         });
+        //initialize the checkbox state x
 
+        //update database checkbox state on click checkbox
+
+        //ensure the value stays when changing activity
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -502,6 +541,7 @@ public class MainInterface extends AppCompatActivity {
             }
         }
     }
+
 }
 
 
