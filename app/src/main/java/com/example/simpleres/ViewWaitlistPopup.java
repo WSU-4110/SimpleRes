@@ -1,7 +1,5 @@
 package com.example.simpleres;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,7 +68,7 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-        notesField.setText(selectedEntry.getReservationNotes());
+        notesField.setText(selectedEntry.getNotes());
 
         View.OnClickListener listener = new View.OnClickListener() {
 
@@ -151,7 +149,7 @@ public class ViewWaitlistPopup extends MainInterface implements AdapterView.OnIt
                             selectedEntry.setName(nameField.getText().toString());
                             selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                             selectedEntry.setTelephone(phoneField.getText().toString());
-                            selectedEntry.setReservationNotes(notesField.getText().toString());
+                            selectedEntry.setNotes(notesField.getText().toString());
 
                             wdb.updateWaitlistEntry(selectedEntry);
 
