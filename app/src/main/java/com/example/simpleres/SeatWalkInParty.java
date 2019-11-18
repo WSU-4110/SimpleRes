@@ -3,6 +3,7 @@ package com.example.simpleres;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -58,12 +59,19 @@ public class SeatWalkInParty extends AppCompatActivity {
                             //allow the user to select a table
 
                             //might need to refresh main interface to show change in cover count
+                            //currently only refreshes waitlist/reservation list recreating with this will close the activity to soon
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("result",1);
+                            setResult(RESULT_OK,returnIntent);
                             finish();
                         }
                         break;
 
                     case R.id.closeSeatWalkIn:
-
+                        //uses the result in the maininterface and recreates the main interface to clear the seating options
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("result",1);
+                        setResult(RESULT_CANCELED,returnIntent);
                         finish();
                         break;
 
