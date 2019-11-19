@@ -68,13 +68,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             String number = selectedEntry.getTelephone();
             SendSMS(number);
         }
-
-
-<<<<<<< HEAD
-
-=======
     }
->>>>>>> 4742d56c8419d3c3739f6a4c1ff3a6d16a7b235b
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
