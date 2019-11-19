@@ -2,14 +2,29 @@ package com.example.simpleres;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import static com.example.simpleres.MainInterface.isfinished;
 
 public class FutureDatePopup extends AppCompatActivity {
 
+    //initialize the listView and the Adapter
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    ArrayList<WaitlistEntry> FuturePartyArrayList = new ArrayList<>();
+    private ListView FutureList;
+    private FutureListAdapter FAdaptar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +56,61 @@ public class FutureDatePopup extends AppCompatActivity {
         String formattedDate = month + " " + day + ", " + year;
 
         //displayDate.setText(month); //causing app to crash for some reason?
+
+        //Array of elements in the Future listview
+        FutureList = (ListView) findViewById(R.id.FutureList);
+        FuturePartyArrayList = wdb.getReservationList();
+
+        //adapter for the listview
+        FAdaptar = new FutureListAdapter(FutureDatePopup.this, FuturePartyArrayList);
+        FutureList.setAdapter(FAdaptar);
+        //display a message when empty
+        FutureList.setEmptyView(findViewById(R.id.emptyElement));
+
+        FutureList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Create pop-up for reservation
+                PopupMenu FutureListActionMenu = new PopupMenu(view.getContext(), view);
+                FutureListActionMenu.getMenuInflater().inflate(R.menu.future_action_menu, FutureListActionMenu.getMenu());
+                final int pos = position;
+                //just need to fix where the menu pops up
+
+                FutureListActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        System.out.println("position selected: "+pos);
+                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        int dbId = FuturePartyArrayList.get(pos).getId();
+                        WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+                        System.out.println("entry with contents: " + selectedEntry.contents());
+                        final WaitlistEntry selectedEntryTemp = selectedEntry;
+
+                        switch(item.toString()){
+                            case "View":
+                                //call method / activity to view or edit the reservation party's information
+                                //the the selectedEntry must be modified in the PopupViewReservation activity
+                                Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
+                                viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
+                                startActivityForResult(viewRes, isfinished);
+                                //startActivity(viewRes);
+                                //wdb.updateWaitlistEntry(selectedEntry);
+                                recreate();
+                                break;
+                            case "Cancel":
+                                //call method / activity to cancel the reservation party
+                                wdb.deleteWaitlistEntry(selectedEntry);
+                                recreate();
+                                break;
+                        }
+
+                        return true;
+                    }
+                });
+
+                FutureListActionMenu.show();
+            }
+        });
 
 
         //used to end the activity
