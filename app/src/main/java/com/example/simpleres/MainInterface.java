@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 public class MainInterface extends AppCompatActivity {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+    CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
     ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
@@ -32,6 +32,7 @@ public class MainInterface extends AppCompatActivity {
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
     static final int isfinished = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
