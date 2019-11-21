@@ -423,7 +423,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for reservation
                 PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
-                resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                resPartyActionMenu.getMenuInflater().inflate(R.menu.reservation_action_menu, resPartyActionMenu.getMenu());
                 final int pos = position;
                 //just need to fix where the menu pops up
 
@@ -490,6 +490,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
+                            case "Here":
+                                //update checkbox to mark the party as here
+                                break;
                         }
 
                         return true;
@@ -506,7 +509,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             public void onItemClick(AdapterView<?> adapterView, final View view, int position, long id) {
                 //Create pop-up for waitlist
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
-                waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
+                waitPartyActionMenu.getMenuInflater().inflate(R.menu.waitlist_action_menu, waitPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
                 final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -571,6 +574,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                 //call method / activity to cancel the waitlist party
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
+                                break;
+                            case "Text":
+                                //here is where we will text the party at pos
+                                //update the checkbox to checked
                                 break;
                         }
 
