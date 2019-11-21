@@ -46,9 +46,9 @@ public class PastDatePopup extends AppCompatActivity {
 
         //reformat dateSelected to display for example November 14, 2019 for 2019-11-14
         //store values in following variables
-        String month = "Month";
-        String day = "Day";
-        String year = "Year";
+        String month = FutureDatePopup.getMonthString(dateSelected);
+        String day = FutureDatePopup.getDayString(dateSelected);
+        String year = FutureDatePopup.getYearString(dateSelected);
 
         //display formatted date
         String formattedDate = month + " " + day + ", " + year;
@@ -65,6 +65,5 @@ public class PastDatePopup extends AppCompatActivity {
         };
 
         closePopup.setOnClickListener(listener);
-
     }
 }

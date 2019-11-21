@@ -50,9 +50,9 @@ public class FutureDatePopup extends AppCompatActivity {
 
         //reformat dateSelected to display for example November 14, 2019 for 2019-11-14
         //store values in following variables
-        String month = "Month";
-        String day = "Day";
-        String year = "Year";
+        String month = getMonthString(dateSelected);
+        String day = getDayString(dateSelected);
+        String year = getYearString(dateSelected);
 
         //display the formatted date
         String formattedDate = month + " " + day + ", " + year;
@@ -123,4 +123,62 @@ public class FutureDatePopup extends AppCompatActivity {
 
         closePopup.setOnClickListener(listener);
     }
+
+    public static String getMonthString(String dateSelected){
+        //dateSelected is formatted as YYYY-MM-DD 0123 4 56 7 89
+        char[] monthInts = new char[2];
+        monthInts[0] = dateSelected.charAt(5);
+        monthInts[1] = dateSelected.charAt(6);
+
+        int monthInt = Integer.parseInt(new String(monthInts));
+
+        switch(monthInt){
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+        }
+        return "ERROR";
+    }
+
+    public static String getDayString(String dateSelected){
+        //dateSelected is formatted as YYYY-MM-DD 0123 4 56 7 89
+        char[] dayInts = new char[2];
+        dayInts[0] = dateSelected.charAt(8);
+        dayInts[1] = dateSelected.charAt(9);
+
+        return new String(dayInts);
+    }
+
+    public static String getYearString(String dateSelected){
+        //dateSelected is formatted as YYYY-MM-DD 0123 4 56 7 89
+        char[] yearInts = new char[4];
+        yearInts[0] = dateSelected.charAt(0);
+        yearInts[1] = dateSelected.charAt(1);
+        yearInts[2] = dateSelected.charAt(2);
+        yearInts[3] = dateSelected.charAt(3);
+
+        return new String(yearInts);
+    }
+
 }
