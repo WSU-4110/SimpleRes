@@ -4,4 +4,5 @@
     <item android:title="@string/seat_party" />
     <item android:title="@string/view_party" />
     <item android:title="@string/cancel_party" />
+    <item android:title="@string/party_here" />
 </menu>

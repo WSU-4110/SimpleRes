@@ -20,7 +20,7 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
     private Context mContext;
     private List<WaitlistEntry> partyList = new ArrayList<>();
 
-    public WaitPartyAdapter(@NonNull Context context, @LayoutRes ArrayList<WaitlistEntry> list) {
+    public WaitPartyAdapter(@NonNull Context context, /*@LayoutRes*/ ArrayList<WaitlistEntry> list) {
         super(context, 0 , list);
         mContext = context;
         partyList = list;
@@ -47,8 +47,8 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
         size.setText(Integer.toString(currentParty.getNumberOfPeople()));
 
         //display the checkbox state in the list
-        CheckBox text = listItem.findViewById(R.id.Here);
-        text.setChecked(currentParty.getCheckBox()==1);
+        //CheckBox text = listItem.findViewById(R.id.Here);
+        //text.setChecked(currentParty.getCheckBox()==1);
 
         return listItem;
     }
