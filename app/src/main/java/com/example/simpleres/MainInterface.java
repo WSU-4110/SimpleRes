@@ -196,9 +196,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         int month = today.getMonthValue();
         int dayOfMonth = today.getDayOfMonth();
         String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
-        final TextView currentDisplayDate;
-        currentDisplayDate = findViewById(R.id.selected_date);
-        currentDisplayDate.setText(currentDay);
+        String displayDate = FutureDatePopup.getMonthString(currentDay) + " " + FutureDatePopup.getDayString(currentDay)
+                + ", " + FutureDatePopup.getYearString(currentDay);
+
+        final TextView currentDisplayDate = findViewById(R.id.selected_date);
+        currentDisplayDate.setText(displayDate);
 
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
@@ -604,11 +606,13 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
                 futurePop.putExtra("DATE_SELECTED", dateSelected);
                 startActivity(futurePop);
+                recreate();
             } else if (dateSelectedParsed.isBefore(currentDayParsed)) {
                 //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
                 Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
                 pastPop.putExtra("DATE_SELECTED", dateSelected);
                 startActivity(pastPop);
+                recreate();
             }
             showPastOrFuture = false;
         }
