@@ -524,6 +524,18 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                             case "Text":
                                 //here is where we will text the party at pos
                                 //update the checkbox to checked
+                                String phoneNum = "2487030000";
+                                String msg = "Your reservation is ready.";
+                                try {
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNum, null, msg, null, null);
+                                    Toast.makeText(getApplicationContext(), "Message Sent",
+                                            Toast.LENGTH_LONG).show();
+                                } catch (Exception ex) {
+                                    Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
+                                            Toast.LENGTH_LONG).show();
+                                    ex.printStackTrace();
+                                }
                                 break;
                         }
 

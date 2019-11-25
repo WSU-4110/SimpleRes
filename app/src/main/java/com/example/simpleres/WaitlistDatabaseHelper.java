@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Waitlist.db";
+    private static final String DATABASE_NAME = "Waitlist1.db";
     private static final String TABLE_WAITLIST_ENTRY = "waitlist";
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
