@@ -94,6 +94,10 @@ public class FutureDatePopup extends AppCompatActivity {
                                 viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
                                 startActivityForResult(viewRes, isfinished);
                                 recreate();
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("result",1);
+                                setResult(RESULT_OK,returnIntent);
+                                finish();
                                 break;
                             case "Cancel":
                                 //call method / activity to cancel the reservation party
