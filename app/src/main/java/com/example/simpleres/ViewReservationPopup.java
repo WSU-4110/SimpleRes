@@ -1,12 +1,13 @@
 package com.example.simpleres;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -82,7 +84,7 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
         nameField.setText(selectedEntry.getName());
         sizeField.setText(Integer.toString(selectedEntry.getNumberOfPeople()));
         phoneField.setText(selectedEntry.getTelephone());
-        notesField.setText(selectedEntry.getReservationNotes());
+        notesField.setText(selectedEntry.getNotes());
 
 
         String time = selectedEntry.parseTime().replaceAll("pm","");
@@ -98,8 +100,13 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
             //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
-                switch(view.getId()){
+                //used for input validation toasts
+                boolean showDateToast = true;
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+                int yOffset = 80;
 
+                switch(view.getId()){
                     case R.id.exitViewRes:
                         //essentially a 'cancel' button. User simply wants to view the reservation information
                         //or they wish to discard the changes that were made
@@ -108,12 +115,38 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
                     case R.id.exit_and_save:
                         //if user selects this button, then they want to update the reservation to
                         //reflect the changes that they made in this pop-up
-
+                        //input validation
                         try {
-                            if(sizeField.getText().toString().equals("") || nameField.getText().toString().equals("")
-                                    || phoneField.getText().toString().length() != 10){
-                                throw new IllegalArgumentException("Cannot have name, party size fields blank, or incomplete phone number!") ;
+                            if (nameField.getText().toString().equals("")) {
+
+                                Toast toast = Toast.makeText(context, "Please enter party name!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have name fields blank!");
+
+                            }  else if (phoneField.getText().toString().length() != 10){
+
+                                Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+
+                                showDateToast = false;
+
+                                throw new IllegalArgumentException("Cannot have incomplete phone number!");
+
+                            } else if(sizeField.getText().toString().equals("")){
+
+                                showDateToast = false;
+
+                                Toast toast = Toast.makeText(context, "Please enter party size!", duration);
+                                toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                                throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
+
                             //get date
                             String displayedDate = reservationDate.getText().toString();
                             System.out.println("date stored as: " + displayedDate);
@@ -139,10 +172,17 @@ public class ViewReservationPopup extends MainInterface implements AdapterView.O
                             selectedEntry.setName(nameField.getText().toString());
                             selectedEntry.setNumberOfPeople(Integer.parseInt(sizeField.getText().toString()));
                             selectedEntry.setTelephone(phoneField.getText().toString());
-                            selectedEntry.setReservationNotes(notesField.getText().toString());
+                            selectedEntry.setNotes(notesField.getText().toString());
                             wdb.updateWaitlistEntry(selectedEntry);
 
                         } catch(IllegalArgumentException x){
+
+                            if(showDateToast) {
+                                Toast toast = Toast.makeText(context, "Please select a date!", duration);
+                                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
+                                toast.show();
+                            }
+
                             System.out.println(x);
                             break;
                         }

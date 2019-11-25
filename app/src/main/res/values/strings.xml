@@ -18,6 +18,7 @@
     <string name="add_party">Add Party</string>
     <string name="party_reservation">Reservation</string>
     <string name="party_waitlist">Waitlist</string>
+    <string name="party_walk_in">Walk-In</string>
 
     <!-- common -->
     <string name="guest_name">Guest name: </string>
@@ -68,10 +69,12 @@
     <string name="waitlist_notes">Waitlist notes: </string>
     <string name="enter_wait_notes">Enter waitlist notes (optional)</string>
 
-    <!-- party action menu -->
+    <!-- party action menus -->
     <string name="seat_party">Seat</string>
     <string name="view_party">View</string>
     <string name="cancel_party">Cancel</string>
+    <string name="party_here">Here</string>
+    <string name="text_party">Text</string>
 
     <!-- view party pop-up -->
     <string name="exit_and_save">Save Changes</string>
@@ -83,6 +86,19 @@
     <string name="sent_text">Sent</string>
     <string name="res_arrived">Arrived</string>
     <string name="res_here">Here</string>
+
+    <!-- calendar -->
+    <string name="on_date">On Date</string>
+    <string name="display_date">Month Day, Year</string>
+    <string name="reservations_made">Reservations made: </string>
+    <string name="covers_completed">covers were completed</string>
+
+    <!-- seat walk in party -->
+    <string name="seat_walk_in">Seat Walk-In Party</string>
+    <string name="select_table">Select A Table</string>
+    <string name="enter_walk_in_size">Size of Walk-In:</string>
+    <string name="enter_size">Size</string>
+
 
 
 </resources>

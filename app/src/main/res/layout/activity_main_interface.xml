@@ -58,31 +58,33 @@
             style="@android:style/Widget.Holo.Light.ImageButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="752dp"
+            android:layout_marginLeft="670dp"
             android:layout_marginTop="15dp"
             android:backgroundTint="#00000000"
             android:contentDescription="access_calendar"
             android:src="@android:drawable/ic_input_get" />
 
         <TextView
-            android:id="@+id/placeholder_date"
+            android:id="@+id/selected_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="550dp"
+            android:layout_marginLeft="480dp"
             android:layout_marginTop="15dp"
             android:background="#242030"
-            android:text=" Month, Day, Year "
+            android:text="Year-Month-date"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
 
         <ImageButton
-            android:id="@+id/refreshList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="365dp"
-            android:layout_marginTop="5dp"
+            android:id="@+id/access_past_or_future"
+            style="@android:style/Widget.Holo.Light.ImageButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="710dp"
+            android:layout_marginTop="15dp"
             android:backgroundTint="#00000000"
-            app:srcCompat="@android:drawable/ic_popup_sync" />
+            android:contentDescription="access_past_or_future"
+            android:src="@android:drawable/ic_input_get" />
 
     </FrameLayout>
 

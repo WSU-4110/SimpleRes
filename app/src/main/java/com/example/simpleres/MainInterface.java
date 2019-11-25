@@ -1,27 +1,33 @@
 package com.example.simpleres;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ListView;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Calendar;
 
-import static android.R.id.empty;
-
-
-public class MainInterface extends AppCompatActivity {
+public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
@@ -35,12 +41,65 @@ public class MainInterface extends AppCompatActivity {
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
     static final int isfinished = 1;
+    public String sms = "Look mom, I can fly";
+    public void SendSMS(String phone){
+        try{
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("smsto:"));
+            i.setType("vnd.android-dir/mms-sms");
+            i.putExtra("address", phone);
+            i.putExtra("sms_body",sms);
+            startActivity(Intent.createChooser(i, "Send sms via:"));
+        }
+        catch(Exception e){
+            Toast.makeText(MainInterface.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void Text(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        if(checked){
+            int dbId = waitPartyArrayList.get(1).getId();
+            WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
+            String number = selectedEntry.getTelephone();
+            SendSMS(number);
+        }
 
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
+/*      setContentView(R.layout.waitlist_list_item);
+        CheckBox checkBox = findViewById(R.id.Here);
+        try {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                        System.out.println("checked");// Do your coding
+                    else
+                        System.out.println("unchecked");// Do your coding
+                }
+            });
+        }
+        catch(Exception e){System.out.println(e);}
+        setContentView(R.layout.reslist_item_layout);
+        try {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                        System.out.println("checked");// Do your coding
+                    else
+                        System.out.println("unchecked");// Do your coding
+                }
+            });
+        }
+        catch(Exception e){System.out.println(e);}*/
 
+        setContentView(R.layout.activity_main_interface);
         //creating new table objects
         final TableClass[] Tables = new TableClass[11];
         Tables[0] = new TableClass(101, "Empty", "None" );
@@ -126,8 +185,11 @@ public class MainInterface extends AppCompatActivity {
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
 
-        //top bar 'refresh' list button
-        final ImageButton refreshList = findViewById(R.id.refreshList);
+        //top bar 'Access Calendar' button
+        final ImageButton accessCalendar = findViewById(R.id.access_calendar);
+
+        //top bar 'Access past or future' button
+        final ImageButton accessPastOrFuture = findViewById(R.id.access_past_or_future);
 
         final Button cancelSeating = findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
@@ -204,28 +266,118 @@ public class MainInterface extends AppCompatActivity {
                                         startActivityForResult(pop2, isfinished);
                                         //startActivity(pop2);
                                         break;
+
+                                    case "Walk-In":
+
+                                        //open and begin seat walk-in activity
+                                        Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
+                                        startActivityForResult(pop3, isfinished);
+                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                        cancelSeatingView.setVisibility(View.VISIBLE);
+                                        View.OnClickListener seatingListener = new View.OnClickListener() {
+
+                                            //method for which actions are taken when a button is clicked
+                                            @Override
+                                            public void onClick(View view) {
+
+                                                for (int i = 0; i<11;i++) {
+                                                    if (view.getId() == buttons[i].getId()) {
+                                                        Tables[i].setTableName("Walk-in");
+                                                        Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                        tdb.updateTableInfo(Tables[i]);
+                                                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                        recreate();
+                                                    }
+                                                }
+
+                                                if (view.getId() == cancelSeating.getId()) {
+                                                    cancelSeating.setVisibility(View.INVISIBLE);
+                                                    recreate();
+                                                }
+                                            }
+                                        };
+                                        //set listeners after the seating option is selected
+                                        for (int l = 0; l<11; l++) {
+                                            buttons[l].setOnClickListener(seatingListener);
+                                        }
+                                        cancelSeating.setOnClickListener(seatingListener);
+
+                                        break;
                                 }
 
                                 return true;
                             }
                         });
 
-
-
                         selectPartyTypeMenu.show();
                 }
 
-                if(view.getId() == R.id.refreshList){
-                    resPartyArrayList = wdb.getReservationList();
-                    rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-                    resListView.setAdapter(rAdapter);
-                    resListView.setEmptyView(findViewById(R.id.emptyElement));
-                    wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
-                    waitListView.setAdapter(wAdapter);
-                    waitListView.setEmptyView(findViewById(R.id.emptyElement2));
-                    waitPartyArrayList = wdb.getWaitlistList();
+                if(view.getId() == R.id.access_calendar){
+                    //this is where the date picker will occur
+                    showDatePickerDialog(view);
+
+/*
+                    if(isFuture) {
+                        Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                        futurePop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(futurePop);
+                        Toast.makeText(MainInterface.this, "future", Toast.LENGTH_LONG).show();
+                    }
+                   if(!isFuture) {
+                       Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                       pastPop.putExtra("DATE_SELECTED", dateSelected);
+                       startActivity(pastPop);
+                       Toast.makeText(MainInterface.this, "past", Toast.LENGTH_LONG).show();
+                    }
+                        //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
+                    Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                    futurePop.putExtra("DATE_SELECTED", dateSelected);
+                    startActivity(futurePop);
+
+                    //else
+                        //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
+                    Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                     pastPop.putExtra("DATE_SELECTED", dateSelected);
+                    startActivity(pastPop);
+*/
                 }
 
+                if(view.getId() == R.id.access_past_or_future) {
+                    //get current day to compare
+                    LocalDate today = LocalDate.now();
+                    int year = today.getYear();
+                    int month = today.getMonthValue();
+                    int dayOfMonth = today.getDayOfMonth();
+                    String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+
+                    //store selected date
+                    final TextView reservationDate = findViewById(R.id.selected_date);
+                    String dateSelected = reservationDate.getText().toString();
+                    System.out.println("date stored as: "+dateSelected);
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                    LocalDate dateSelectedParsed = LocalDate.parse(dateSelected, formatter);
+                    LocalDate currentDayParsed = LocalDate.parse(currentDay, formatter);
+
+                    if(dateSelectedParsed.equals(today)){
+                        Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_LONG).show();
+                    }
+                    else if (dateSelectedParsed.isAfter(currentDayParsed)) {
+                        //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
+                        Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
+                        futurePop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(futurePop);
+                        Toast.makeText(MainInterface.this, "future", Toast.LENGTH_LONG).show();
+                    }
+                    else if (dateSelectedParsed.isBefore(currentDayParsed)) {
+                        //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
+                        Intent pastPop = new Intent(getApplicationContext(), PastDatePopup.class);
+                        pastPop.putExtra("DATE_SELECTED", dateSelected);
+                        startActivity(pastPop);
+                        Toast.makeText(MainInterface.this, "past", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         };
 
@@ -236,8 +388,8 @@ public class MainInterface extends AppCompatActivity {
 
         //set listeners for top bar layout
         addPartyButton.setOnClickListener(listener);
-        refreshList.setOnClickListener(listener);
-
+        accessCalendar.setOnClickListener(listener);
+        accessPastOrFuture.setOnClickListener(listener);
 
         try {
             //Array of elements in the reservation listview
@@ -263,12 +415,15 @@ public class MainInterface extends AppCompatActivity {
             }
         catch(Exception e) { System.out.println(e);}
 
+
+
+
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //Create pop-up for reservation
                 PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
-                resPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, resPartyActionMenu.getMenu());
+                resPartyActionMenu.getMenuInflater().inflate(R.menu.reservation_action_menu, resPartyActionMenu.getMenu());
                 final int pos = position;
                 //just need to fix where the menu pops up
 
@@ -335,6 +490,9 @@ public class MainInterface extends AppCompatActivity {
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
+                            case "Here":
+                                //update checkbox to mark the party as here
+                                break;
                         }
 
                         return true;
@@ -346,14 +504,16 @@ public class MainInterface extends AppCompatActivity {
         });
 
         waitListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, int position, long id) {
                 //Create pop-up for waitlist
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
-                waitPartyActionMenu.getMenuInflater().inflate(R.menu.party_action_menu, waitPartyActionMenu.getMenu());
+                waitPartyActionMenu.getMenuInflater().inflate(R.menu.waitlist_action_menu, waitPartyActionMenu.getMenu());
                 //just need to fix where the menu pops up
                 final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
 
@@ -415,6 +575,10 @@ public class MainInterface extends AppCompatActivity {
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
+                            case "Text":
+                                //here is where we will text the party at pos
+                                //update the checkbox to checked
+                                break;
                         }
 
                         return true;
@@ -425,7 +589,11 @@ public class MainInterface extends AppCompatActivity {
 
             }
         });
+        //initialize the checkbox state x
 
+        //update database checkbox state on click checkbox
+
+        //ensure the value stays when changing activity
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -446,8 +614,8 @@ public class MainInterface extends AppCompatActivity {
                 waitPartyArrayList = wdb.getWaitlistList();
             }
             if (resultCode == RESULT_CANCELED) {
-                //Write your code if there's no result
-
+                // if walk-in seating is cancelled this is called and gets rid of the seating option
+                recreate();
             }
             else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
             {
@@ -461,6 +629,27 @@ public class MainInterface extends AppCompatActivity {
                 waitPartyArrayList = wdb.getWaitlistList();
             }
         }
+    }
+
+    private TextView mDisplayDate;
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        month = month + 1;
+
+        mDisplayDate = findViewById(R.id.selected_date);
+
+        String dateSelected = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+        mDisplayDate.setText(dateSelected);
+
+    }
+    public void showDatePickerDialog(View v){
+        DialogFragment datePicker = new DatePickerActivity();
+        datePicker.show(getSupportFragmentManager(), "date picker");
     }
 }
 
