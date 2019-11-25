@@ -313,9 +313,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="198dp"
-                android:layout_marginLeft="198dp"
-                android:layout_marginTop="322dp"
+                android:layout_marginStart="466dp"
+                android:layout_marginLeft="466dp"
+                android:layout_marginTop="554dp"
                 android:background="@drawable/button_effect"
                 android:text="201" />
 
@@ -326,9 +326,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="53dp"
-                android:layout_marginLeft="53dp"
-                android:layout_marginTop="339dp"
+                android:layout_marginStart="463dp"
+                android:layout_marginLeft="463dp"
+                android:layout_marginTop="353dp"
                 android:background="@drawable/button_effect"
                 android:text="101" />
 
@@ -365,9 +365,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="388dp"
-                android:layout_marginLeft="388dp"
-                android:layout_marginTop="251dp"
+                android:layout_marginStart="529dp"
+                android:layout_marginLeft="529dp"
+                android:layout_marginTop="232dp"
                 android:background="@drawable/button_effect"
                 android:text="202" />
 
@@ -430,9 +430,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="285dp"
-                android:layout_marginLeft="285dp"
-                android:layout_marginTop="441dp"
+                android:layout_marginStart="451dp"
+                android:layout_marginLeft="451dp"
+                android:layout_marginTop="561dp"
                 android:background="@drawable/button_effect"
                 android:text="108" />
 
@@ -443,9 +443,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="90dp"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="441dp"
+                android:layout_marginStart="488dp"
+                android:layout_marginLeft="488dp"
+                android:layout_marginTop="255dp"
                 android:background="@drawable/button_effect"
                 android:text="109" />
 
@@ -476,6 +476,8 @@
                 android:id="@+id/waitlistListView"
                 android:layout_width="416dp"
                 android:layout_height="294dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="21dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="20dp">
 
