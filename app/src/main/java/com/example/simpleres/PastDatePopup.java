@@ -25,7 +25,7 @@ public class PastDatePopup extends AppCompatActivity {
         getWindow().setLayout((int)(width*0.5), (int)(height*0.5));
 
         //fields
-        final TextView displayDate = findViewById(R.id.display_date);
+        final TextView displayDate = findViewById(R.id.displayPastDate);
         final TextView displayCovers = findViewById(R.id.displayCoversCompleted);
         final ImageButton closePopup = findViewById(R.id.closePastPopup);
 
@@ -44,15 +44,15 @@ public class PastDatePopup extends AppCompatActivity {
         //Display this information
         displayCovers.setText(coversCompleted);
 
-        //reformat dateSelect to display for example November 14, 2019 for 2019-11-14
+        //reformat dateSelected to display for example November 14, 2019 for 2019-11-14
         //store values in following variables
-        String month = "Month";
-        String day = "Day";
-        String year = "Year";
+        String month = FutureDatePopup.getMonthString(dateSelected);
+        String day = FutureDatePopup.getDayString(dateSelected);
+        String year = FutureDatePopup.getYearString(dateSelected);
 
+        //display formatted date
         String formattedDate = month + " " + day + ", " + year;
-
-        //displayDate.setText(formattedDate); //causing app to crash for some reason?
+        displayDate.setText(formattedDate);
 
         //used to end the activity
         View.OnClickListener listener = new View.OnClickListener() {
@@ -65,6 +65,5 @@ public class PastDatePopup extends AppCompatActivity {
         };
 
         closePopup.setOnClickListener(listener);
-
     }
 }

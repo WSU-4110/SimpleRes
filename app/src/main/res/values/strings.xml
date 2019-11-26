@@ -69,10 +69,12 @@
     <string name="waitlist_notes">Waitlist notes: </string>
     <string name="enter_wait_notes">Enter waitlist notes (optional)</string>
 
-    <!-- party action menu -->
+    <!-- party action menus -->
     <string name="seat_party">Seat</string>
     <string name="view_party">View</string>
     <string name="cancel_party">Cancel</string>
+    <string name="party_here">Here</string>
+    <string name="text_party">Text</string>
 
     <!-- view party pop-up -->
     <string name="exit_and_save">Save Changes</string>
