@@ -112,7 +112,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         Tables[8] = new TableClass(109, "Empty", "None" );
         Tables[9] = new TableClass(201, "Empty", "None" );
         Tables[10] = new TableClass(202, "Empty", "None" );
-
+        //initialize todays cover class
+        Cover todaysCover = new Cover(0,LocalDate.now());
         // get from database tables
         try {
             Tables[0] = tdb.getTableClass(101);
@@ -126,6 +127,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             Tables[8] = tdb.getTableClass(109);
             Tables[9] = tdb.getTableClass(201);
             Tables[10] = tdb.getTableClass(202);
+            //get todays cover from database
+
         }
         catch (Exception e){
             System.out.println("error getting table info from database");
@@ -139,7 +142,20 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 System.out.println("error adding tables to database");
             }
         }
-
+        try {
+            todaysCover = cdb.getCover(LocalDate.now().toString());
+        }
+        catch(Exception e)
+        {
+            System.out.println("error getting Cover info from database");
+            System.out.println("adding Cover in nested try/catch block");
+            try {
+                cdb.addCover(todaysCover);
+            }
+            catch(Exception x) {
+                System.out.println("error adding Cover to database");
+            }
+        }
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
