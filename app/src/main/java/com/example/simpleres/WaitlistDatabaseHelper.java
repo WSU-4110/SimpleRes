@@ -173,7 +173,7 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
             throw new IllegalArgumentException("formattedDate not in format substring-substring-substring");
         ArrayList<WaitlistEntry> waitlistEntryList = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_TIME +" LIKE '%'"+ formattedDate +"%' AND "+KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
+        String selectQuery = "SELECT  * FROM " + TABLE_WAITLIST_ENTRY + " WHERE " + KEY_TIME +" LIKE '%"+ formattedDate +"%' AND "+KEY_RESERVATION+" = 1 ORDER BY " + KEY_TIME + " ASC";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery,null);
 

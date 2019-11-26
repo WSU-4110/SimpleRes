@@ -314,9 +314,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
-                                                        //count add cover to daily cover and update in database
-                                                        //TODO: add party size of walk in party in place of 1;
-                                                        tempCover.addToCover(1);
                                                         cdb.updateCover(tempCover);
                                                         recreate();
                                                     }

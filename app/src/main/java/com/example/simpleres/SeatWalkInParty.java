@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.time.LocalDate;
+
 public class SeatWalkInParty extends AppCompatActivity {
 
     @Override
@@ -33,7 +35,7 @@ public class SeatWalkInParty extends AppCompatActivity {
         final ImageButton exitSeatWalkIn = findViewById(R.id.closeSeatWalkIn);
         final Button selectATable = findViewById(R.id.selectATable);
         final EditText walkInSize = findViewById(R.id.enterWalkInSize);
-
+        final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -53,7 +55,7 @@ public class SeatWalkInParty extends AppCompatActivity {
 
                         } else {
 
-                            int partySize = Integer.parseInt(walkInSize.getText().toString());
+                            final int partySize = Integer.parseInt(walkInSize.getText().toString());
                             //add the party size to the cover count
 
                             //allow the user to select a table
@@ -63,6 +65,18 @@ public class SeatWalkInParty extends AppCompatActivity {
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("result",1);
                             setResult(RESULT_OK,returnIntent);
+                            //count add cover to daily cover and update in database
+
+                            System.out.println("the selected party size is: "+partySize);
+                            Cover tempCover = cdb.getCover(LocalDate.now().toString());
+                            System.out.println("the current cover count is: " + tempCover.getDailyCover());
+                            tempCover.addToCover(partySize);
+                            System.out.println("the new cover count is is: " + tempCover.getDailyCover());
+                            try {
+                                cdb.updateCover(tempCover);//this line is not updating the database.
+                                System.out.println("Cover updated, needs refresh");
+                            }
+                            catch (Exception e){System.out.println(e);}
                             finish();
                         }
                         break;
