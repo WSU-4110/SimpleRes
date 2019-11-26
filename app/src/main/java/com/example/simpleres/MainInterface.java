@@ -199,7 +199,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         // final of today for use in nested functions
         final Cover tempCover = todaysCover;
         //set text view of the completed cover count
-        final TextView completedCover = findViewById(R.id.displayCoversCompleted);
+        final TextView completedCover = findViewById(R.id.displayCurrentCovers);
         completedCover.setText(Integer.toString(tempCover.getDailyCover()));
 
         //top bar 'Add party (+)' button
