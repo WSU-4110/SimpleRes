@@ -488,6 +488,16 @@
                 android:text="Completed Covers:"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
+            <TextView
+                android:id="@+id/displayCoversCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="800dp"
+                android:layout_marginTop="600dp"
+                android:fontFamily="sans-serif-light"
+                android:text="0000"
+                android:textColor="@android:color/white"
+                android:textSize="24sp" />
 
         </RelativeLayout>
     </FrameLayout>

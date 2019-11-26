@@ -196,6 +196,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                     break;
             }
         }
+        // final of today for use in nested functions
+        final Cover tempCover = todaysCover;
+        //set text view of the completed cover count
+        final TextView completedCover = findViewById(R.id.displayCoversCompleted);
+        completedCover.setText(Integer.toString(tempCover.getDailyCover()));
 
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
@@ -309,6 +314,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                        //count add cover to daily cover and update in database
+                                                        //TODO: add party size of walk in party in place of 1;
+                                                        tempCover.addToCover(1);
+                                                        cdb.updateCover(tempCover);
                                                         recreate();
                                                     }
                                                 }
@@ -416,8 +425,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 tdb.updateTableInfo(Tables[i]);
                                                 buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
 
-                                                //countCover returns int of rows deleted;
-                                                wdb.countCover(selectedEntryTemp);
+                                                //countCover returns int of party size;
+                                                tempCover.addToCover(wdb.countCover(selectedEntryTemp));
+                                                cdb.updateCover(tempCover);
                                                 recreate();
                                             }
                                         }
@@ -503,8 +513,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 tdb.updateTableInfo(Tables[i]);
                                                 buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
 
-                                                //countCover returns int of rows deleted;
-                                                wdb.countCover(selectedEntryTemp);
+                                                //countCover returns int of party size;
+                                                tempCover.addToCover(wdb.countCover(selectedEntryTemp));
+                                                cdb.updateCover(tempCover);
                                                 recreate();
                                             }
                                         }
