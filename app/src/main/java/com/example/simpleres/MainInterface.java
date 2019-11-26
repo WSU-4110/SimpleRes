@@ -361,7 +361,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         try {
             //Array of elements in the reservation listview
             resListView = (ListView) findViewById(R.id.reservationListView);
-            resPartyArrayList = wdb.getReservationList();
+            resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
 
             //adapter for the listview
             rAdapter = new ResPartyAdapter(this, resPartyArrayList);
@@ -573,7 +573,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             if(resultCode == RESULT_OK){
                // String result=data.getStringExtra("result");
 
-                resPartyArrayList = wdb.getReservationList();
+                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
@@ -588,7 +588,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             }
             else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
             {
-                resPartyArrayList = wdb.getReservationList();
+                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
