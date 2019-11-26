@@ -478,26 +478,38 @@
                 android:layout_marginEnd="363dp"
                 android:text="Cancel Seating" />
 
-            <TextView
-                android:id="@+id/cover_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="600dp"
-                android:layout_marginTop="600dp"
-                android:fontFamily="sans-serif-light"
-                android:text="Completed Covers:"
-                android:textColor="@android:color/white"
-                android:textSize="24sp" />
-            <TextView
-                android:id="@+id/displayCoversCompleted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="800dp"
-                android:layout_marginTop="600dp"
-                android:fontFamily="sans-serif-light"
-                android:text="0000"
-                android:textColor="@android:color/white"
-                android:textSize="24sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/displayCurrentCovers"
+                    android:layout_width="37dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="576dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/color1"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/cover_count"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cover_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="576dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Completed Covers:"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.79"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </RelativeLayout>
     </FrameLayout>
