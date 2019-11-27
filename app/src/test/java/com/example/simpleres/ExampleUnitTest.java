@@ -46,7 +46,8 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest extends Context {
-
+    /** 1.get_setNotes*/
+    //method in WaitlistEntry class
     @Test
     public void getNotes_setNotes(){
         WaitlistEntry obj = new WaitlistEntry();
@@ -69,6 +70,8 @@ public class ExampleUnitTest extends Context {
         assertEquals(expected, actual);
 }
 
+    /** 2.get_setReservationFlag*/
+    //method in WaitlistEntry class
     @Test
     public void getReservationFlag_setReservationFlag(){
         WaitlistEntry obj = new WaitlistEntry();
@@ -79,6 +82,8 @@ public class ExampleUnitTest extends Context {
         assertEquals(expected, actual);
 
 }
+    /** 3.get_setTelephone*/
+    //method in WaitlistEntry class
     @Test
     public void get_setTelephone(){
         WaitlistEntry obj = new WaitlistEntry();
@@ -95,6 +100,8 @@ public class ExampleUnitTest extends Context {
         assertEquals(expected, actual);
 
 }
+    /** 4.Contents*/
+    //method in WaitlistDatabaseHelper class
    @Test
     public void contents_isCorrect() {
        WaitlistEntry obj = new WaitlistEntry();
@@ -109,6 +116,8 @@ public class ExampleUnitTest extends Context {
        String actual = obj.contents();
        assertEquals(expected, actual);
    }
+    /** 5.set_dailyCovers*/
+    //method in Cover class
        @Test
        public void set_dailyCovers(){
            Cover obj = new Cover(3,"2019-11-21");
@@ -118,6 +127,8 @@ public class ExampleUnitTest extends Context {
            int actual = obj.getDailyCover();
            assertEquals(expected, actual);
 }
+    /** 6.get_numberofpeople*/
+    //method in WaitlistEntry class
     @Test
     public void getNumberofpeople(){
         WaitlistEntry obj = new WaitlistEntry();
