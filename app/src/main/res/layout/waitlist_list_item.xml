@@ -60,7 +60,6 @@
         android:buttonTint="@color/color1"
         android:clickable="false"
         android:focusable="false"
-        android:onClick="Text"
         android:text="@string/waitlist_text"
         android:textColor="@color/color1" />
 

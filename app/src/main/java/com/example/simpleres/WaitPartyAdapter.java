@@ -47,7 +47,14 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
         size.setText(Integer.toString(currentParty.getNumberOfPeople()));
 
         //display the checkbox state in the list
-        //CheckBox text = listItem.findViewById(R.id.Here);
+        CheckBox text = listItem.findViewById(R.id.SendText);
+        int checkStatus = currentParty.getCheckBox();
+        if(checkStatus == 1){
+            text.setChecked(true);
+        } else {
+            text.setChecked(false);
+        }
+
         //text.setChecked(currentParty.getCheckBox()==1);
 
         return listItem;
