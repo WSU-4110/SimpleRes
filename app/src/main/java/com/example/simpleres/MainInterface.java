@@ -41,7 +41,13 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     private WaitPartyAdapter wAdapter;
     static final int isfinished = 1;
     boolean showPastOrFuture;
-    String dateSelectedPastOrFuture;
+
+    LocalDate today = LocalDate.now();
+    int year = today.getYear();
+    int month = today.getMonthValue();
+    int dayOfMonth = today.getDayOfMonth();
+    String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+    String dateSelectedPastOrFuture = currentDay;
     public String sms = "Look mom, I can fly";
     public void SendSMS(String phone){
         try{
@@ -547,6 +553,17 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                             case "Text":
                                 //here is where we will text the party at pos
                                 //update the checkbox to checked
+                                String phoneNum = selectedEntryTemp.getTelephone();
+                                String msg = "Your Table is ready, please call if you want to cancel.";
+                                try {
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNum,null,msg,null,null);
+                                    Toast.makeText(getApplicationContext(),"Message Sent to "+ selectedEntryTemp.getName(),Toast.LENGTH_LONG).show();
+                                } catch (Exception ex) {
+                                    Toast.makeText(getApplicationContext(),ex.getMessage().toString(),Toast.LENGTH_LONG).show();
+                                    ex.printStackTrace();
+                                }
+
                                 break;
                         }
 
@@ -616,7 +633,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             LocalDate currentDayParsed = LocalDate.parse(currentDay, formatter);
 
             if (dateSelectedParsed.equals(today)) {
-                Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_LONG).show();
+               // Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_LONG).show(); //will also show on cancel currently
             } else if (dateSelectedParsed.isAfter(currentDayParsed)) {
                 //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
                 Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
