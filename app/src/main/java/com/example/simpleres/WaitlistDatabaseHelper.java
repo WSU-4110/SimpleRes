@@ -195,6 +195,9 @@ public class WaitlistDatabaseHelper extends SQLiteOpenHelper {
         }
         return waitlistEntryList;
     }
+
+
+
     //used to change values of existing entries in the database
     public int updateWaitlistEntry(WaitlistEntry waitlistEntry){
         SQLiteDatabase db = this.getWritableDatabase();

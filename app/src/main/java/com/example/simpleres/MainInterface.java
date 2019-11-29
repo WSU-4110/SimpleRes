@@ -6,15 +6,11 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -29,13 +25,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnDismissListener {
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this); //these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
     ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
     //instantiating database/database tables
-
     //initializing the listview and adapter for the list items
     private ListView resListView;
     private ListView waitListView;
@@ -51,69 +46,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
     String dateSelectedPastOrFuture = currentDay;
 
-    public String sms = "Look mom, I can fly";
-    public void SendSMS(String phone){
-        try{
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("smsto:"));
-            i.setType("vnd.android-dir/mms-sms");
-            i.putExtra("address", phone);
-            i.putExtra("sms_body",sms);
-            startActivity(Intent.createChooser(i, "Send sms via:"));
-        }
-        catch(Exception e){
-            Toast.makeText(MainInterface.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void Text(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked){
-            int dbId = waitPartyArrayList.get(1).getId();
-            WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
-            String number = selectedEntry.getTelephone();
-            SendSMS(number);
-        }
-
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
-     /*
-        setContentView(R.layout.waitlist_list_item);
-        final CheckBox checkBox = findViewById(R.id.Here);
-        try {
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        System.out.println("checked");// Do your coding
-                        checkBox.setChecked(true);
-                    } else {
-                        System.out.println("unchecked");// Do your coding
-                    }
-                }
-            });
-        }
-        catch(Exception e){System.out.println(e);}
-        setContentView(R.layout.reslist_item_layout);
-        try {
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        System.out.println("checked");// Do your coding
-                        checkBox.setChecked(true);
-                    } else {
-                        System.out.println("unchecked");// Do your coding
-                    }
-                }
-            });
-        }
-        catch(Exception e){System.out.println(e);}
-        */
 
         setContentView(R.layout.activity_main_interface);
         //creating new table objects
@@ -356,7 +292,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         try {
             //Array of elements in the reservation listview
             resListView = (ListView) findViewById(R.id.reservationListView);
-            resPartyArrayList = wdb.getReservationList();
+            resPartyArrayList = wdb.getDateReservationList(currentDay);
 
             //adapter for the listview
             rAdapter = new ResPartyAdapter(this, resPartyArrayList);
@@ -558,10 +494,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                 selectedEntry.setCheckBoxOn();
                                 wdb.updateWaitlistEntry(selectedEntry);
 
-                                //resPartyArrayList = wdb.getReservationList();
-                                //rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
-                                //resListView.setAdapter(rAdapter);
-                                //resListView.setEmptyView(findViewById(R.id.emptyElement));
                                 wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
                                 waitListView.setAdapter(wAdapter);
                                 waitListView.setEmptyView(findViewById(R.id.emptyElement2));

@@ -13,7 +13,6 @@ public class WaitlistEntry {
     private LocalDateTime reservationTime;
     private int checkBox = 0;
 
-
     // database constructor
     WaitlistEntry(int Id, String Name, String Telephone, int NumberOfPeople, String FormattedDateTime,int ReservationFlag, String Notes) {
         this.id = Id;
