@@ -28,13 +28,28 @@ public class PastDatePopup extends AppCompatActivity {
         final TextView displayDate = findViewById(R.id.displayPastDate);
         final TextView displayCovers = findViewById(R.id.displayCoversCompleted);
         final ImageButton closePopup = findViewById(R.id.closePastPopup);
-
+        final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
+        Cover selectedCover = new Cover();
         //PASSED EXTRA containing the date selected in form YYYY-MM-DD
-        String dateSelected = getIntent().getStringExtra("DATE_SELECTED");
-
+        final String dateSelected = getIntent().getStringExtra("DATE_SELECTED");
+        try {
+            selectedCover = cdb.getCover(dateSelected);
+        }
+        catch(Exception e)
+        {
+            System.out.println("error getting Cover info from database");
+            System.out.println("adding Cover in nested try/catch block");
+            try {
+                selectedCover = new Cover(0,dateSelected);
+                cdb.addCover(selectedCover);
+            }
+            catch(Exception x) {
+                System.out.println("error adding Cover to database");
+            }
+        }
         //use the dateSelected to lookup that date in the DB
             //find cover count info for this date
-        String coversCompleted = "123"; //using 123 as a placeholder
+        String coversCompleted = selectedCover.getDailyCover()+"";
 
         //if there is info for this date
             //change value of coversCompleted
@@ -42,7 +57,10 @@ public class PastDatePopup extends AppCompatActivity {
             //coversCompleted = "N/A"
 
         //Display this information
-        displayCovers.setText(coversCompleted);
+        if (coversCompleted.compareTo("0") == 0)
+            displayCovers.setText("N/A");
+        else
+            displayCovers.setText(coversCompleted);
 
         //reformat dateSelected to display for example November 14, 2019 for 2019-11-14
         //store values in following variables

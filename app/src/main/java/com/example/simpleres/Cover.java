@@ -11,7 +11,7 @@ public class Cover {
         this.date=LocalDate;
         this.dailyCover=DailyCover;
     }
-
+    Cover(){}
     Cover(LocalDate LocalDate){
         this.date=LocalDate;
         this.dailyCover=0;

@@ -44,28 +44,28 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //add an entry to database
-    void addCover (TableClass tableClass){
+    void addCover (Cover cover){
         System.out.println(DATABASE_NAME+" connection opened");
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, tableClass.getTableNumber());
-        values.put(KEY_COVER, tableClass.getTableStatus());
+        values.put(KEY_DATE, cover.getDateAsString());
+        values.put(KEY_COVER, cover.getDailyCover());
         try {
             db.insert(COVER_TABLE_INFO, null, values);
         }
         catch (Exception e){
-            System.out.println("Table Already Exists in Database");
+            System.out.println("Cover Already Exists in Database");
         }
         db.close();
         System.out.println(DATABASE_NAME+" connection closed");
 
     }
-    //retrieves tableclass info from database from the table number or "id"/ sorts entries by TABLE NUMBER in list in ascending order
-    Cover getCover(int id){
+    //retrieves cover info from database from the "date" sorts entries by date in list in ascending order
+    Cover getCover(String date){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(COVER_TABLE_INFO, new String[]{KEY_DATE, KEY_COVER}, KEY_DATE + "=?",
-                new String[]{String.valueOf(id)},null,null,KEY_DATE +" ASC",null);
+                new String[]{String.valueOf(date)},null,null,KEY_DATE +" ASC",null);
 
         if (cursor!=null)
             cursor.moveToFirst();

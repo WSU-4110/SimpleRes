@@ -8,13 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -31,6 +28,7 @@ import java.util.Calendar;
 public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnDismissListener {
     WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+    CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
     ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
@@ -67,8 +65,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             String number = selectedEntry.getTelephone();
             SendSMS(number);
         }
-
-
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +112,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         Tables[8] = new TableClass(109, "Empty", "None" );
         Tables[9] = new TableClass(201, "Empty", "None" );
         Tables[10] = new TableClass(202, "Empty", "None" );
-
+        //initialize todays cover class
+        Cover todaysCover = new Cover(0,LocalDate.now());
         // get from database tables
         try {
             Tables[0] = tdb.getTableClass(101);
@@ -130,6 +127,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             Tables[8] = tdb.getTableClass(109);
             Tables[9] = tdb.getTableClass(201);
             Tables[10] = tdb.getTableClass(202);
+            //get todays cover from database
+
         }
         catch (Exception e){
             System.out.println("error getting table info from database");
@@ -143,7 +142,20 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 System.out.println("error adding tables to database");
             }
         }
-
+        try {
+            todaysCover = cdb.getCover(LocalDate.now().toString());
+        }
+        catch(Exception e)
+        {
+            System.out.println("error getting Cover info from database");
+            System.out.println("adding Cover in nested try/catch block");
+            try {
+                cdb.addCover(todaysCover);
+            }
+            catch(Exception x) {
+                System.out.println("error adding Cover to database");
+            }
+        }
 
         //creating new table buttons
         final Button[] buttons = new Button[11];
@@ -184,6 +196,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                     break;
             }
         }
+        // final of today for use in nested functions
+        final Cover tempCover = todaysCover;
+        //set text view of the completed cover count
+        final TextView completedCover = findViewById(R.id.displayCurrentCovers);
+        completedCover.setText(Integer.toString(tempCover.getDailyCover()));
 
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
@@ -297,6 +314,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                        cdb.updateCover(tempCover);
                                                         recreate();
                                                     }
                                                 }
@@ -343,7 +361,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         try {
             //Array of elements in the reservation listview
             resListView = (ListView) findViewById(R.id.reservationListView);
-            resPartyArrayList = wdb.getReservationList();
+            resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
 
             //adapter for the listview
             rAdapter = new ResPartyAdapter(this, resPartyArrayList);
@@ -404,8 +422,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 tdb.updateTableInfo(Tables[i]);
                                                 buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
 
-                                                //countCover returns int of rows deleted;
-                                                wdb.countCover(selectedEntryTemp);
+                                                //countCover returns int of party size;
+                                                tempCover.addToCover(wdb.countCover(selectedEntryTemp));
+                                                cdb.updateCover(tempCover);
                                                 recreate();
                                             }
                                         }
@@ -491,8 +510,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 tdb.updateTableInfo(Tables[i]);
                                                 buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
 
-                                                //countCover returns int of rows deleted;
-                                                wdb.countCover(selectedEntryTemp);
+                                                //countCover returns int of party size;
+                                                tempCover.addToCover(wdb.countCover(selectedEntryTemp));
+                                                cdb.updateCover(tempCover);
                                                 recreate();
                                             }
                                         }
@@ -553,7 +573,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             if(resultCode == RESULT_OK){
                // String result=data.getStringExtra("result");
 
-                resPartyArrayList = wdb.getReservationList();
+                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
@@ -568,7 +588,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             }
             else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
             {
-                resPartyArrayList = wdb.getReservationList();
+                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
