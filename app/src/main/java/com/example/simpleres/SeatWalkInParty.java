@@ -65,8 +65,8 @@ public class SeatWalkInParty extends AppCompatActivity {
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("result",1);
                             setResult(RESULT_OK,returnIntent);
-                            //count add cover to daily cover and update in database
 
+                            //count add cover to daily cover and update in database
                             System.out.println("the selected party size is: "+partySize);
                             Cover tempCover = cdb.getCover(LocalDate.now().toString());
                             System.out.println("the current cover count is: " + tempCover.getDailyCover());

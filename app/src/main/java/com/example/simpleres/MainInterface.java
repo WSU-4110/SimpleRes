@@ -47,6 +47,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
     String dateSelectedPastOrFuture = currentDay;
 
+    public int walkInCovers = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -271,6 +273,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
                                                         cdb.updateCover(tempCover);
+
                                                         recreate();
                                                     }
                                                 }
@@ -638,6 +641,3 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
 }
-
-
-
