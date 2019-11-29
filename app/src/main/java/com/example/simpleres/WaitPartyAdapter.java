@@ -38,11 +38,11 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
         time.setText(currentParty.parseTime());
 
         //display the name of the customer
-        TextView name = listItem.findViewById(R.id.nameofWaitparty);
+        TextView name = listItem.findViewById(R.id.nameOfWaitParty);
         name.setText(currentParty.getName());
 
         //display the size of the customers
-        TextView size = listItem.findViewById(R.id.sizeofWaitparty);
+        TextView size = listItem.findViewById(R.id.sizeOfWaitParty);
         String numberOfPeople = Integer.toString(currentParty.getNumberOfPeople());
         size.setText(numberOfPeople);
 

@@ -30,7 +30,8 @@
         android:backgroundTint="#00000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:contentDescription="@string/exit_button" />
 
     <TextView
         android:id="@+id/guest_name"
@@ -59,7 +60,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_name" />
+        app:layout_constraintTop_toBottomOf="@+id/guest_name"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/guest_phone_number"
@@ -89,7 +91,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/reservation_notes"
@@ -120,7 +123,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reservation_notes" />
+        app:layout_constraintTop_toBottomOf="@+id/reservation_notes"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/reservation_date"
@@ -214,7 +218,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toEndOf="@+id/enter_res_notes"
-        app:layout_constraintTop_toBottomOf="@+id/party_size" />
+        app:layout_constraintTop_toBottomOf="@+id/party_size"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/exit_and_save"

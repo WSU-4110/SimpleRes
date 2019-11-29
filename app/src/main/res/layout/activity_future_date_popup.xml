@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:contentDescription="@string/exit_button" />
 
     <TextView
         android:id="@+id/on_date"
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:text="Month Day, Year"
+        android:text=""
         android:textColor="@color/color1"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -26,7 +26,8 @@
             app:layout_constraintHorizontal_bias="0.142"
             app:layout_constraintStart_toEndOf="@+id/seatWalkInParty"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            android:contentDescription="@string/exit_button" />
 
         <TextView
             android:id="@+id/seatWalkInParty"
@@ -72,7 +73,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/partySize"
-            app:layout_constraintTop_toBottomOf="@+id/seatWalkInParty" />
+            app:layout_constraintTop_toBottomOf="@+id/seatWalkInParty"
+            tools:ignore="Autofill" />
 
         <Button
             android:id="@+id/selectATable"

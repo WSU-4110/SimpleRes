@@ -37,7 +37,7 @@ public class FutureListAdapter extends ArrayAdapter<WaitlistEntry> {
         time.setText(currentParty.parseTime());
 
         //display the name of the customer
-        TextView name = listItem.findViewById(R.id.nameofFutureparty);
+        TextView name = listItem.findViewById(R.id.nameOfFutureParty);
         name.setText(currentParty.getName());
 
         //display the size of the customers
