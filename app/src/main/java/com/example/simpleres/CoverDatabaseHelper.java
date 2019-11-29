@@ -1,27 +1,22 @@
 package com.example.simpleres;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-
 import static java.lang.Integer.parseInt;
 
 public class CoverDatabaseHelper extends SQLiteOpenHelper {
-
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Cover.db";
     private static final String COVER_TABLE_INFO = "cover";
     private static final String KEY_DATE = "date"; //AKA TABLE NUMBER
     private static final String KEY_COVER = "coverAmount";
 
-
-
-
-    public CoverDatabaseHelper(Context context){
+    CoverDatabaseHelper(Context context){
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
     }
 
@@ -36,6 +31,7 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
         System.out.println("Table "+ COVER_TABLE_INFO +" Created" );
 
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + COVER_TABLE_INFO);
@@ -61,26 +57,40 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
         System.out.println(DATABASE_NAME+" connection closed");
 
     }
+
     //retrieves cover info from database from the "date" sorts entries by date in list in ascending order
     Cover getCover(String date){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(COVER_TABLE_INFO, new String[]{KEY_DATE, KEY_COVER}, KEY_DATE + "=?",
+        @SuppressLint("Recycle") Cursor cursor = db.query(COVER_TABLE_INFO, new String[]{KEY_DATE, KEY_COVER}, KEY_DATE + "=?",
                 new String[]{String.valueOf(date)},null,null,KEY_DATE +" ASC",null);
 
         if (cursor!=null)
             cursor.moveToFirst();
 
+        assert cursor != null;
         Cover cover = new Cover(parseInt(cursor.getString(1)), cursor.getString(0));
         db.close();
         return cover;
     }
+
+    //used to change values of existing entries in the database
+    void updateCover(Cover cover){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_DATE, cover.getDateAsString());
+        values.put(KEY_COVER, cover.getDailyCover());
+        db.update(COVER_TABLE_INFO, values, KEY_DATE + "=?",
+                new String[]{String.valueOf(cover.getDateAsString())});
+    }
+
+    /* Unused methods
     //returns list of all waitlist entries
     public ArrayList<Cover> getAllCovers(){
         ArrayList<Cover> coverList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + COVER_TABLE_INFO;
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery,null);
 
         if (cursor.moveToFirst()){
             do {
@@ -90,16 +100,8 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
             }
         db.close();
         return coverList;
-        }
-    //used to change values of existing entries in the database
-    public int updateCover(Cover cover){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_DATE, cover.getDateAsString());
-        values.put(KEY_COVER, cover.getDailyCover());
-        return db.update(COVER_TABLE_INFO, values, KEY_DATE + "=?",
-                new String []{String.valueOf(cover.getDateAsString())});
     }
+
     //deletes an existing entry from the database
     public void deleteCover(Cover cover) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -107,6 +109,7 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(cover.getDateAsString())});
         db.close();
     }
+
     //returns integer value of the count of entries
     public int getCoverCount() {
         String countQuery = "SELECT  * FROM " + COVER_TABLE_INFO;
@@ -116,6 +119,6 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
 
         return cursor.getCount();
     }
-
+    */
 }
 

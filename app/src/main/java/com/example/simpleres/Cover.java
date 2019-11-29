@@ -6,52 +6,54 @@ import java.time.format.DateTimeFormatter;
 public class Cover {
     private int dailyCover;
     private LocalDate date;
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     Cover(int DailyCover, LocalDate LocalDate){
         this.date=LocalDate;
         this.dailyCover=DailyCover;
     }
-    Cover(){}
+
+    Cover(){
+    }
+
+    Cover(int DailyCover, String dateAsString) {
+        this.dailyCover = DailyCover;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = LocalDate.parse(dateAsString, format);
+    }
+
+    int getDailyCover(){
+        return this.dailyCover;
+    }
+
+    public void setDate(LocalDate LocalDate){
+        this.date=LocalDate;
+    }
+
+    public LocalDate getDate(){
+        return this.date;
+    }
+
+    String getDateAsString(){
+        return this.date.toString();
+    }
+
+    void addToCover(int adder){
+        this.dailyCover += adder;
+    }
+
+    /* Unused methods
     Cover(LocalDate LocalDate){
         this.date=LocalDate;
         this.dailyCover=0;
     }
-    Cover(String dateAsString)
-    {
-        this.date =LocalDate.parse(dateAsString, format);
-    }
-    Cover(int DailyCover, String dateAsString)
-    {
-        this.dailyCover=DailyCover;
+
+    Cover(String dateAsString) {
         this.date =LocalDate.parse(dateAsString, format);
     }
 
     public void setDailyCover(int DailyCover){
         this.dailyCover=DailyCover;
     }
-    public int getDailyCover(){
-        return this.dailyCover;
-    }
-    public void setDate(LocalDate LocalDate){
-        this.date=LocalDate;
-    }
-    public LocalDate getDate(){
-        return this.date;
-    }
-    public String getDateAsString(){
-        return this.date.toString();
-    }
-    public void addToCover(int adder){
-        this.dailyCover = dailyCover+adder;
-    }
 
-
-
-
-
-
-
+    */
 }
-
-
-

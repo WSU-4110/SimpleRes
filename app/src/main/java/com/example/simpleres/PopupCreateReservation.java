@@ -34,16 +34,13 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
         //setting the size of the pop-up window
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
         //button to close the window, create reservation
         final ImageButton exitCreateRes = findViewById(R.id.exitCreateRes);
         final Button createRes = findViewById(R.id.create_res_button);
-
 
         //button to select a reservation date
         final Button selectDate = findViewById(R.id.select_date);
@@ -76,47 +73,36 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
                 int yOffset = 80;
 
                 switch(view.getId()){
-
                     case R.id.exitCreateRes:
                         finish();
                         break;
                     case R.id.create_res_button:
-                        //save reservation data to database IF:
-                        //user has entered name, phone number, size, date, and time
                         try{
-
                             final EditText nameField = findViewById(R.id.enter_name);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
                             final EditText phoneField = findViewById(R.id.enter_number);
 
-                            //input validation
                             if (nameField.getText().toString().equals("")) {
-
                                 Toast toast = Toast.makeText(context, "Please enter party name!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
 
                                 showDateToast = false;
-
                                 throw new IllegalArgumentException("Cannot have name fields blank!");
-
                             }  else if (phoneField.getText().toString().length() != 10){
-
                                 Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
 
                                 showDateToast = false;
-
                                 throw new IllegalArgumentException("Cannot have incomplete phone number!");
 
                             } else if(sizeField.getText().toString().equals("")){
-
-                                showDateToast = false;
-
                                 Toast toast = Toast.makeText(context, "Please enter party size!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
+
+                                showDateToast = false;
                                 throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
 
@@ -155,16 +141,17 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
                             returnWaitlistEntry(name,phone,size,dateTime,localDateTime,notes);
                         }
                         catch(IllegalArgumentException x){
-
                             if(showDateToast) {
                                 Toast toast = Toast.makeText(context, "Please select a date!", duration);
                                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
                             }
-                            System.out.println(x);
+                            System.out.println("IllegalArgument encountered");
                             break;
                         }
-                        catch(Exception e){System.out.println(e);}
+                        catch(Exception e){
+                            System.out.println("Exception encountered");
+                        }
 
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
@@ -188,8 +175,6 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
 
     }
 
-    private TextView mDisplayDate;
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -198,19 +183,18 @@ public class PopupCreateReservation extends MainInterface implements AdapterView
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         month = month + 1;
 
-        mDisplayDate = findViewById(R.id.display_date);
+        TextView mDisplayDate = findViewById(R.id.display_date);
 
         String date = month + "/" + dayOfMonth + "/" + year;
         mDisplayDate.setText(date);
-
     }
-    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime,String ReservationNotes){
+
+    private void returnWaitlistEntry(String Name, String Telephone, int NumberOfPeople, String FormattedDateTime, LocalDateTime DateTime, String ReservationNotes){
         WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
-        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,DateTime,1,ReservationNotes);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople, DateTime,1,ReservationNotes);
         wdb.addWaitlistEntry(entry);
         entry.createId(wdb);
         System.out.println("Waitlist Entry created in database with id:" + entry.getId());
-        return entry;
     }
 }
 

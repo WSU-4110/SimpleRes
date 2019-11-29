@@ -1,7 +1,5 @@
 package com.example.simpleres;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,13 +22,10 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_create_waitlist);
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
         getWindow().setLayout((int)(width*0.8), (int)(height*0.8));
 
         //buttons to close window, add party to waitlist
@@ -63,8 +58,6 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                         finish();
                         break;
                     case R.id.add_to_waitlist_button:
-                        //add waitlist info to database IF:
-                        //user has entered name, phone number, size, quote time
                         try{
                             final EditText nameField = findViewById(R.id.enter_name);
                             final EditText sizeField = findViewById(R.id.enter_party_size);
@@ -72,32 +65,25 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
 
                             //input validation
                             if (nameField.getText().toString().equals("")) {
-
                                 Toast toast = Toast.makeText(context, "Please enter party name!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
 
                                 showDateToast = false;
-
                                 throw new IllegalArgumentException("Cannot have name fields blank!");
-
                             }  else if (phoneField.getText().toString().length() != 10){
-
                                 Toast toast = Toast.makeText(context, "Please enter valid phone number!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
 
                                 showDateToast = false;
-
                                 throw new IllegalArgumentException("Cannot have incomplete phone number!");
-
                             } else if(sizeField.getText().toString().equals("")){
-
-                                showDateToast = false;
-
                                 Toast toast = Toast.makeText(context, "Please enter party size!", duration);
                                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
+
+                                showDateToast = false;
                                 throw new IllegalArgumentException("Cannot have party size fields blank!");
                             }
 
@@ -123,43 +109,37 @@ public class PopupCreateWaitlist extends MainInterface implements AdapterView.On
                                 toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
                                 toast.show();
                             }
-
-                            System.out.println(x);
+                            System.out.println("IllegalArgument encountered");
                             break;
                         }
-                        catch(Exception e){System.out.println(e);}
+                        catch(Exception e){
+                            System.out.println("Exception encountered");
+                        }
 
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
                         setResult(RESULT_OK,returnIntent);
                         finish();
-
                 }
             }
         };
-
         exitCreateRes.setOnClickListener(listener);
         addToWaitlist.setOnClickListener(listener);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //uncomment following if we want a toast
-        //String text = parent.getItemAtPosition(position).toString();
-        //Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
-    private WaitlistEntry returnWaitlistEntry(String Name, String Telephone,int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes){
+    private void returnWaitlistEntry(String Name, String Telephone, int NumberOfPeople, String FormattedDateTime, long QuotedTime, String ReservationNotes){
         WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);
-        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople,FormattedDateTime,QuotedTime,ReservationNotes);
+        WaitlistEntry entry = new WaitlistEntry(Name,Telephone,NumberOfPeople, QuotedTime,ReservationNotes);
         wdb.addWaitlistEntry(entry);
         entry.createId(wdb);
         System.out.println("Waitlist Entry created in database with id:" + entry.getId());
-        return entry;
     }
 }
