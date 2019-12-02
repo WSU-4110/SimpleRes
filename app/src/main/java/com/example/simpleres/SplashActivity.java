@@ -9,7 +9,7 @@ import android.os.Handler;
 
 public class SplashActivity extends AppCompatActivity {
 
-    String password;
+    private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

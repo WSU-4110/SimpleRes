@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.time.LocalDate;
-
 public class SeatWalkInParty extends AppCompatActivity {
     private static int walkInResult = 0;
     public static int getWalkInResult(){

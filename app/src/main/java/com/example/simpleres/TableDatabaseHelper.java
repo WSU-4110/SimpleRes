@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static java.lang.Integer.parseInt;
 
-public class TableDatabaseHelper extends SQLiteOpenHelper {
+class TableDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Table.db";
@@ -89,47 +89,5 @@ public class TableDatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_TABLE_INFO, values, KEY_ID + "=?",
                 new String[]{String.valueOf(tableClass.getTableNumber())});
     }
-
-    /* Unused methods
-    //deletes an existing entry from the database
-    public void deleteTableInfo(TableClass tableClass) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TABLE_INFO, KEY_ID + "=?",
-                new String[]{String.valueOf(tableClass.getTableNumber())});
-        db.close();
-    }
-
-    //returns integer value of the count of entries
-    public int getTableCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_TABLE_INFO;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery,null);
-        cursor.close();
-
-        return cursor.getCount();
-    }
-
-    //returns list of all waitlist entries
-    public List<TableClass> getAllTablesList(){
-        List<TableClass> tableClassList = new ArrayList<>();
-
-        String selectQuery = "SELECT  * FROM " + TABLE_TABLE_INFO;
-        SQLiteDatabase db = this.getWritableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery,null);
-
-        if (cursor.moveToFirst()){
-            do {
-                TableClass tableClass = new TableClass();
-
-                tableClass.setTableNumber(Integer.parseInt(cursor.getString(0)));
-                tableClass.setTableStatus(cursor.getString(1));
-                tableClass.setTableName(cursor.getString(2));
-                tableClassList.add(tableClass);
-            } while (cursor.moveToNext());
-        }
-        db.close();
-        return tableClassList;
-    }
-     */
 }
 

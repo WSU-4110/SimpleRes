@@ -11,9 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EnterPasswordActivity extends AppCompatActivity {
-    EditText entpwd;
-    Button welbtn;
-    String password;
+    private EditText entpwd;
+    private Button welbtn;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

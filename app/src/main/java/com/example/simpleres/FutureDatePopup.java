@@ -19,8 +19,8 @@ import static com.example.simpleres.MainInterface.isFinished;
 
 public class FutureDatePopup extends AppCompatActivity {
     //initialize the listView and the Adapter
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
-    ArrayList<WaitlistEntry> FuturePartyArrayList = new ArrayList<>();
+    private final WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    private ArrayList<WaitlistEntry> FuturePartyArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

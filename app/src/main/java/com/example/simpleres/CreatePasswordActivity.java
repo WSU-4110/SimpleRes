@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CreatePasswordActivity extends AppCompatActivity {
-    EditText passwordagn, password;
-    Button save;
+    private EditText passwordagn;
+    private EditText password;
+    private Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

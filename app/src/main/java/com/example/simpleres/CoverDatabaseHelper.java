@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static java.lang.Integer.parseInt;
 
-public class CoverDatabaseHelper extends SQLiteOpenHelper {
+class CoverDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Cover.db";
     private static final String COVER_TABLE_INFO = "cover";
@@ -82,43 +82,5 @@ public class CoverDatabaseHelper extends SQLiteOpenHelper {
         db.update(COVER_TABLE_INFO, values, KEY_DATE + "=?",
                 new String[]{String.valueOf(cover.getDateAsString())});
     }
-
-    /* Unused methods
-    //returns list of all waitlist entries
-    public ArrayList<Cover> getAllCovers(){
-        ArrayList<Cover> coverList = new ArrayList<>();
-
-        String selectQuery = "SELECT  * FROM " + COVER_TABLE_INFO;
-        SQLiteDatabase db = this.getWritableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(selectQuery,null);
-
-        if (cursor.moveToFirst()){
-            do {
-                Cover cover = new Cover(Integer.parseInt(cursor.getString(1)),cursor.getString(0));
-                coverList.add(cover);
-            } while (cursor.moveToNext());
-            }
-        db.close();
-        return coverList;
-    }
-
-    //deletes an existing entry from the database
-    public void deleteCover(Cover cover) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(COVER_TABLE_INFO, KEY_DATE + "=?",
-                new String[]{String.valueOf(cover.getDateAsString())});
-        db.close();
-    }
-
-    //returns integer value of the count of entries
-    public int getCoverCount() {
-        String countQuery = "SELECT  * FROM " + COVER_TABLE_INFO;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery,null);
-        cursor.close();
-
-        return cursor.getCount();
-    }
-    */
 }
 

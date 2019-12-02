@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnDismissListener {
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this); //these objects act as a link an open link to the database
-    TableDatabaseHelper tdb = new TableDatabaseHelper(this);
-    CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
-    ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
-    ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
+    private final WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this); //these objects act as a link an open link to the database
+    private final TableDatabaseHelper tdb = new TableDatabaseHelper(this);
+    private final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
+    private ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
+    private ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
     //instantiating database/database tables
     //initializing the ListView and adapter for the list items
@@ -39,14 +39,14 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     private WaitPartyAdapter wAdapter;
     static final int isFinished = 1;
     private int walkInResult = SeatWalkInParty.getWalkInResult();
-    boolean showPastOrFuture;
+    private boolean showPastOrFuture;
 
-    LocalDate today = LocalDate.now();
-    int year = today.getYear();
-    int month = today.getMonthValue();
-    int dayOfMonth = today.getDayOfMonth();
-    String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
-    String dateSelectedPastOrFuture = currentDay;
+    private final LocalDate today = LocalDate.now();
+    private final int year = today.getYear();
+    private final int month = today.getMonthValue();
+    private final int dayOfMonth = today.getDayOfMonth();
+    private final String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
+    private String dateSelectedPastOrFuture = currentDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -585,7 +585,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         dateSelectedPastOrFuture = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
     }
 
-    public void showDatePickerDialog(View v){
+    private void showDatePickerDialog(View v){
         DialogFragment datePicker = new DatePickerActivity();
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
