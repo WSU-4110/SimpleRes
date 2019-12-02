@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
     static final int isfinished = 1;
+
+    private int walkInResult = SeatWalkInParty.getWalkInResult();
+
+
+
     boolean showPastOrFuture;
 
     LocalDate today = LocalDate.now();
@@ -306,6 +312,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                         //open and begin seat walk-in activity
                                         Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
                                         startActivityForResult(pop3, isfinished);
+
+
                                         Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
                                         cancelSeatingView.setVisibility(View.VISIBLE);
                                         View.OnClickListener seatingListener = new View.OnClickListener() {
@@ -320,6 +328,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                        walkInResult = SeatWalkInParty.getWalkInResult();
+                                                        //System.out.println("WalkInResult = "+ walkInResult);
+                                                        tempCover.addToCover(walkInResult);
                                                         cdb.updateCover(tempCover);
                                                         recreate();
                                                     }
