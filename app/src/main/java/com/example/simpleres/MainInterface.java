@@ -38,6 +38,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
     static final int isFinished = 1;
+    private int walkInResult = SeatWalkInParty.getWalkInResult();
     boolean showPastOrFuture;
 
     LocalDate today = LocalDate.now();
@@ -243,10 +244,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                     case "Walk-In":
                                         Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
                                         startActivityForResult(pop3, isFinished);
-                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
                                         cancelSeatingView.setVisibility(View.VISIBLE);
                                         View.OnClickListener seatingListener = new View.OnClickListener() {
 
+                                            //method for which actions are taken when a button is clicked
                                             @Override
                                             public void onClick(View view) {
 
@@ -256,6 +258,8 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
                                                         buttons[i].setBackgroundResource(R.drawable.pink);
+                                                        walkInResult = SeatWalkInParty.getWalkInResult();
+                                                        tempCover.addToCover(walkInResult);
                                                         cdb.updateCover(tempCover);
 
                                                         recreate();
