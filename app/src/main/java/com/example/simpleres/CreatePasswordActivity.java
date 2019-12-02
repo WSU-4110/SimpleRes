@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CreatePasswordActivity extends AppCompatActivity {
-
     EditText passwordagn, password;
     Button save;
     @Override

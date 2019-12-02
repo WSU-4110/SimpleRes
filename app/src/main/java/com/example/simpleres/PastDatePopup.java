@@ -18,10 +18,8 @@ public class PastDatePopup extends AppCompatActivity {
         //setting the size of the pop-up window
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
         getWindow().setLayout((int)(width*0.5), (int)(height*0.5));
 
         //fields
@@ -30,13 +28,11 @@ public class PastDatePopup extends AppCompatActivity {
         final ImageButton closePopup = findViewById(R.id.closePastPopup);
         final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
         Cover selectedCover = new Cover();
-        //PASSED EXTRA containing the date selected in form YYYY-MM-DD
         final String dateSelected = getIntent().getStringExtra("DATE_SELECTED");
+
         try {
             selectedCover = cdb.getCover(dateSelected);
-        }
-        catch(Exception e)
-        {
+        } catch(Exception e) {
             System.out.println("error getting Cover info from database");
             System.out.println("adding Cover in nested try/catch block");
             try {
@@ -47,23 +43,16 @@ public class PastDatePopup extends AppCompatActivity {
                 System.out.println("error adding Cover to database");
             }
         }
+
         //use the dateSelected to lookup that date in the DB
-            //find cover count info for this date
         String coversCompleted = selectedCover.getDailyCover()+"";
-
-        //if there is info for this date
-            //change value of coversCompleted
-        //else if there is no info
-            //coversCompleted = "N/A"
-
-        //Display this information
         if (coversCompleted.compareTo("0") == 0)
             displayCovers.setText("N/A");
         else
             displayCovers.setText(coversCompleted);
 
         //reformat dateSelected to display for example November 14, 2019 for 2019-11-14
-        //store values in following variables
+        assert dateSelected != null;
         String month = FutureDatePopup.getMonthString(dateSelected);
         String day = FutureDatePopup.getDayString(dateSelected);
         String year = FutureDatePopup.getYearString(dateSelected);

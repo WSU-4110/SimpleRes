@@ -1,5 +1,4 @@
 <resources>
-
     <!-- splash and login -->
     <string name="welcome_to">Welcome to&#8230;</string>
     <string name="app_name">SimpleRes</string>
@@ -98,7 +97,38 @@
     <string name="select_table">Select A Table</string>
     <string name="enter_walk_in_size">Size of Walk-In:</string>
     <string name="enter_size">Size</string>
-
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_password_again">Enter Password Again</string>
+    <string name="save">Save</string>
+    <string name="app_logo">App logo</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="exit_button">Exit button</string>
+    <string name="_0">0</string>
+    <string name="completed_covers">Completed Covers:</string>
+    <string name="cancel_seating">Cancel Seating</string>
+    <string name="_109">109</string>
+    <string name="_108">108</string>
+    <string name="_103">103</string>
+    <string name="_107">107</string>
+    <string name="_106">106</string>
+    <string name="_105">105</string>
+    <string name="_202">202</string>
+    <string name="_104">104</string>
+    <string name="_102">102</string>
+    <string name="_101">101</string>
+    <string name="_201">201</string>
+    <string name="size">Size</string>
+    <string name="party_name">Party name</string>
+    <string name="time">Time</string>
+    <string name="no_parties_on_waitlist_at_this_time">No parties on waitlist at this time!</string>
+    <string name="no_reservations_have_been_made">No reservations have been made!</string>
+    <string name="reservations">Reservations</string>
+    <string name="waitlist">Waitlist</string>
+    <string name="access_calendar">access_calendar</string>
+    <string name="plus_button">plus_button</string>
+    <string name="exit_adding_to_waitlist">exit_adding_to_waitlist</string>
+    <string name="loading">Loading…</string>
+    <string name="add_to_wait_time">Add to wait time:</string>
 
 
 </resources>

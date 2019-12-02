@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#00000000"
-        android:contentDescription="exit_adding_to_waitlist"
+        android:contentDescription="@string/exit_adding_to_waitlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
@@ -59,7 +59,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_name" />
+        app:layout_constraintTop_toBottomOf="@+id/guest_name"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/guest_phone_number"
@@ -89,7 +90,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number" />
+        app:layout_constraintTop_toBottomOf="@+id/guest_phone_number"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/waitlist_notes"
@@ -120,7 +122,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waitlist_notes" />
+        app:layout_constraintTop_toBottomOf="@+id/waitlist_notes"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/quote_time"
@@ -162,7 +165,8 @@
         android:textColor="@color/color1"
         android:textColorHint="@color/color1"
         app:layout_constraintStart_toEndOf="@+id/enter_number"
-        app:layout_constraintTop_toBottomOf="@+id/party_size" />
+        app:layout_constraintTop_toBottomOf="@+id/party_size"
+        tools:ignore="Autofill" />
 
     <Spinner
         android:id="@+id/wait_times"

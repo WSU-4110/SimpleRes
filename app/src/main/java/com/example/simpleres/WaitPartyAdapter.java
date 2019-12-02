@@ -1,7 +1,6 @@
 package com.example.simpleres;
 
 import android.content.Context;
-import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,9 @@ import java.util.List;
 //It fits and connects the info of the customer to layout design of the row Item in the waitlist
 public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
     private Context mContext;
-    private List<WaitlistEntry> partyList = new ArrayList<>();
+    private List<WaitlistEntry> partyList;
 
-    public WaitPartyAdapter(@NonNull Context context, /*@LayoutRes*/ ArrayList<WaitlistEntry> list) {
+    WaitPartyAdapter(@NonNull Context context, ArrayList<WaitlistEntry> list) {
         super(context, 0 , list);
         mContext = context;
         partyList = list;
@@ -35,20 +34,26 @@ public class WaitPartyAdapter extends ArrayAdapter<WaitlistEntry> {
 
         WaitlistEntry currentParty = partyList.get(position);
         //display the time of reservation
-        TextView time = (TextView) listItem.findViewById(R.id.timeofWaitlist);
+        TextView time = listItem.findViewById(R.id.timeofWaitlist);
         time.setText(currentParty.parseTime());
 
         //display the name of the customer
-        TextView name = (TextView) listItem.findViewById(R.id.nameofWaitparty);
+        TextView name = listItem.findViewById(R.id.nameOfWaitParty);
         name.setText(currentParty.getName());
 
         //display the size of the customers
-        TextView size = (TextView) listItem.findViewById(R.id.sizeofWaitparty);
-        size.setText(Integer.toString(currentParty.getNumberOfPeople()));
+        TextView size = listItem.findViewById(R.id.sizeOfWaitParty);
+        String numberOfPeople = Integer.toString(currentParty.getNumberOfPeople());
+        size.setText(numberOfPeople);
 
         //display the checkbox state in the list
-        //CheckBox text = listItem.findViewById(R.id.Here);
-        //text.setChecked(currentParty.getCheckBox()==1);
+        CheckBox text = listItem.findViewById(R.id.SendText);
+        int checkStatus = currentParty.getCheckBox();
+        if(checkStatus == 1){
+            text.setChecked(true);
+        } else {
+            text.setChecked(false);
+        }
 
         return listItem;
     }

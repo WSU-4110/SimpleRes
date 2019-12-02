@@ -28,10 +28,8 @@ public class SeatWalkInParty extends AppCompatActivity {
         //setting the size of the pop-up window
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-
         getWindow().setLayout((int)(width*0.3), (int)(height*0.4));
 
         //fields
@@ -51,53 +49,31 @@ public class SeatWalkInParty extends AppCompatActivity {
 
                 switch(view.getId()){
                     case R.id.selectATable:
-
                         if(walkInSize.getText().toString().equals("")) {
                             Toast toast = Toast.makeText(context, "Please enter party size!", duration);
                             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, yOffset);
                             toast.show();
-
                         } else {
-
                             final int partySize = Integer.parseInt(walkInSize.getText().toString());
-                            //add the party size to the cover count
-
-                            //allow the user to select a table
-
-                            //might need to refresh main interface to show change in cover count
-                            //currently only refreshes waitlist/reservation list recreating with this will close the activity to soon
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("result",1);
                             setResult(RESULT_OK,returnIntent);
 
-                            walkInResult = partySize;
                             //count add cover to daily cover and update in database
-                            //System.out.println("the selected party size is: "+partySize);
-                            //Cover tempCover = cdb.getCover(LocalDate.now().toString());
-                            //System.out.println("the current cover count is: " + tempCover.getDailyCover());
-                            //tempCover.addToCover(partySize);
-                            //System.out.println("the new cover count is is: " + tempCover.getDailyCover());
-                            //try {
-                            //    cdb.updateCover(tempCover);//this line is not updating the database.
-                            //    System.out.println("Cover updated, needs refresh");
-                            //}
-                            //catch (Exception e){System.out.println(e);}
+                            walkInResult = partySize;
+                   
                             finish();
                         }
                         break;
-
                     case R.id.closeSeatWalkIn:
-                        //uses the result in the maininterface and recreates the main interface to clear the seating options
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
                         setResult(RESULT_CANCELED,returnIntent);
                         finish();
                         break;
-
                 }
             }
         };
-
         exitSeatWalkIn.setOnClickListener(listener);
         selectATable.setOnClickListener(listener);
     }

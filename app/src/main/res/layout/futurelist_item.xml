@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/nameofFutureparty"
+        android:id="@+id/nameOfFutureParty"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,7 +19,8 @@
         android:layout_toRightOf="@id/timeofFuturereservation"
         android:textColor="@color/color1"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/timeofFuturereservation"
@@ -39,7 +41,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/nameofFutureparty"
+        android:layout_toEndOf="@+id/nameOfFutureParty"
         android:ems="2"
         android:textColor="@color/color1" />
 

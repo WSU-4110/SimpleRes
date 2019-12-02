@@ -6,13 +6,11 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -27,24 +25,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainInterface extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnDismissListener {
-    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this);//these objects act as a link an open link to the database
+    WaitlistDatabaseHelper wdb = new WaitlistDatabaseHelper(this); //these objects act as a link an open link to the database
     TableDatabaseHelper tdb = new TableDatabaseHelper(this);
     CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
     ArrayList<WaitlistEntry> resPartyArrayList = new ArrayList<>();
     ArrayList<WaitlistEntry> waitPartyArrayList = new ArrayList<>();
 
     //instantiating database/database tables
-
-    //initializing the listview and adapter for the list items
+    //initializing the ListView and adapter for the list items
     private ListView resListView;
     private ListView waitListView;
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
-    static final int isfinished = 1;
+
+    static final int isFinished = 1;
 
     private int walkInResult = SeatWalkInParty.getWalkInResult();
-
-
 
     boolean showPastOrFuture;
 
@@ -54,63 +50,12 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     int dayOfMonth = today.getDayOfMonth();
     String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
     String dateSelectedPastOrFuture = currentDay;
-    public String sms = "Look mom, I can fly";
-    public void SendSMS(String phone){
-        try{
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("smsto:"));
-            i.setType("vnd.android-dir/mms-sms");
-            i.putExtra("address", phone);
-            i.putExtra("sms_body",sms);
-            startActivity(Intent.createChooser(i, "Send sms via:"));
-        }
-        catch(Exception e){
-            Toast.makeText(MainInterface.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void Text(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        if(checked){
-            int dbId = waitPartyArrayList.get(1).getId();
-            WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
-            String number = selectedEntry.getTelephone();
-            SendSMS(number);
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_interface);
-/*      setContentView(R.layout.waitlist_list_item);
-        CheckBox checkBox = findViewById(R.id.Here);
-        try {
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
-                        System.out.println("checked");// Do your coding
-                    else
-                        System.out.println("unchecked");// Do your coding
-                }
-            });
-        }
-        catch(Exception e){System.out.println(e);}
-        setContentView(R.layout.reslist_item_layout);
-        try {
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
-                        System.out.println("checked");// Do your coding
-                    else
-                        System.out.println("unchecked");// Do your coding
-                }
-            });
-        }
-        catch(Exception e){System.out.println(e);}*/
 
-        setContentView(R.layout.activity_main_interface);
         //creating new table objects
         final TableClass[] Tables = new TableClass[11];
         Tables[0] = new TableClass(101, "Empty", "None" );
@@ -124,8 +69,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         Tables[8] = new TableClass(109, "Empty", "None" );
         Tables[9] = new TableClass(201, "Empty", "None" );
         Tables[10] = new TableClass(202, "Empty", "None" );
-        //initialize todays cover class
+
+        //initialize today's cover class
         Cover todaysCover = new Cover(0,LocalDate.now());
+
         // get from database tables
         try {
             Tables[0] = tdb.getTableClass(101);
@@ -139,8 +86,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             Tables[8] = tdb.getTableClass(109);
             Tables[9] = tdb.getTableClass(201);
             Tables[10] = tdb.getTableClass(202);
-            //get todays cover from database
-
         }
         catch (Exception e){
             System.out.println("error getting table info from database");
@@ -154,6 +99,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 System.out.println("error adding tables to database");
             }
         }
+
         try {
             todaysCover = cdb.getCover(LocalDate.now().toString());
         }
@@ -189,30 +135,33 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         {
             switch (Tables[i].getTableStatus()) {
                 case "Seated":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                    buttons[i].setBackgroundResource(R.drawable.pink);
                     break;
                 case "Entree":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                    buttons[i].setBackgroundResource(R.drawable.blue);
                     break;
                 case "Dessert":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                    buttons[i].setBackgroundResource(R.drawable.orange);
                     break;
                 case "Paid":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                    buttons[i].setBackgroundResource(R.drawable.green);
                     break;
                 case "Dirty":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                    buttons[i].setBackgroundResource(R.drawable.red);
                     break;
                 case "Empty":
-                    buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                    buttons[i].setBackgroundResource(R.drawable.purple);
                     break;
             }
         }
-        // final of today for use in nested functions
+
+        //final of today for use in nested functions
         final Cover tempCover = todaysCover;
+
         //set text view of the completed cover count
         final TextView completedCover = findViewById(R.id.displayCurrentCovers);
-        completedCover.setText(Integer.toString(tempCover.getDailyCover()));
+        String completedCovers = Integer.toString(tempCover.getDailyCover());
+        completedCover.setText(completedCovers);
 
         //top bar 'Add party (+)' button
         final ImageButton addPartyButton = findViewById(R.id.addPartyButton);
@@ -221,23 +170,17 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         final ImageButton accessCalendar = findViewById(R.id.access_calendar);
 
         //set date at top to the current day
-        LocalDate today = LocalDate.now();
-        int year = today.getYear();
-        int month = today.getMonthValue();
-        int dayOfMonth = today.getDayOfMonth();
-        String currentDay = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
         String displayDate = FutureDatePopup.getMonthString(currentDay) + " " + FutureDatePopup.getDayString(currentDay)
                 + ", " + FutureDatePopup.getYearString(currentDay);
-
         final TextView currentDisplayDate = findViewById(R.id.selected_date);
         currentDisplayDate.setText(displayDate);
 
-        final Button cancelSeating = findViewById(R.id.cancel_seating);
+        //for seating walk-in parties
+        final Button cancelSeating = this.findViewById(R.id.cancel_seating);
         final View cancelSeatingView = findViewById(R.id.cancel_seating);
         cancelSeatingView.setVisibility(View.INVISIBLE);
 
         View.OnClickListener listener = new View.OnClickListener() {
-
             //method for which actions are taken when a button is clicked
             @Override
             public void onClick(View view) {
@@ -257,22 +200,22 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                 //set background of button based on the choice from the dropdown menu
                                 switch (menuItem.toString()) {
                                     case "Seated":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                        buttons[j].setBackgroundResource(R.drawable.pink);
                                         break;
                                     case "Entree":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.blue));
+                                        buttons[j].setBackgroundResource(R.drawable.blue);
                                         break;
                                     case "Dessert":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.orange));
+                                        buttons[j].setBackgroundResource(R.drawable.orange);
                                         break;
                                     case "Paid":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.green));
+                                        buttons[j].setBackgroundResource(R.drawable.green);
                                         break;
                                     case "Dirty":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.red));
+                                        buttons[j].setBackgroundResource(R.drawable.red);
                                         break;
                                     case "Empty":
-                                        buttons[j].setBackgroundDrawable(getResources().getDrawable(R.drawable.purple));
+                                        buttons[j].setBackgroundResource(R.drawable.purple);
                                         break;
                                 }
 
@@ -292,33 +235,23 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                         selectPartyTypeMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-
                                 switch(item.toString()){
                                     case "Reservation":
-
-                                        //open and begin create reservation pop-up activity
                                         Intent pop1 = new Intent(getApplicationContext(), PopupCreateReservation.class);
-                                        startActivityForResult(pop1, isfinished);
+                                        startActivityForResult(pop1, isFinished);
                                         break;
                                     case "Waitlist":
-
-                                        //open and begin create waitlist party pop-up activity
                                         Intent pop2 = new Intent(getApplicationContext(), PopupCreateWaitlist.class);
-                                        startActivityForResult(pop2, isfinished);
+                                        startActivityForResult(pop2, isFinished);
                                         break;
-
                                     case "Walk-In":
-
-                                        //open and begin seat walk-in activity
                                         Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
-                                        startActivityForResult(pop3, isfinished);
 
-
-                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                        startActivityForResult(pop3, isFinished);
+                                        Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_SHORT).show();
                                         cancelSeatingView.setVisibility(View.VISIBLE);
                                         View.OnClickListener seatingListener = new View.OnClickListener() {
 
-                                            //method for which actions are taken when a button is clicked
                                             @Override
                                             public void onClick(View view) {
 
@@ -327,10 +260,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableName("Walk-in");
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
-                                                        buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+
+                                                        buttons[i].setBackgroundResource(R.drawable.pink);
                                                         walkInResult = SeatWalkInParty.getWalkInResult();
-                                                        //System.out.println("WalkInResult = "+ walkInResult);
                                                         tempCover.addToCover(walkInResult);
+
                                                         cdb.updateCover(tempCover);
                                                         recreate();
                                                     }
@@ -342,6 +276,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 }
                                             }
                                         };
+
                                         //set listeners after the seating option is selected
                                         for (int l = 0; l<11; l++) {
                                             buttons[l].setOnClickListener(seatingListener);
@@ -359,7 +294,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 }
 
                 if(view.getId() == R.id.access_calendar){
-                    //this is where the date picker will occur and the future or past popup will happen after date selected with the onDismiss method
                     showDatePickerDialog(view);
                     showPastOrFuture = true;
                 }
@@ -376,46 +310,43 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         accessCalendar.setOnClickListener(listener);
 
         try {
-            //Array of elements in the reservation listview
-            resListView = (ListView) findViewById(R.id.reservationListView);
-            resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
+            //Array of elements in the reservation ListView
+            resListView = findViewById(R.id.reservationListView);
+            resPartyArrayList = wdb.getDateReservationList(currentDay);
 
-            //adapter for the listview
+            //adapter for the ListView
             rAdapter = new ResPartyAdapter(this, resPartyArrayList);
             resListView.setAdapter(rAdapter);
+
             //display a message when empty
             resListView.setEmptyView(findViewById(R.id.emptyElement));
 
-
-            //Array of elements in the waitlist listview
-            waitListView = (ListView) findViewById(R.id.waitlistListView);
+            //Array of elements in the waitlist ListView
+            waitListView = findViewById(R.id.waitlistListView);
             waitPartyArrayList = wdb.getWaitlistList();
 
-            //adapter for the listview
+            //adapter for the ListView
             wAdapter = new WaitPartyAdapter(this, waitPartyArrayList);
             waitListView.setAdapter(wAdapter);
+
             //display a message when empty
             waitListView.setEmptyView(findViewById(R.id.emptyElement2));
             }
-        catch(Exception e) { System.out.println(e);}
-
-
-
+        catch(Exception e) {
+            System.out.println("Error populating lists");
+        }
 
         resListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //Create pop-up for reservation
-                PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
+                final PopupMenu resPartyActionMenu = new PopupMenu(view.getContext(), view);
                 resPartyActionMenu.getMenuInflater().inflate(R.menu.reservation_action_menu, resPartyActionMenu.getMenu());
                 final int pos = position;
-                //just need to fix where the menu pops up
 
                 resPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        System.out.println("position selected: "+pos);
-                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
+                        System.out.println("position selected: "+ pos);
                         int dbId = resPartyArrayList.get(pos).getId();
                         WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
                         System.out.println("entry with contents: " + selectedEntry.contents());
@@ -423,12 +354,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
 
                         switch(item.toString()){
                             case "Seat":
-                                //call method / activity to seat the reservation party to a table
-                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_SHORT).show();
                                 cancelSeatingView.setVisibility(View.VISIBLE);
                                 View.OnClickListener seatingListener = new View.OnClickListener() {
-
-                                    //method for which actions are taken when a button is clicked
                                     @Override
                                     public void onClick(View view) {
 
@@ -437,7 +365,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 Tables[i].setTableName(resPartyArrayList.get(pos).getName());
                                                 Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                 tdb.updateTableInfo(Tables[i]);
-                                                buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                buttons[i].setBackgroundResource(R.drawable.pink);
 
                                                 //countCover returns int of party size;
                                                 tempCover.addToCover(wdb.countCover(selectedEntryTemp));
@@ -445,38 +373,46 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 recreate();
                                             }
                                         }
-
                                         if (view.getId() == cancelSeating.getId()) {
                                             cancelSeating.setVisibility(View.INVISIBLE);
                                             recreate();
-                                            }
-
+                                        }
                                     }
                                 };
                                 //set listeners after the seating option is selected
                                 for (int l = 0; l<11; l++) {
-                                 buttons[l].setOnClickListener(seatingListener);
+                                    buttons[l].setOnClickListener(seatingListener);
                                 }
+
                                 cancelSeating.setOnClickListener(seatingListener);
 
                                 break;
                             case "View":
-                                //call method / activity to view or edit the reservation party's information
-                                //the the selectedEntry must be modified in the PopupViewReservation activity
                                 Intent viewRes = new Intent(getApplicationContext(), ViewReservationPopup.class);
                                 viewRes.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
-                                startActivityForResult(viewRes, isfinished);
-                                //startActivity(viewRes);
-                                //wdb.updateWaitlistEntry(selectedEntry);
+                                startActivityForResult(viewRes, isFinished);
                                 recreate();
                                 break;
                             case "Cancel":
-                                //call method / activity to cancel the reservation party
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
                             case "Here":
-                                //update checkbox to mark the party as here
+                                int checkStatus = resPartyArrayList.get(pos).getCheckBox();
+
+                                if(checkStatus == 0) {
+                                    resPartyArrayList.get(pos).setCheckBoxOn();
+                                    selectedEntry.setCheckBoxOn();
+                                    wdb.updateWaitlistEntry(selectedEntry);
+                                } else {
+                                    resPartyArrayList.get(pos).setCheckBoxOff();
+                                    selectedEntry.setCheckBoxOff();
+                                    wdb.updateWaitlistEntry(selectedEntry);
+                                }
+                                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
+                                rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
+                                resListView.setAdapter(rAdapter);
+                                resListView.setEmptyView(findViewById(R.id.emptyElement));
                                 break;
                         }
 
@@ -492,18 +428,14 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, int position, long id) {
-                //Create pop-up for waitlist
                 PopupMenu waitPartyActionMenu = new PopupMenu(view.getContext(), view);
                 waitPartyActionMenu.getMenuInflater().inflate(R.menu.waitlist_action_menu, waitPartyActionMenu.getMenu());
-                //just need to fix where the menu pops up
                 final int pos = position;
                 waitPartyActionMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
                         System.out.println("position selected: "+pos);
-                        //use dbId to get the WaitlistEntry object wdb.getWaitlistEntry(dbId);
                         int dbId = waitPartyArrayList.get(pos).getId();
                         WaitlistEntry selectedEntry = wdb.getWaitlistEntry(dbId);
                         System.out.println("entry with contents: " + selectedEntry.contents());
@@ -511,21 +443,18 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
 
                         switch(item.toString()){
                             case "Seat":
-                                //call method / activity to seat the waitlist party to a table
-                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_SHORT).show();
                                 cancelSeatingView.setVisibility(View.VISIBLE);
                                 View.OnClickListener seatingListener = new View.OnClickListener() {
-
-                                    //method for which actions are taken when a button is clicked
                                     @Override
                                     public void onClick(View view) {
 
                                         for (int i = 0; i<11;i++) {
                                             if (view.getId() == buttons[i].getId()) {
                                                 Tables[i].setTableName(waitPartyArrayList.get(pos).getName());
-                                                Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
+                                                Tables[i].setTableStatus("Seated");
                                                 tdb.updateTableInfo(Tables[i]);
-                                                buttons[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.pink));
+                                                buttons[i].setBackgroundResource(R.drawable.pink);
 
                                                 //countCover returns int of party size;
                                                 tempCover.addToCover(wdb.countCover(selectedEntryTemp));
@@ -533,12 +462,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                 recreate();
                                             }
                                         }
-
                                         if (view.getId() == cancelSeating.getId()) {
                                             cancelSeating.setVisibility(View.INVISIBLE);
                                             recreate();
                                         }
-
                                     }
                                 };
                                 //set listeners after the seating option is selected
@@ -546,62 +473,53 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                     buttons[l].setOnClickListener(seatingListener);
                                 }
                                 cancelSeating.setOnClickListener(seatingListener);
-
                                 break;
                             case "View":
-                                //call method / activity to view or edit the waitlist party's information
                                 Intent viewWait = new Intent(getApplicationContext(), ViewWaitlistPopup.class);
-                                viewWait.putExtra("DB_ID", dbId); //pass database ID for selected entry to the activity
-                                startActivityForResult(viewWait, isfinished);
-                                //startActivity(viewWait);
+                                viewWait.putExtra("DB_ID", dbId);
+                                startActivityForResult(viewWait, isFinished);
                                 recreate();
                                 break;
                             case "Cancel":
-                                //call method / activity to cancel the waitlist party
                                 wdb.deleteWaitlistEntry(selectedEntry);
                                 recreate();
                                 break;
                             case "Text":
-                                //here is where we will text the party at pos
-                                //update the checkbox to checked
                                 String phoneNum = selectedEntryTemp.getTelephone();
-                                String msg = "Your Table is ready, please call if you want to cancel.";
+                                String msg = "Your table is ready, please call the restaurant if you would like to cancel.";
                                 try {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNum,null,msg,null,null);
-                                    Toast.makeText(getApplicationContext(),"Message Sent to "+ selectedEntryTemp.getName(),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Message Sent to "+ selectedEntryTemp.getName(),Toast.LENGTH_SHORT).show();
                                 } catch (Exception ex) {
-                                    Toast.makeText(getApplicationContext(),ex.getMessage().toString(),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),ex.getMessage(),Toast.LENGTH_SHORT).show();
                                     ex.printStackTrace();
                                 }
-
+                                waitPartyArrayList.get(pos).setCheckBoxOn();
+                                selectedEntry.setCheckBoxOn();
+                                wdb.updateWaitlistEntry(selectedEntry);
+                                wAdapter = new WaitPartyAdapter(MainInterface.this, waitPartyArrayList);
+                                waitListView.setAdapter(wAdapter);
+                                waitListView.setEmptyView(findViewById(R.id.emptyElement2));
+                                waitPartyArrayList = wdb.getWaitlistList();
                                 break;
                         }
-
                         return true;
                     }
                 });
 
                 waitPartyActionMenu.show();
-
             }
         });
-        //initialize the checkbox state x
-
-        //update database checkbox state on click checkbox
-
-        //ensure the value stays when changing activity
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            //for some reason the request code isn't returning RESULT_OK the else statement will make
-            // it do it anyways but it makes the original code redundant, but it wont work if i just have the refresh code alone
             if(resultCode == RESULT_OK){
                // String result=data.getStringExtra("result");
 
-                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
+                resPartyArrayList = wdb.getDateReservationList(currentDay);
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
@@ -611,12 +529,9 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                 waitPartyArrayList = wdb.getWaitlistList();
             }
             if (resultCode == RESULT_CANCELED) {
-                // if walk-in seating is cancelled this is called and gets rid of the seating option
                 recreate();
-            }
-            else //refresh the list anyways (the waitlist would not update without this even though it was made the same way
-            {
-                resPartyArrayList = wdb.getDateReservationList(LocalDate.now().toString());
+            } else {
+                resPartyArrayList = wdb.getDateReservationList(currentDay);
                 rAdapter = new ResPartyAdapter(MainInterface.this, resPartyArrayList);
                 resListView.setAdapter(rAdapter);
                 resListView.setEmptyView(findViewById(R.id.emptyElement));
@@ -627,9 +542,10 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             }
         }
     }
+
     @Override
     public void onDismiss(final DialogInterface dialog) {
-        //once the Datepicker fragment dialog had been dismissed call future or past popup depending on selection
+        //once the DatePicker fragment dialog had been dismissed call future or past popup depending on selection
         if (showPastOrFuture) {
             //get current day to compare
             LocalDate today = LocalDate.now();
@@ -644,12 +560,12 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             LocalDate currentDayParsed = LocalDate.parse(currentDay, formatter);
 
             if (dateSelectedParsed.equals(today)) {
-               // Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_LONG).show(); //will also show on cancel currently
+                Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_SHORT).show();
             } else if (dateSelectedParsed.isAfter(currentDayParsed)) {
                 //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
                 Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);
                 futurePop.putExtra("DATE_SELECTED", dateSelectedPastOrFuture);
-                startActivityForResult(futurePop, isfinished);
+                startActivityForResult(futurePop, isFinished);
                 recreate();
             } else if (dateSelectedParsed.isBefore(currentDayParsed)) {
                 //call the past date popup and pass the date selected in the form YYYY-MM-DD as a String EXTRA
@@ -662,7 +578,6 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         }
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -671,15 +586,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         month = month + 1;
 
-        String dateSelected = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
-        dateSelectedPastOrFuture = dateSelected;
-
+        dateSelectedPastOrFuture = year + "-" +(month<10?("0"+month):(month)) + "-" + (dayOfMonth<10?("0"+dayOfMonth):(dayOfMonth));
     }
+
     public void showDatePickerDialog(View v){
         DialogFragment datePicker = new DatePickerActivity();
         datePicker.show(getSupportFragmentManager(), "date picker");
     }
 }
-
-
-
