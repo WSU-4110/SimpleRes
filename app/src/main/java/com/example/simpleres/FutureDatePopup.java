@@ -52,6 +52,7 @@ public class FutureDatePopup extends AppCompatActivity {
         //Array of elements in the Future ListView
         ListView futureList = findViewById(R.id.FutureList);
         FuturePartyArrayList = wdb.getDateReservationList(dateSelected);
+        futureList.setEmptyView(findViewById(R.id.emptyMessage));
 
         //adapter for the ListView
         FutureListAdapter FAdapter = new FutureListAdapter(FutureDatePopup.this, FuturePartyArrayList);
