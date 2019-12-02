@@ -16,7 +16,10 @@ import android.widget.Toast;
 import java.time.LocalDate;
 
 public class SeatWalkInParty extends AppCompatActivity {
-
+    private static int walkInResult = 0;
+    public static int getWalkInResult(){
+        return walkInResult;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,8 @@ public class SeatWalkInParty extends AppCompatActivity {
         final ImageButton exitSeatWalkIn = findViewById(R.id.closeSeatWalkIn);
         final Button selectATable = findViewById(R.id.selectATable);
         final EditText walkInSize = findViewById(R.id.enterWalkInSize);
-        final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
+        //final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
+
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -56,17 +60,8 @@ public class SeatWalkInParty extends AppCompatActivity {
                             setResult(RESULT_OK,returnIntent);
 
                             //count add cover to daily cover and update in database
-                            System.out.println("the selected party size is: "+partySize);
-                            Cover tempCover = cdb.getCover(LocalDate.now().toString());
-                            System.out.println("the current cover count is: " + tempCover.getDailyCover());
-                            tempCover.addToCover(partySize);
-                            System.out.println("the new cover count is is: " + tempCover.getDailyCover());
-                            try {
-                                cdb.updateCover(tempCover);//this line is not updating the database.
-                                System.out.println("Cover updated, needs refresh");
-                            } catch (Exception e){
-                                System.out.println("Exception encountered.");
-                            }
+                            walkInResult = partySize;
+                   
                             finish();
                         }
                         break;

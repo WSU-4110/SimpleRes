@@ -37,7 +37,11 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
     private ListView waitListView;
     private ResPartyAdapter rAdapter;
     private WaitPartyAdapter wAdapter;
+
     static final int isFinished = 1;
+
+    private int walkInResult = SeatWalkInParty.getWalkInResult();
+
     boolean showPastOrFuture;
 
     LocalDate today = LocalDate.now();
@@ -242,6 +246,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                         break;
                                     case "Walk-In":
                                         Intent pop3 = new Intent(getApplicationContext(), SeatWalkInParty.class);
+
                                         startActivityForResult(pop3, isFinished);
                                         Toast.makeText(MainInterface.this, "Select a table", Toast.LENGTH_SHORT).show();
                                         cancelSeatingView.setVisibility(View.VISIBLE);
@@ -255,9 +260,12 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
                                                         Tables[i].setTableName("Walk-in");
                                                         Tables[i].setTableStatus("Seated"); // set the value of tableStatus in TableClass to the selected name
                                                         tdb.updateTableInfo(Tables[i]);
-                                                        buttons[i].setBackgroundResource(R.drawable.pink);
-                                                        cdb.updateCover(tempCover);
 
+                                                        buttons[i].setBackgroundResource(R.drawable.pink);
+                                                        walkInResult = SeatWalkInParty.getWalkInResult();
+                                                        tempCover.addToCover(walkInResult);
+
+                                                        cdb.updateCover(tempCover);
                                                         recreate();
                                                     }
                                                 }
