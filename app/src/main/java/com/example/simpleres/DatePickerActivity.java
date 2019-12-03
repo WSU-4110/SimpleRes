@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Calendar;
 import java.util.Objects;
 
-class DatePickerActivity extends DialogFragment {
+public class DatePickerActivity extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
