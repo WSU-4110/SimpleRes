@@ -44,6 +44,8 @@ Clone repo: "https://github.com/WSU-4110/SimpleRes.git"
 
 - Start Editing and do your magic!
 
+For more on details installation check [Installation.md](Intsallation.md) 
+
 ## Built With
 
 * [Android Studio](https://developer.android.com/docs) - The IDE used for development
