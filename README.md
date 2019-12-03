@@ -65,7 +65,5 @@ Version: 1.0.0
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 ## Acknowledgments
-
-* Hat tip to anyone whose code was used in our project
-* Anyone who was a source of Inspiration
+* Anyone who was a source of inspiration
 * ...etc
