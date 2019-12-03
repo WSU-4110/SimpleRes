@@ -38,16 +38,11 @@ it was designed for the 10.3 Google tablet.
 
 - Download Android Studio.
 ```
-Clone repo: ""
+Clone repo: "https://github.com/WSU-4110/SimpleRes.git"
 ```
+![Clonerepo](https://user-images.githubusercontent.com/55335888/70047922-0d8fe300-1597-11ea-9539-28cf6aa8f37c.PNG)
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+- Start Editing and do your magic!
 
 ## Built With
 
