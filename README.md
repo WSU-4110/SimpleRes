@@ -1,4 +1,4 @@
-*********************************** ![SimpleResLogo](https://user-images.githubusercontent.com/55335888/70025684-c0e2e280-156b-11ea-9917-9ddbf615b1a9.png)********************************** 
+***************************** ![SimpleResLogo](https://user-images.githubusercontent.com/55335888/70025684-c0e2e280-156b-11ea-9917-9ddbf615b1a9.png)********************************** 
 # What is SimpleRes
 
 SimpleRes is an Android reservation app that simplifies the reservation process and makes it more effecient, with its simple easy to use UI it is definitely an upgrade from the normal pen & paper reservations, 
@@ -8,7 +8,14 @@ it was designed for the 10.3 Google tablet.
 
 ## Key Features
 
-
+- Create Reservations
+- Create Waitlists
+- Tables UI
+  - Seating options
+  - Table status(Dirty, Empty, Seated...etc)
+- Calender
+  - Views Future reservations
+  - Views Past reservations
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
