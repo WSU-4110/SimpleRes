@@ -3,7 +3,7 @@ package com.example.simpleres;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Cover {
+class Cover {
     private int dailyCover;
     private LocalDate date;
 
@@ -40,20 +40,4 @@ public class Cover {
     void addToCover(int adder){
         this.dailyCover += adder;
     }
-
-    /* Unused methods
-    Cover(LocalDate LocalDate){
-        this.date=LocalDate;
-        this.dailyCover=0;
-    }
-
-    Cover(String dateAsString) {
-        this.date =LocalDate.parse(dateAsString, format);
-    }
-
-    public void setDailyCover(int DailyCover){
-        this.dailyCover=DailyCover;
-    }
-
-    */
 }

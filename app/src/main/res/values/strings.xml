@@ -129,6 +129,6 @@
     <string name="exit_adding_to_waitlist">exit_adding_to_waitlist</string>
     <string name="loading">Loading…</string>
     <string name="add_to_wait_time">Add to wait time:</string>
-
+    <string name="empty_future_reservation">No reservations have been made for this date!</string>
 
 </resources>

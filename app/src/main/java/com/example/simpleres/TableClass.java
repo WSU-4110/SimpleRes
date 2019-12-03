@@ -1,8 +1,8 @@
 package com.example.simpleres;
 
-public class TableClass {
+class TableClass {
     private String tableStatus;     //current status of the table
-    private int tableNumber;        //Number of the table
+    private final int tableNumber;        //Number of the table
     private String tableName;       //Name of the group sitting there
 
     TableClass(int Num, String Status, String Name) {
@@ -30,14 +30,5 @@ public class TableClass {
     String getTableName(){
         return this.tableName;
     }
-
-    /* Unused methods
-    TableClass(){
-    }
-
-    void setTableNumber(int newTableNumber) {
-        this.tableNumber = newTableNumber;
-    }
-     */
 }
 

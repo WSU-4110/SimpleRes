@@ -498,12 +498,11 @@
 
                 <TextView
                     android:id="@+id/displayCurrentCovers"
-                    android:layout_width="37dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="576dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="@string/_0"
                     android:textAlignment="center"
                     android:textColor="@color/color1"
                     android:textSize="24sp"

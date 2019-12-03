@@ -3,7 +3,7 @@ package com.example.simpleres;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class WaitlistEntry {
+class WaitlistEntry {
     private int id;
     private String name;
     private String telephone;
@@ -132,20 +132,4 @@ public class WaitlistEntry {
         return (hours-first_time)*2;
 
     }
-
-    /* Unused methods
-
-    public void toggleCheckBox(){
-        if (getCheckBox()==0) setCheckBox(1);
-        else if (getCheckBox()==1) setCheckBox(0);
-    }
-
-    public LocalDateTime getReservationTime() {
-        return this.reservationTime;
-    }
-
-    public void setReservedTime(LocalDateTime ReservationTime){this.reservationTime=ReservationTime;}
-
-     */
-
 }

@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.time.LocalDate;
-
 public class SeatWalkInParty extends AppCompatActivity {
     private static int walkInResult = 0;
     public static int getWalkInResult(){
@@ -36,8 +34,6 @@ public class SeatWalkInParty extends AppCompatActivity {
         final ImageButton exitSeatWalkIn = findViewById(R.id.closeSeatWalkIn);
         final Button selectATable = findViewById(R.id.selectATable);
         final EditText walkInSize = findViewById(R.id.enterWalkInSize);
-        //final CoverDatabaseHelper cdb = new CoverDatabaseHelper(this);
-
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -59,21 +55,23 @@ public class SeatWalkInParty extends AppCompatActivity {
                             returnIntent.putExtra("result",1);
                             setResult(RESULT_OK,returnIntent);
 
-                            //count add cover to daily cover and update in database
                             walkInResult = partySize;
-                   
                             finish();
                         }
                         break;
+
                     case R.id.closeSeatWalkIn:
+                        //uses the result in the maininterface and recreates the main interface to clear the seating options
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",1);
                         setResult(RESULT_CANCELED,returnIntent);
                         finish();
                         break;
+
                 }
             }
         };
+
         exitSeatWalkIn.setOnClickListener(listener);
         selectATable.setOnClickListener(listener);
     }

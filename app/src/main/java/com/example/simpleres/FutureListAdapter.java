@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FutureListAdapter extends ArrayAdapter<WaitlistEntry> {
-    private Context mContext;
-    private List<WaitlistEntry> partyList;
+class FutureListAdapter extends ArrayAdapter<WaitlistEntry> {
+    private final Context mContext;
+    private final List<WaitlistEntry> partyList;
 
     FutureListAdapter(@NonNull Context context, ArrayList<WaitlistEntry> list) {
         super(context, 0 , list);

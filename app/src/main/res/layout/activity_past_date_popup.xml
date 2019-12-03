@@ -11,7 +11,7 @@
         android:id="@+id/onDateMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/on_date"
         android:textColor="@color/color1"

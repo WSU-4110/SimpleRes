@@ -14,9 +14,9 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResPartyAdapter extends ArrayAdapter<WaitlistEntry> {
-    private Context mContext;
-    private List<WaitlistEntry> partyList;
+class ResPartyAdapter extends ArrayAdapter<WaitlistEntry> {
+    private final Context mContext;
+    private final List<WaitlistEntry> partyList;
 
     ResPartyAdapter(@NonNull Context context, ArrayList<WaitlistEntry> list) {
         super(context, 0 , list);
