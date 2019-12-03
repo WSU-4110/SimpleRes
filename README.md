@@ -4,40 +4,41 @@
 SimpleRes is an Android reservation app that simplifies the reservation process and makes it more effecient, with its simple easy to use UI it is definitely an upgrade from the normal pen & paper reservations, 
 it was designed for the 10.3 Google tablet.
 
-![SimpleResgif](https://user-images.githubusercontent.com/55335888/70040039-d9152a80-1588-11ea-86e3-afbaeaebfcf1.gif)
+![Simpleres](https://user-images.githubusercontent.com/55335888/70045093-82f8b500-1591-11ea-8d78-da14c238ea87.PNG)
 
 ## Key Features
 
 - Create Reservations
+
+![CreateResgif](https://user-images.githubusercontent.com/55335888/70045112-8db34a00-1591-11ea-8199-7883ccbc8f6c.gif)
 - Create Waitlist Reservations
+
+![Createwaitgif](https://user-images.githubusercontent.com/55335888/70045576-54c7a500-1592-11ea-8078-82f03c77d2de.gif)
 - Tables UI
   - Seating options
   - Table status(Dirty, Empty, Seated...etc)
+  
+![Seatinggif](https://user-images.githubusercontent.com/55335888/70045621-69a43880-1592-11ea-9444-bf6f8fd656e8.gif)
+
 - Calender
   - Views Future reservations
   - Views Past reservations
+  
+ ![Calendergif](https://user-images.githubusercontent.com/55335888/70046182-7f662d80-1593-11ea-9e07-c901af9f8c60.gif)
+
 - Show Completed Covers Per/Day
+
+![Completed Covers](https://user-images.githubusercontent.com/55335888/70046254-a4f33700-1593-11ea-9d70-d0b249ddc5b1.PNG)
+
 - Texting feature for the Waitlist
-## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+![Texting](https://user-images.githubusercontent.com/55335888/70046209-90af3a00-1593-11ea-9b79-374d41d3c639.PNG)
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+- Download Android Studio.
 ```
-Give the example
+Clone repo: ""
 ```
 
 And repeat
@@ -47,30 +48,6 @@ until finished
 ```
 
 End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
