@@ -1,4 +1,4 @@
-***************************** ![SimpleResLogo](https://user-images.githubusercontent.com/55335888/70025684-c0e2e280-156b-11ea-9917-9ddbf615b1a9.png)********************************** 
+********************************* ![SimpleResLogo](https://user-images.githubusercontent.com/55335888/70025684-c0e2e280-156b-11ea-9917-9ddbf615b1a9.png)********************************** 
 # What is SimpleRes
 
 SimpleRes is an Android reservation app that simplifies the reservation process and makes it more effecient, with its simple easy to use UI it is definitely an upgrade from the normal pen & paper reservations, 
