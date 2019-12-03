@@ -556,7 +556,7 @@ public class MainInterface extends AppCompatActivity implements DatePickerDialog
             LocalDate currentDayParsed = LocalDate.parse(currentDay, formatter);
 
             if (dateSelectedParsed.equals(today)) {
-                Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainInterface.this, "Current Day", Toast.LENGTH_SHORT).show();
             } else if (dateSelectedParsed.isAfter(currentDayParsed)) {
                 //call future date popup and pass the date selected in form YYYY-MM-DD as a String EXTRA
                 Intent futurePop = new Intent(getApplicationContext(), FutureDatePopup.class);

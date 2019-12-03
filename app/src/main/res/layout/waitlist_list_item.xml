@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center_vertical"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/nameOfWaitParty"
@@ -31,8 +31,10 @@
         android:layout_alignBaseline="@id/SendText"
         android:layout_alignBottom="@id/SendText"
         android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="-3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="-1dp"
         android:ems="3"
         android:textColor="@color/color1" />
 
