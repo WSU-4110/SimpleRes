@@ -11,6 +11,7 @@ android:
     - platform-tools
     - tools
     - build-tools-29.0.2
+    - build-tool-29
     - android-29
     - sys-img-x86-android-29
     - sys-img-armeabi-v7a-android-17
@@ -27,5 +28,5 @@ before_install:
   #- android-wait-for-emulator
   #- adb shell input keyevent 82 &
 
-script: ./gradlew build check
+script: ./gradlew build connectedCheck --status --stacktrace
    
