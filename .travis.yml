@@ -2,7 +2,8 @@
 #This file configures the use Travis Continuous Integration
 language: android
 before_install:
- -chmod +gradlew
+ - chmod +x gradlew
+ 
 dist: trusty
 #jdk: oraclejdk8
 #sudo: false
