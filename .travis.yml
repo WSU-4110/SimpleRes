@@ -12,8 +12,10 @@ android:
  components:
     - tools
     - platform-tools
+    - tools
     # The BuildTools version used by your project
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - build-tool-29
     # The SDK version used to compile your project
     - android-$ANDROID_API_LEVEL
     # Additional components
@@ -21,7 +23,11 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-$ANDROID_API_LEVEL
+    - sys-img-x86-android-29
+    - sys-img-armeabi-v7a-android-17
+    
+    
 before_install:
     - chmod +x gradlew
 script:
-    - ./gradlew test
+    - ./gradlew test build connectedCheck
