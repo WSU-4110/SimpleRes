@@ -30,4 +30,4 @@ android:
 before_install:
     - chmod +x gradlew
 script:
-    - ./gradlew test build connectedCheck
+    - ./gradlew test build connectedCheck --status --stacktrace
